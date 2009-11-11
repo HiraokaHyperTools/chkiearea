@@ -28,10 +28,13 @@ RequestExecutionLevel user
 
 AutoCloseWindow true
 
+LicenseData "License.rtf"
+
 ;--------------------------------
 
 ; Pages
 
+Page license
 Page directory
 Page instfiles
 
