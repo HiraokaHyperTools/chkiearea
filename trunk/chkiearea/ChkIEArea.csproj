@@ -30,7 +30,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationVersion>1.0.4.%2a</ApplicationVersion>
+    <ApplicationVersion>1.0.5.%2a</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -127,6 +127,9 @@
     <Content Include="f\動作チェック用テストデータ.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="f\動作チェック用テストデータ.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\ZoomHS.png" />
     <Content Include="wip.png" />
@@ -134,65 +137,65 @@
   <ItemGroup>
     <PublishFile Include="f\動作チェック用テストデータ.doc">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="f\動作チェック用テストデータ.eml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="f\動作チェック用テストデータ.htm">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="f\動作チェック用テストデータ.html">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="f\動作チェック用テストデータ.mht">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="f\動作チェック用テストデータ.pdf">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="f\動作チェック用テストデータ.txt">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
