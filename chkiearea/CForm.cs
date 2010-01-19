@@ -56,6 +56,7 @@ namespace ChkIEArea {
         private void buttonMHT_Click(object sender, EventArgs e) { Chk(bMHT); view("動作チェック用テストデータ.mht"); }
         private void buttontxt_Click(object sender, EventArgs e) { Chk(bTXT); view("動作チェック用テストデータ.txt"); }
         private void buttonPPT_Click(object sender, EventArgs e) { Chk(bPPT); view("動作チェック用テストデータ.ppt"); }
+        private void bDOCX_Click(object sender, EventArgs e) { Chk(bDOCX); view("動作チェック用テストデータ.docx"); }
 
         private void Chk(ToolStripItem b) {
             foreach (ToolStripItem tsi in toolStrip1.Items) {
@@ -223,11 +224,15 @@ namespace ChkIEArea {
         }
 
         enum Repairty {
-            UseCLSID, UseEFP,
+            UseCLSID, UseEFP, UseDE,
         }
 
         private void bMIME_Click(object sender, EventArgs e) {
-            Repairty ty = (sender == bMIME) ? Repairty.UseCLSID : Repairty.UseEFP;
+            Repairty ty;
+            if (sender == bMIME) ty = Repairty.UseCLSID;
+            else if (sender == bMIMEefp) ty = Repairty.UseEFP;
+            else if (sender == bMIMEde) ty = Repairty.UseDE;
+            else throw new NotSupportedException();
 
             if (lastfp == null) {
                 MessageBox.Show(this, "先に調査してください。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -276,6 +281,45 @@ namespace ChkIEArea {
                 }
 
                 newclsid = clsidGuid.ToString("B");
+            }
+            else if (ty == Repairty.UseDE) {
+                SortedDictionary<String, Guid> dict = new SortedDictionary<string, Guid>();
+                RegistryKey rkrootclsid = Registry.ClassesRoot.OpenSubKey(@"CLSID", false);
+                foreach (String s in rkrootclsid.GetSubKeyNames()) {
+                    if (s == null || !Regex.IsMatch(s, "^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$", RegexOptions.IgnoreCase))
+                        continue;
+                    RegistryKey rkApp = rkrootclsid.OpenSubKey(s, false);
+                    if (rkApp == null)
+                        continue;
+                    RegistryKey rkDE = rkApp.OpenSubKey("DefaultExtension", false);
+                    if (rkDE == null)
+                        continue;
+                    String targets = rkDE.GetValue("") as String;
+                    if (targets == null)
+                        continue;
+                    String[] cols = targets.Split(',');
+                    String appext = cols[0].Trim();
+                    if (String.Compare(appext, ext, true) != 0)
+                        continue;
+
+                    String appname = rkApp.GetValue("") as String;
+                    if (appname == null || appname.Length == 0)
+                        appname = s;
+
+                    dict[appname] = new Guid(s);
+                }
+                if (dict.Count == 0) {
+                    MessageBox.Show(this, "DefaultExtensionから有効なアプリを発見できませんでした。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                using (SelAppForm form = new SelAppForm(dict)) {
+                    if (form.ShowDialog(this) != DialogResult.OK)
+                        return;
+                    Guid? sel = form.Sel;
+                    if (sel == null)
+                        return;
+                    newclsid = sel.Value.ToString("B");
+                }
             }
             else if (ty == Repairty.UseEFP) {
                 SortedDictionary<String, Guid> dict = new SortedDictionary<string, Guid>();
@@ -358,6 +402,14 @@ namespace ChkIEArea {
 
                 MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void bBrowserFlags2_Click(object sender, EventArgs e) {
+            if (lastfp == null) {
+                MessageBox.Show(this, "先に調査してください。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            RFUt.Modify(this, lastfp, "BrowserFlags", 0xffffffffU, 0x80000024U, false);
         }
     }
 }
