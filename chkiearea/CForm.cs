@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +10,7 @@ using Microsoft.Win32;
 using ChkIEArea.Properties;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace ChkIEArea {
     public partial class CForm : Form {
@@ -39,7 +40,7 @@ namespace ChkIEArea {
                 form.Update();
             }
 
-            #region IDisposable ƒƒ“ƒo
+            #region IDisposable ãƒ¡ãƒ³ãƒ
 
             public void Dispose() {
                 if (pb != null) pb.Dispose();
@@ -48,15 +49,15 @@ namespace ChkIEArea {
             #endregion
         }
 
-        private void buttonPDF_Click(object sender, EventArgs e) { Chk(bPDF); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.pdf"); }
-        private void buttonDOC_Click(object sender, EventArgs e) { Chk(bDOC); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.doc"); }
-        private void buttonHTM_Click(object sender, EventArgs e) { Chk(bHTM); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.htm"); }
-        private void buttonHTML_Click(object sender, EventArgs e) { Chk(bHTML); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.html"); }
-        private void buttonEML_Click(object sender, EventArgs e) { Chk(bEML); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.eml"); }
-        private void buttonMHT_Click(object sender, EventArgs e) { Chk(bMHT); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.mht"); }
-        private void buttontxt_Click(object sender, EventArgs e) { Chk(bTXT); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.txt"); }
-        private void buttonPPT_Click(object sender, EventArgs e) { Chk(bPPT); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.ppt"); }
-        private void bDOCX_Click(object sender, EventArgs e) { Chk(bDOCX); view("“®ìƒ`ƒFƒbƒN—pƒeƒXƒgƒf[ƒ^.docx"); }
+        private void buttonPDF_Click(object sender, EventArgs e) { Chk(bPDF); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.pdf"); }
+        private void buttonDOC_Click(object sender, EventArgs e) { Chk(bDOC); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.doc"); }
+        private void buttonHTM_Click(object sender, EventArgs e) { Chk(bHTM); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.htm"); }
+        private void buttonHTML_Click(object sender, EventArgs e) { Chk(bHTML); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.html"); }
+        private void buttonEML_Click(object sender, EventArgs e) { Chk(bEML); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.eml"); }
+        private void buttonMHT_Click(object sender, EventArgs e) { Chk(bMHT); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.mht"); }
+        private void buttontxt_Click(object sender, EventArgs e) { Chk(bTXT); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.txt"); }
+        private void buttonPPT_Click(object sender, EventArgs e) { Chk(bPPT); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.ppt"); }
+        private void bDOCX_Click(object sender, EventArgs e) { Chk(bDOCX); view("å‹•ä½œãƒã‚§ãƒƒã‚¯ç”¨ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿.docx"); }
 
         private void Chk(ToolStripItem b) {
             foreach (ToolStripItem tsi in toolStrip1.Items) {
@@ -75,7 +76,7 @@ namespace ChkIEArea {
 
         private void buttonEditFlags_Click(object sender, EventArgs e) {
             if (lastfp == null) {
-                MessageBox.Show(this, "æ‚É’²¸‚µ‚Ä‚­‚¾‚³‚¢B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "å…ˆã«èª¿æŸ»ã—ã¦ãã ã•ã„ã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 #if true
@@ -93,37 +94,37 @@ namespace ChkIEArea {
                             byte[] b4 = new byte[] { 0, 0, 1, 0 };
                             editFlags = b4;
 
-                            if (MessageBox.Show(this, "‘Îô‚µ‚Ü‚·B(0)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                            if (MessageBox.Show(this, "å¯¾ç­–ã—ã¾ã™ã€‚(0)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
                                 appkey.SetValue("EditFlags", editFlags);
-                                MessageBox.Show(this, "‘Îô‚µ‚Ü‚µ‚½B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(this, "å¯¾ç­–ã—ã¾ã—ãŸã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         else if (editFlags is byte[]) {
                             byte[] b4 = (byte[])editFlags;
                             if (0 == (b4[2] & 1)) {
-                                if (MessageBox.Show(this, "‘Îô‚µ‚Ü‚·B(B)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                                if (MessageBox.Show(this, "å¯¾ç­–ã—ã¾ã™ã€‚(B)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
                                     b4[2] |= 0x01;
 
                                     appkey.SetValue("EditFlags", editFlags);
-                                    MessageBox.Show(this, "‘Îô‚µ‚Ü‚µ‚½B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show(this, "å¯¾ç­–ã—ã¾ã—ãŸã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
                             else {
-                                MessageBox.Show(this, "‘ÎôÏ‚İ‚Å‚·B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(this, "å¯¾ç­–æ¸ˆã¿ã§ã™ã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         else if (editFlags is int) {
                             int v = (int)editFlags;
                             if (0 == (v & 0x10000)) {
-                                if (MessageBox.Show(this, "‘Îô‚µ‚Ü‚·B(DW)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                                if (MessageBox.Show(this, "å¯¾ç­–ã—ã¾ã™ã€‚(DW)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
                                     v |= 0x10000;
 
                                     appkey.SetValue("EditFlags", v);
-                                    MessageBox.Show(this, "‘Îô‚µ‚Ü‚µ‚½B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show(this, "å¯¾ç­–ã—ã¾ã—ãŸã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
                             else {
-                                MessageBox.Show(this, "‘ÎôÏ‚İ‚Å‚·B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(this, "å¯¾ç­–æ¸ˆã¿ã§ã™ã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -133,12 +134,12 @@ namespace ChkIEArea {
         }
 
         private void buttonPDFNotGood_Click(object sender, EventArgs e) {
-            MessageBox.Show("Adobe PDF»•i‚ÌÄƒCƒ“ƒXƒg[ƒ‹‚ğ‚¨Šè‚¢’v‚µ‚Ü‚·B");
+            MessageBox.Show("Adobe PDFè£½å“ã®å†ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’ãŠé¡˜ã„è‡´ã—ã¾ã™ã€‚");
         }
 
         private void buttonBrowserFlags_Click(object sender, EventArgs e) {
             if (lastfp == null) {
-                MessageBox.Show(this, "æ‚É’²¸‚µ‚Ä‚­‚¾‚³‚¢B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "å…ˆã«èª¿æŸ»ã—ã¦ãã ã•ã„ã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             RFUt.Modify(this, lastfp, "BrowserFlags", 8, 0, false);
@@ -167,18 +168,18 @@ namespace ChkIEArea {
                             uint valo = (vali & (~fRemove)) | fAdd;
 
                             if (vali != valo) {
-                                if (MessageBox.Show(parent, "‘Îô‚µ‚Ü‚·B", parent.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                                if (MessageBox.Show(parent, "å¯¾ç­–ã—ã¾ã™ã€‚", parent.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
                                     if (preferBytea) {
                                         appkey.SetValue(keyName, BitConverter.GetBytes(valo));
                                     }
                                     else {
                                         appkey.SetValue(keyName, valo);
                                     }
-                                    MessageBox.Show(parent, "‘Îô‚µ‚Ü‚µ‚½B", parent.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show(parent, "å¯¾ç­–ã—ã¾ã—ãŸã€‚", parent.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
                             else {
-                                MessageBox.Show(parent, "‘ÎôÏ‚İ‚Å‚·B", parent.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(parent, "å¯¾ç­–æ¸ˆã¿ã§ã™ã€‚", parent.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -204,7 +205,7 @@ namespace ChkIEArea {
 
             public bool Confirm() {
                 if (!confirmed)
-                    if (MessageBox.Show(parent, "‘Îô‚µ‚Ü‚·B", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    if (MessageBox.Show(parent, "å¯¾ç­–ã—ã¾ã™ã€‚", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                         confirmed = true;
                 return confirmed;
             }
@@ -235,12 +236,12 @@ namespace ChkIEArea {
             else throw new NotSupportedException();
 
             if (lastfp == null) {
-                MessageBox.Show(this, "æ‚É’²¸‚µ‚Ä‚­‚¾‚³‚¢B", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "å…ˆã«èª¿æŸ»ã—ã¦ãã ã•ã„ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             if (ty == Repairty.UseCLSID && String.Compare(".pdf", Path.GetExtension(lastfp), true) == 0) {
-                if (MessageBox.Show(this, "PDF‚É‚Â‚«‚Ü‚µ‚Ä‚ÍAAdobeĞ—l‚Ì»•i‚ğ‚²—˜—p‚Ìê‡AEFP‚ÅŒŸo‚µ‚½•û‚ª—Ç‚¢‚Æv‚¢‚Ü‚·B\n\n‚±‚Ì‚Ü‚ÜA‘±s‚µ‚Ü‚·‚©B", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
+                if (MessageBox.Show(this, "PDFã«ã¤ãã¾ã—ã¦ã¯ã€Adobeç¤¾æ§˜ã®è£½å“ã‚’ã”åˆ©ç”¨ã®å ´åˆã€EFPã§æ¤œå‡ºã—ãŸæ–¹ãŒè‰¯ã„ã¨æ€ã„ã¾ã™ã€‚\n\nã“ã®ã¾ã¾ã€ç¶šè¡Œã—ã¾ã™ã‹ã€‚", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
                     return;
             }
 
@@ -249,13 +250,13 @@ namespace ChkIEArea {
             String ext = Path.GetExtension(lastfp);
             RegistryKey rkext = Registry.ClassesRoot.OpenSubKey(ext, false);
             if (rkext == null) {
-                MessageBox.Show(this, "Šg’£q‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "æ‹¡å¼µå­ãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             String oleId = rkext.GetValue("") as String;
             if (oleId == null) {
-                MessageBox.Show(this, "Šg’£q‚ÌŠÖ˜AƒAƒvƒŠ‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "æ‹¡å¼µå­ã®é–¢é€£ã‚¢ãƒ—ãƒªãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -263,20 +264,20 @@ namespace ChkIEArea {
             if (ty == Repairty.UseCLSID) {
                 RegistryKey rkole = Registry.ClassesRoot.OpenSubKey(oleId, false);
                 if (rkole == null) {
-                    MessageBox.Show(this, "Šg’£q‚ÌŠÖ˜AƒAƒvƒŠ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñBİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "æ‹¡å¼µå­ã®é–¢é€£ã‚¢ãƒ—ãƒªãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
                 RegistryKey rkclsid = rkole.OpenSubKey("CLSID", false);
                 if (rkclsid == null) {
-                    MessageBox.Show(this, "CLSID‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñBİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "CLSIDãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
                 Guid clsidGuid;
                 String clsid = rkclsid.GetValue("") as String;
                 if (clsid == null || !UtGuid.TryParse(clsid, out clsidGuid)) {
-                    MessageBox.Show(this, "CLSID‚ª–³‚¢‚©³‚µ‚­İ‚è‚Ü‚¹‚ñBİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "CLSIDãŒç„¡ã„ã‹æ­£ã—ãåœ¨ã‚Šã¾ã›ã‚“ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
@@ -309,7 +310,7 @@ namespace ChkIEArea {
                     dict[appname] = new Guid(s);
                 }
                 if (dict.Count == 0) {
-                    MessageBox.Show(this, "DefaultExtension‚©‚ç—LŒø‚ÈƒAƒvƒŠ‚ğ”­Œ©‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½Bİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "DefaultExtensionã‹ã‚‰æœ‰åŠ¹ãªã‚¢ãƒ—ãƒªã‚’ç™ºè¦‹ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
                 using (SelAppForm form = new SelAppForm(dict)) {
@@ -344,7 +345,7 @@ namespace ChkIEArea {
                     }
                 }
                 if (dict.Count == 0) {
-                    MessageBox.Show(this, "EFP‚©‚ç—LŒø‚ÈƒAƒvƒŠ‚ğ”­Œ©‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½Bİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "EFPã‹ã‚‰æœ‰åŠ¹ãªã‚¢ãƒ—ãƒªã‚’ç™ºè¦‹ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
                 using (SelAppForm form = new SelAppForm(dict)) {
@@ -356,17 +357,17 @@ namespace ChkIEArea {
                     newclsid = sel.Value.ToString("B");
                 }
             }
-            else throw new NotSupportedException("•s–¾‚È•û–@F" + ty);
+            else throw new NotSupportedException("ä¸æ˜ãªæ–¹æ³•ï¼š" + ty);
 
             String contentType = rkext.GetValue("Content Type") as String;
             if (contentType == null) {
-                MessageBox.Show(this, "Content Type‚ª—L‚è‚Ü‚¹‚ñBİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "Content TypeãŒæœ‰ã‚Šã¾ã›ã‚“ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             RegistryKey rkct = Registry.ClassesRoot.OpenSubKey(@"Mime\Database\Content Type", false);
             if (rkct == null) {
-                MessageBox.Show(this, "MIME DB‚ª–³‚¢‚æ‚¤‚Å‚·Bİ’è‚Å‚«‚Ü‚¹‚ñB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "MIME DBãŒç„¡ã„ã‚ˆã†ã§ã™ã€‚è¨­å®šã§ãã¾ã›ã‚“ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             {
@@ -388,7 +389,7 @@ namespace ChkIEArea {
                                 return;
                         }
                         else {
-                            MessageBox.Show(this, "‘ÎôÏ‚İ‚Å‚·B", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(this, "å¯¾ç­–æ¸ˆã¿ã§ã™ã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
                     }
@@ -400,16 +401,60 @@ namespace ChkIEArea {
                 rk1.SetValue("Extension", ext);
                 rk1.SetValue("CLSID", newclsid);
 
-                MessageBox.Show(this, "İ’è‚µ‚Ü‚µ‚½B", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "è¨­å®šã—ã¾ã—ãŸã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void bBrowserFlags2_Click(object sender, EventArgs e) {
             if (lastfp == null) {
-                MessageBox.Show(this, "æ‚É’²¸‚µ‚Ä‚­‚¾‚³‚¢B", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "å…ˆã«èª¿æŸ»ã—ã¦ãã ã•ã„ã€‚", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             RFUt.Modify(this, lastfp, "BrowserFlags", 0xffffffffU, 0x80000024U, false);
+        }
+
+        private void bAcro5_Click(object sender, EventArgs e) {
+            if (MessageBox.Show(this, "Adobe Acrobat 5.xã®ã¿ã‚’å°å…¥ã—ã¦ã„ã‚‹ç’°å¢ƒã§ã€PDFãŒé£›ã³å‡ºã‚‹ã®ã‚’ç›´ã™æ©Ÿèƒ½ã§ã™ã€‚\n\n"
+                + "ã‹ãªã‚Šå®Ÿé¨“çš„ãªå“è³ªã§ã™ã€‚å‹•ä½œç¢ºèªã§ãã‚‹ç’°å¢ƒãŒãªãã€åŠ¹æœã‚„å½±éŸ¿ã‚’ç¢ºã‹ã‚ã¦ã„ã¾ã›ã‚“ã€‚(ï¼¾ï¼¾;ã‚\n\n"
+                + "ç¶šè¡Œã—ã¾ã™ã‹ã€‚", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
+                return;
+
+            String ProgramFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
+            {
+                if (MessageBox.Show(this, "å¯¾ç­–1ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                    return;
+
+                String fpocx = Path.Combine(ProgramFiles, @"Adobe\Acrobat 5.0\Acrobat\ActiveX\pdf.ocx");
+
+                if (File.Exists(fpocx)) {
+                    ProcessStartInfo psi = new ProcessStartInfo("regsvr32.exe", " \"" + fpocx + "\"");
+                    Process p = Process.Start(psi);
+                    p.WaitForExit();
+                }
+                else {
+                    MessageBox.Show(this, "æ¬¡ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“ã®ã§ã€å¯¾ç­–ã‚’å®Ÿè¡Œã§ãã¾ã›ã‚“ã€‚\n\n" + fpocx, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                MessageBox.Show(this, "å¯¾ç­–1ã®å®Ÿè¡Œã‚’çµ‚äº†ã—ã¾ã—ãŸã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            {
+                if (MessageBox.Show(this, "å¯¾ç­–2ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                    return;
+
+                String fpexe = Path.Combine(ProgramFiles, @"Adobe\Acrobat 5.0\Acrobat\Acrobat.exe");
+
+                if (File.Exists(fpexe)) {
+                    RegistryKey rk = Registry.ClassesRoot.OpenSubKey(@"Software\Adobe\Acrobat\Exe", true);
+                    rk.SetValue("", fpexe);
+                }
+                else {
+                    MessageBox.Show(this, "æ¬¡ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“ã®ã§ã€å¯¾ç­–ã‚’å®Ÿè¡Œã§ãã¾ã›ã‚“ã€‚\n\n" + fpexe, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                MessageBox.Show(this, "å¯¾ç­–2ã®å®Ÿè¡Œã‚’çµ‚äº†ã—ã¾ã—ãŸã€‚", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
