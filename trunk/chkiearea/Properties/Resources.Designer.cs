@@ -67,6 +67,13 @@ namespace ChkIEArea.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap PrintPreviewHS {
+            get {
+                object obj = ResourceManager.GetObject("PrintPreviewHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap wip {
             get {
                 object obj = ResourceManager.GetObject("wip", resourceCulture);

@@ -29,6 +29,8 @@
             this.l1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.l2 = new System.Windows.Forms.Label();
             this.bPDF = new System.Windows.Forms.ToolStripButton();
             this.bDOC = new System.Windows.Forms.ToolStripButton();
             this.bDOCX = new System.Windows.Forms.ToolStripButton();
@@ -38,14 +40,13 @@
             this.bEML = new System.Windows.Forms.ToolStripButton();
             this.bMHT = new System.Windows.Forms.ToolStripButton();
             this.bTXT = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.bEditFlags = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags = new System.Windows.Forms.ToolStripButton();
             this.bMIME = new System.Windows.Forms.ToolStripButton();
             this.bMIMEefp = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags2 = new System.Windows.Forms.ToolStripButton();
             this.bMIMEde = new System.Windows.Forms.ToolStripButton();
-            this.l2 = new System.Windows.Forms.Label();
+            this.bAcro5 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -113,6 +114,37 @@
             this.toolStrip1.Size = new System.Drawing.Size(678, 23);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bEditFlags,
+            this.bBrowserFlags,
+            this.bMIME,
+            this.bMIMEefp,
+            this.bBrowserFlags2,
+            this.bMIMEde,
+            this.bAcro5});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip2.Location = new System.Drawing.Point(0, 399);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(678, 69);
+            this.toolStrip2.TabIndex = 5;
+            this.toolStrip2.TabStop = true;
+            // 
+            // l2
+            // 
+            this.l2.AutoSize = true;
+            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l2.Location = new System.Drawing.Point(0, 377);
+            this.l2.Margin = new System.Windows.Forms.Padding(3);
+            this.l2.Name = "l2";
+            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l2.Size = new System.Drawing.Size(41, 22);
+            this.l2.TabIndex = 4;
+            this.l2.Text = "修正者";
             // 
             // bPDF
             // 
@@ -221,24 +253,6 @@
             this.bTXT.Text = "txt";
             this.bTXT.Click += new System.EventHandler(this.buttontxt_Click);
             // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bEditFlags,
-            this.bBrowserFlags,
-            this.bMIME,
-            this.bMIMEefp,
-            this.bBrowserFlags2,
-            this.bMIMEde});
-            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 399);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(678, 69);
-            this.toolStrip2.TabIndex = 5;
-            this.toolStrip2.TabStop = true;
-            // 
             // bEditFlags
             // 
             this.bEditFlags.BackColor = System.Drawing.SystemColors.Control;
@@ -305,17 +319,14 @@
             this.bMIMEde.Text = "MIME修正案「Use DE」(CLSID by DefaultExtension)";
             this.bMIMEde.Click += new System.EventHandler(this.bMIME_Click);
             // 
-            // l2
+            // bAcro5
             // 
-            this.l2.AutoSize = true;
-            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l2.Location = new System.Drawing.Point(0, 377);
-            this.l2.Margin = new System.Windows.Forms.Padding(3);
-            this.l2.Name = "l2";
-            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l2.Size = new System.Drawing.Size(41, 22);
-            this.l2.TabIndex = 4;
-            this.l2.Text = "修正者";
+            this.bAcro5.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bAcro5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bAcro5.Name = "bAcro5";
+            this.bAcro5.Size = new System.Drawing.Size(149, 20);
+            this.bAcro5.Text = "Acrobat 5.x 修正案";
+            this.bAcro5.Click += new System.EventHandler(this.bAcro5_Click);
             // 
             // CForm
             // 
@@ -367,6 +378,7 @@
         private System.Windows.Forms.ToolStripButton bDOCX;
         private System.Windows.Forms.ToolStripButton bBrowserFlags2;
         private System.Windows.Forms.ToolStripButton bMIMEde;
+        private System.Windows.Forms.ToolStripButton bAcro5;
     }
 }
 

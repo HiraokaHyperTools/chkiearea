@@ -132,6 +132,7 @@
     </Content>
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\ZoomHS.png" />
+    <None Include="Resources\PrintPreviewHS.png" />
     <Content Include="wip.png" />
   </ItemGroup>
   <ItemGroup>

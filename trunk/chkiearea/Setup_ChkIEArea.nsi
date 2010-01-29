@@ -8,9 +8,10 @@
 ;--------------------------------
 
 !define APP "ChkIEArea"
+!define VER "1.0.6"
 
 ; The name of the installer
-Name "${APP}"
+Name "${APP} ${VER}"
 
 ; The file to write
 OutFile "Setup_${APP}.exe"
