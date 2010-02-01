@@ -415,7 +415,7 @@ namespace ChkIEArea {
 
         private void bAcro5_Click(object sender, EventArgs e) {
             if (MessageBox.Show(this, "Adobe Acrobat 5.xのみを導入している環境で、PDFが飛び出るのを直す機能です。\n\n"
-                + "かなり実験的な品質です。動作確認できる環境がなく、効果や影響を確かめていません。(＾＾;ゞ\n\n"
+                + "かなり実験的な品質です。動作確認できる環境がなく、効果や影響を確かめていません。\n\n"
                 + "続行しますか。", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
                 return;
 
