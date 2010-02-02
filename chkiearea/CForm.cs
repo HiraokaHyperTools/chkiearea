@@ -456,5 +456,50 @@ namespace ChkIEArea {
                 MessageBox.Show(this, "対策2の実行を終了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void bAcro6_Click(object sender, EventArgs e) {
+            // VER 6
+            if (MessageBox.Show(this, "Adobe Acrobat 6.xのみを導入している環境で、PDFが飛び出るのを直す機能です。\n\n"
+                + "かなり実験的な品質です。動作確認できる環境がなく、効果や影響を確かめていません。\n\n"
+                + "続行しますか。", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) != DialogResult.Yes)
+                return;
+
+            String ProgramFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
+            {
+                if (MessageBox.Show(this, "対策1を実行します。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                    return;
+
+                String fpocx = Path.Combine(ProgramFiles, @"Adobe\Acrobat 6.0\Acrobat\ActiveX\pdf.ocx");
+
+                if (File.Exists(fpocx)) {
+                    ProcessStartInfo psi = new ProcessStartInfo("regsvr32.exe", " \"" + fpocx + "\"");
+                    Process p = Process.Start(psi);
+                    p.WaitForExit();
+                }
+                else {
+                    MessageBox.Show(this, "次のファイルが見付かりませんので、対策を実行できません。\n\n" + fpocx, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                MessageBox.Show(this, "対策1の実行を終了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            {
+                if (MessageBox.Show(this, "対策2を実行します。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                    return;
+
+                String fpexe = Path.Combine(ProgramFiles, @"Adobe\Acrobat 6.0\Acrobat\Acrobat.exe");
+
+                if (File.Exists(fpexe)) {
+                    RegistryKey rk = Registry.ClassesRoot.OpenSubKey(@"Software\Adobe\Acrobat\Exe", true);
+                    rk.SetValue("", fpexe);
+                }
+                else {
+                    MessageBox.Show(this, "次のファイルが見付かりませんので、対策を実行できません。\n\n" + fpexe, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                MessageBox.Show(this, "対策2の実行を終了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
