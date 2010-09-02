@@ -46,8 +46,9 @@
             this.bBrowserFlags2 = new System.Windows.Forms.ToolStripButton();
             this.bMIMEde = new System.Windows.Forms.ToolStripButton();
             this.bAcro5 = new System.Windows.Forms.ToolStripButton();
-            this.l2 = new System.Windows.Forms.Label();
             this.bAcro6 = new System.Windows.Forms.ToolStripButton();
+            this.bAcroExe = new System.Windows.Forms.ToolStripDropDownButton();
+            this.l2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -69,14 +70,14 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(674, 297);
+            this.wb.Size = new System.Drawing.Size(674, 293);
             this.wb.TabIndex = 0;
             // 
             // l1
             // 
             this.l1.AutoSize = true;
             this.l1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l1.Location = new System.Drawing.Point(0, 313);
+            this.l1.Location = new System.Drawing.Point(0, 309);
             this.l1.Margin = new System.Windows.Forms.Padding(3);
             this.l1.Name = "l1";
             this.l1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -91,7 +92,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 301);
+            this.panel1.Size = new System.Drawing.Size(678, 297);
             this.panel1.TabIndex = 1;
             this.panel1.TabStop = true;
             // 
@@ -110,7 +111,7 @@
             this.bMHT,
             this.bTXT});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 335);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 331);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(678, 23);
             this.toolStrip1.TabIndex = 3;
@@ -235,11 +236,12 @@
             this.bBrowserFlags2,
             this.bMIMEde,
             this.bAcro5,
-            this.bAcro6});
+            this.bAcro6,
+            this.bAcroExe});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 380);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 376);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(678, 88);
+            this.toolStrip2.Size = new System.Drawing.Size(678, 92);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.TabStop = true;
             // 
@@ -318,18 +320,6 @@
             this.bAcro5.Text = "Acrobat 5.x 修正案";
             this.bAcro5.Click += new System.EventHandler(this.bAcro5_Click);
             // 
-            // l2
-            // 
-            this.l2.AutoSize = true;
-            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l2.Location = new System.Drawing.Point(0, 358);
-            this.l2.Margin = new System.Windows.Forms.Padding(3);
-            this.l2.Name = "l2";
-            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l2.Size = new System.Drawing.Size(41, 22);
-            this.l2.TabIndex = 4;
-            this.l2.Text = "修正者";
-            // 
             // bAcro6
             // 
             this.bAcro6.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
@@ -338,6 +328,28 @@
             this.bAcro6.Size = new System.Drawing.Size(149, 20);
             this.bAcro6.Text = "Acrobat 6.x 修正案";
             this.bAcro6.Click += new System.EventHandler(this.bAcro6_Click);
+            // 
+            // bAcroExe
+            // 
+            this.bAcroExe.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bAcroExe.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bAcroExe.Name = "bAcroExe";
+            this.bAcroExe.Size = new System.Drawing.Size(323, 20);
+            this.bAcroExe.Text = "HKCR\\Software\\Adobe\\Acrobat\\Exe 修正案";
+            this.bAcroExe.DropDownOpening += new System.EventHandler(this.bAcroExe_DropDownOpening);
+            this.bAcroExe.Click += new System.EventHandler(this.bAcroExe_Click);
+            // 
+            // l2
+            // 
+            this.l2.AutoSize = true;
+            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l2.Location = new System.Drawing.Point(0, 354);
+            this.l2.Margin = new System.Windows.Forms.Padding(3);
+            this.l2.Name = "l2";
+            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l2.Size = new System.Drawing.Size(41, 22);
+            this.l2.TabIndex = 4;
+            this.l2.Text = "修正者";
             // 
             // CForm
             // 
@@ -391,6 +403,7 @@
         private System.Windows.Forms.ToolStripButton bMIMEde;
         private System.Windows.Forms.ToolStripButton bAcro5;
         private System.Windows.Forms.ToolStripButton bAcro6;
+        private System.Windows.Forms.ToolStripDropDownButton bAcroExe;
     }
 }
 

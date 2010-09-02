@@ -446,7 +446,7 @@ namespace ChkIEArea {
                 String fpexe = Path.Combine(ProgramFiles, @"Adobe\Acrobat 5.0\Acrobat\Acrobat.exe");
 
                 if (File.Exists(fpexe)) {
-                    RegistryKey rk = Registry.ClassesRoot.OpenSubKey(@"Software\Adobe\Acrobat\Exe", true);
+                    RegistryKey rk = Registry.ClassesRoot.CreateSubKey(@"Software\Adobe\Acrobat\Exe");
                     rk.SetValue("", fpexe);
                 }
                 else {
@@ -491,7 +491,7 @@ namespace ChkIEArea {
                 String fpexe = Path.Combine(ProgramFiles, @"Adobe\Acrobat 6.0\Acrobat\Acrobat.exe");
 
                 if (File.Exists(fpexe)) {
-                    RegistryKey rk = Registry.ClassesRoot.OpenSubKey(@"Software\Adobe\Acrobat\Exe", true);
+                    RegistryKey rk = Registry.ClassesRoot.CreateSubKey(@"Software\Adobe\Acrobat\Exe");
                     rk.SetValue("", fpexe);
                 }
                 else {
@@ -499,6 +499,92 @@ namespace ChkIEArea {
                 }
 
                 MessageBox.Show(this, "対策2の実行を終了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void bAcroExe_Click(object sender, EventArgs e) {
+
+        }
+
+        class AcroPUt {
+            public static string SoftwareAdobeAcrobatExe {
+                get {
+                    RegistryKey rkExe = Registry.ClassesRoot.OpenSubKey(@"Software\Adobe\Acrobat\Exe", false);
+                    if (rkExe != null) {
+                        return rkExe.GetValue("") as String;
+                    }
+                    return null;
+                }
+
+                set {
+                    RegistryKey rkExe = Registry.ClassesRoot.CreateSubKey(@"Software\Adobe\Acrobat\Exe");
+                    rkExe.SetValue("", value);
+                }
+            }
+
+            public static string Acrobat8Exe {
+                get {
+                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\8.0\Installer", false);
+                    if (rkExe != null) {
+                        return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+
+            public static string Acrobat9Exe { // 動作は未確認
+                get {
+                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\9.0\Installer", false);
+                    if (rkExe != null) {
+                        return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+
+            public static string Acrobat7Exe { // 動作は未確認
+                get {
+                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\7.0\Installer", false);
+                    if (rkExe != null) {
+                        return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+        }
+
+        private void bAcroExe_DropDownOpening(object sender, EventArgs e) {
+            bAcroExe.DropDownItems.Clear();
+
+            {
+                ToolStripItem tsiConfirm = bAcroExe.DropDownItems.Add("現在の設定は?");
+                tsiConfirm.Click += new EventHandler(tsiConfirm_Click);
+            }
+
+            List<String> alExe = new List<String>();
+            alExe.Add(AcroPUt.Acrobat9Exe);
+            alExe.Add(AcroPUt.Acrobat8Exe);
+            alExe.Add(AcroPUt.Acrobat7Exe);
+
+            foreach (String fp in alExe) {
+                if (!String.IsNullOrEmpty(fp) && File.Exists(fp)) {
+                    if (bAcroExe.DropDownItems.Count == 1)
+                        bAcroExe.DropDownItems.Add(new ToolStripSeparator());
+                    ToolStripItem tsi = bAcroExe.DropDownItems.Add(fp);
+                    tsi.Click += new EventHandler(tsi_Click);
+                }
+            }
+        }
+
+        void tsiConfirm_Click(object sender, EventArgs e) {
+            String fp = AcroPUt.SoftwareAdobeAcrobatExe;
+            MessageBox.Show(this, String.IsNullOrEmpty(fp) ? "設定されていません。" : ("現在の設定は次の通りです。\n\n" + fp), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        void tsi_Click(object sender, EventArgs e) {
+            if (MessageBox.Show(this, "レジストリを編集します。\n\nよろしいですか。", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                AcroPUt.SoftwareAdobeAcrobatExe = ((ToolStripItem)sender).Text;
+                MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

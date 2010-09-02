@@ -8,7 +8,7 @@
 ;--------------------------------
 
 !define APP "ChkIEArea"
-!define VER "1.0.8"
+!define VER "1.0.9"
 
 ; The name of the installer
 Name "${APP} ${VER}"
