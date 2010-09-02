@@ -447,7 +447,7 @@ namespace ChkIEArea {
 
                 if (File.Exists(fpexe)) {
                     RegistryKey rk = Registry.ClassesRoot.CreateSubKey(@"Software\Adobe\Acrobat\Exe");
-                    rk.SetValue("", fpexe);
+                    rk.SetValue("", FPUt.Encap(fpexe));
                 }
                 else {
                     MessageBox.Show(this, "次のファイルが見付かりませんので、対策を実行できません。\n\n" + fpexe, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -492,13 +492,21 @@ namespace ChkIEArea {
 
                 if (File.Exists(fpexe)) {
                     RegistryKey rk = Registry.ClassesRoot.CreateSubKey(@"Software\Adobe\Acrobat\Exe");
-                    rk.SetValue("", fpexe);
+                    rk.SetValue("", FPUt.Encap(fpexe));
                 }
                 else {
                     MessageBox.Show(this, "次のファイルが見付かりませんので、対策を実行できません。\n\n" + fpexe, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
                 MessageBox.Show(this, "対策2の実行を終了しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        class FPUt {
+            public static string Encap(String fp) {
+                if (fp.Contains(" "))
+                    return "\"" + fp + "\"";
+                return fp;
             }
         }
 
@@ -518,7 +526,7 @@ namespace ChkIEArea {
 
                 set {
                     RegistryKey rkExe = Registry.ClassesRoot.CreateSubKey(@"Software\Adobe\Acrobat\Exe");
-                    rkExe.SetValue("", value);
+                    rkExe.SetValue("", FPUt.Encap(value));
                 }
             }
 
