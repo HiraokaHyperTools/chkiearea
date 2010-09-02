@@ -595,5 +595,9 @@ namespace ChkIEArea {
                 MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void bRestart_Click(object sender, EventArgs e) {
+            Application.Restart();
+        }
     }
 }
