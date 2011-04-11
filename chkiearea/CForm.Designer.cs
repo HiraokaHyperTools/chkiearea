@@ -52,6 +52,7 @@
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
+            this.bXLS = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -108,6 +109,7 @@
             this.bPDF,
             this.bDOC,
             this.bDOCX,
+            this.bXLS,
             this.bPPT,
             this.bHTM,
             this.bHTML,
@@ -387,6 +389,18 @@
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
+            // bXLS
+            // 
+            this.bXLS.BackColor = System.Drawing.SystemColors.Control;
+            this.bXLS.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bXLS.Image = ((System.Drawing.Image)(resources.GetObject("bXLS.Image")));
+            this.bXLS.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bXLS.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bXLS.Name = "bXLS";
+            this.bXLS.Size = new System.Drawing.Size(62, 20);
+            this.bXLS.Text = "Excel";
+            this.bXLS.Click += new System.EventHandler(this.bXLS_Click);
+            // 
             // CForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -447,6 +461,7 @@
         private System.Windows.Forms.Label l3;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton bRestart;
+        private System.Windows.Forms.ToolStripButton bXLS;
     }
 }
 
