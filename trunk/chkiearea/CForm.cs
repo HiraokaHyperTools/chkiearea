@@ -58,6 +58,7 @@ namespace ChkIEArea {
         private void buttontxt_Click(object sender, EventArgs e) { Chk(bTXT); view("動作チェック用テストデータ.txt"); }
         private void buttonPPT_Click(object sender, EventArgs e) { Chk(bPPT); view("動作チェック用テストデータ.ppt"); }
         private void bDOCX_Click(object sender, EventArgs e) { Chk(bDOCX); view("動作チェック用テストデータ.docx"); }
+        private void bXLS_Click(object sender, EventArgs e) { Chk(bXLS); view("動作チェック用テストデータ.xls"); }
 
         private void Chk(ToolStripItem b) {
             foreach (ToolStripItem tsi in toolStrip1.Items) {

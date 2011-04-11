@@ -148,6 +148,9 @@
     <Content Include="f\動作チェック用テストデータ.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="f\動作チェック用テストデータ.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\ZoomHS.png" />
     <None Include="Resources\PrintPreviewHS.png" />
