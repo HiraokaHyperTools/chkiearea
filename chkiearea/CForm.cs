@@ -59,6 +59,8 @@ namespace ChkIEArea {
         private void buttonPPT_Click(object sender, EventArgs e) { Chk(bPPT); view("動作チェック用テストデータ.ppt"); }
         private void bDOCX_Click(object sender, EventArgs e) { Chk(bDOCX); view("動作チェック用テストデータ.docx"); }
         private void bXLS_Click(object sender, EventArgs e) { Chk(bXLS); view("動作チェック用テストデータ.xls"); }
+        private void bXLSX_Click(object sender, EventArgs e) { Chk(bXLSX); view("動作チェック用テストデータ.xlsx"); }
+        private void bDXF_Click(object sender, EventArgs e) { Chk(bDXF); view("動作チェック用テストデータ.dxf"); }
 
         private void Chk(ToolStripItem b) {
             foreach (ToolStripItem tsi in toolStrip1.Items) {
@@ -600,5 +602,6 @@ namespace ChkIEArea {
         private void bRestart_Click(object sender, EventArgs e) {
             Application.Restart();
         }
+
     }
 }
