@@ -8,13 +8,14 @@
 ;--------------------------------
 
 !define APP "ChkIEArea"
-!define VER "1.0.12"
+!define VER "1.0.13"
+!define APV "1_0_13"
 
 ; The name of the installer
 Name "${APP} ${VER}"
 
 ; The file to write
-OutFile "Setup_${APP}.exe"
+OutFile "Setup_${APP}_${APV}.exe"
 
 ; The default installation directory
 InstallDir "$APPDATA\${APP}"

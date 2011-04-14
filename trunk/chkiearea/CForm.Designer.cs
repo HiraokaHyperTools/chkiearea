@@ -32,6 +32,7 @@
             this.bPDF = new System.Windows.Forms.ToolStripButton();
             this.bDOC = new System.Windows.Forms.ToolStripButton();
             this.bDOCX = new System.Windows.Forms.ToolStripButton();
+            this.bXLS = new System.Windows.Forms.ToolStripButton();
             this.bPPT = new System.Windows.Forms.ToolStripButton();
             this.bHTM = new System.Windows.Forms.ToolStripButton();
             this.bHTML = new System.Windows.Forms.ToolStripButton();
@@ -52,7 +53,8 @@
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
-            this.bXLS = new System.Windows.Forms.ToolStripButton();
+            this.bXLSX = new System.Windows.Forms.ToolStripButton();
+            this.bDXF = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -75,14 +77,14 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(674, 246);
+            this.wb.Size = new System.Drawing.Size(674, 223);
             this.wb.TabIndex = 0;
             // 
             // l1
             // 
             this.l1.AutoSize = true;
             this.l1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l1.Location = new System.Drawing.Point(0, 262);
+            this.l1.Location = new System.Drawing.Point(0, 239);
             this.l1.Margin = new System.Windows.Forms.Padding(3);
             this.l1.Name = "l1";
             this.l1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -97,7 +99,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 250);
+            this.panel1.Size = new System.Drawing.Size(678, 227);
             this.panel1.TabIndex = 1;
             this.panel1.TabStop = true;
             // 
@@ -110,16 +112,18 @@
             this.bDOC,
             this.bDOCX,
             this.bXLS,
+            this.bXLSX,
             this.bPPT,
+            this.bDXF,
             this.bHTM,
             this.bHTML,
             this.bEML,
             this.bMHT,
             this.bTXT});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 284);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 261);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(678, 23);
+            this.toolStrip1.Size = new System.Drawing.Size(678, 46);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
             // 
@@ -158,6 +162,18 @@
             this.bDOCX.Size = new System.Drawing.Size(91, 20);
             this.bDOCX.Text = "Word2007";
             this.bDOCX.Click += new System.EventHandler(this.bDOCX_Click);
+            // 
+            // bXLS
+            // 
+            this.bXLS.BackColor = System.Drawing.SystemColors.Control;
+            this.bXLS.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bXLS.Image = ((System.Drawing.Image)(resources.GetObject("bXLS.Image")));
+            this.bXLS.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bXLS.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bXLS.Name = "bXLS";
+            this.bXLS.Size = new System.Drawing.Size(62, 20);
+            this.bXLS.Text = "Excel";
+            this.bXLS.Click += new System.EventHandler(this.bXLS_Click);
             // 
             // bPPT
             // 
@@ -389,17 +405,29 @@
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
-            // bXLS
+            // bXLSX
             // 
-            this.bXLS.BackColor = System.Drawing.SystemColors.Control;
-            this.bXLS.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.bXLS.Image = ((System.Drawing.Image)(resources.GetObject("bXLS.Image")));
-            this.bXLS.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bXLS.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.bXLS.Name = "bXLS";
-            this.bXLS.Size = new System.Drawing.Size(62, 20);
-            this.bXLS.Text = "Excel";
-            this.bXLS.Click += new System.EventHandler(this.bXLS_Click);
+            this.bXLSX.BackColor = System.Drawing.SystemColors.Control;
+            this.bXLSX.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bXLSX.Image = ((System.Drawing.Image)(resources.GetObject("bXLSX.Image")));
+            this.bXLSX.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bXLSX.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bXLSX.Name = "bXLSX";
+            this.bXLSX.Size = new System.Drawing.Size(94, 20);
+            this.bXLSX.Text = "Excel2007";
+            this.bXLSX.Click += new System.EventHandler(this.bXLSX_Click);
+            // 
+            // bDXF
+            // 
+            this.bDXF.BackColor = System.Drawing.SystemColors.Control;
+            this.bDXF.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bDXF.Image = ((System.Drawing.Image)(resources.GetObject("bDXF.Image")));
+            this.bDXF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bDXF.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bDXF.Name = "bDXF";
+            this.bDXF.Size = new System.Drawing.Size(91, 20);
+            this.bDXF.Text = "DXF(CAD)";
+            this.bDXF.Click += new System.EventHandler(this.bDXF_Click);
             // 
             // CForm
             // 
@@ -462,6 +490,8 @@
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton bRestart;
         private System.Windows.Forms.ToolStripButton bXLS;
+        private System.Windows.Forms.ToolStripButton bXLSX;
+        private System.Windows.Forms.ToolStripButton bDXF;
     }
 }
 
