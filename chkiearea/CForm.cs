@@ -20,12 +20,6 @@ namespace ChkIEArea {
 
         string lastfp = null;
 
-        void view(string fn) {
-            using (WIP wip = new WIP(this)) {
-                wb.Navigate(lastfp = Path.Combine(Path.Combine(Application.StartupPath, "f"), fn));
-            }
-        }
-
         class WIP : IDisposable {
             PictureBox pb;
 
@@ -49,18 +43,45 @@ namespace ChkIEArea {
             #endregion
         }
 
-        private void buttonPDF_Click(object sender, EventArgs e) { Chk(bPDF); view("動作チェック用テストデータ.pdf"); }
-        private void buttonDOC_Click(object sender, EventArgs e) { Chk(bDOC); view("動作チェック用テストデータ.doc"); }
-        private void buttonHTM_Click(object sender, EventArgs e) { Chk(bHTM); view("動作チェック用テストデータ.htm"); }
-        private void buttonHTML_Click(object sender, EventArgs e) { Chk(bHTML); view("動作チェック用テストデータ.html"); }
-        private void buttonEML_Click(object sender, EventArgs e) { Chk(bEML); view("動作チェック用テストデータ.eml"); }
-        private void buttonMHT_Click(object sender, EventArgs e) { Chk(bMHT); view("動作チェック用テストデータ.mht"); }
-        private void buttontxt_Click(object sender, EventArgs e) { Chk(bTXT); view("動作チェック用テストデータ.txt"); }
-        private void buttonPPT_Click(object sender, EventArgs e) { Chk(bPPT); view("動作チェック用テストデータ.ppt"); }
-        private void bDOCX_Click(object sender, EventArgs e) { Chk(bDOCX); view("動作チェック用テストデータ.docx"); }
-        private void bXLS_Click(object sender, EventArgs e) { Chk(bXLS); view("動作チェック用テストデータ.xls"); }
-        private void bXLSX_Click(object sender, EventArgs e) { Chk(bXLSX); view("動作チェック用テストデータ.xlsx"); }
-        private void bDXF_Click(object sender, EventArgs e) { Chk(bDXF); view("動作チェック用テストデータ.dxf"); }
+        private void buttonPDF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.pdf"); }
+        private void buttonDOC_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.doc"); }
+        private void buttonHTM_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.htm"); }
+        private void buttonHTML_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.html"); }
+        private void buttonEML_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.eml"); }
+        private void buttonMHT_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.mht"); }
+        private void buttontxt_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.txt"); }
+        private void buttonPPT_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.ppt"); }
+        private void bDOCX_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.docx"); }
+        private void bXLS_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.xls"); }
+        private void bXLSX_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.xlsx"); }
+        private void bDXF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.dxf"); }
+        private void bTIF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.tif"); }
+        private void bTIFF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.tiff"); }
+
+        private void view2(ToolStripItem sender, String fn) {
+            String fp = Path.Combine(Path.Combine(Application.StartupPath, "f"), fn);
+
+            if (0 != (ModifierKeys & Keys.Control)) {
+                Process.Start(fp);
+            }
+            else if (0 == (ModifierKeys & Keys.Shift)) {
+                foreach (ToolStripItem tsi in toolStrip1.Items) {
+                    ToolStripButton tsb = tsi as ToolStripButton;
+                    if (tsb != null) {
+                        bool f = (sender == tsb);
+                        if (tsb.Checked != f)
+                            tsb.Checked = f;
+                    }
+                }
+                using (WIP wip = new WIP(this)) {
+                    wb.Navigate(lastfp = fp);
+                }
+            }
+            else {
+                ViewForm form = new ViewForm(fp);
+                form.Show();
+            }
+        }
 
         private void Chk(ToolStripItem b) {
             foreach (ToolStripItem tsi in toolStrip1.Items) {
@@ -602,6 +623,5 @@ namespace ChkIEArea {
         private void bRestart_Click(object sender, EventArgs e) {
             Application.Restart();
         }
-
     }
 }
