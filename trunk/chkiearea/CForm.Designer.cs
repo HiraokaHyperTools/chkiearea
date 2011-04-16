@@ -33,7 +33,11 @@
             this.bDOC = new System.Windows.Forms.ToolStripButton();
             this.bDOCX = new System.Windows.Forms.ToolStripButton();
             this.bXLS = new System.Windows.Forms.ToolStripButton();
+            this.bXLSX = new System.Windows.Forms.ToolStripButton();
             this.bPPT = new System.Windows.Forms.ToolStripButton();
+            this.bDXF = new System.Windows.Forms.ToolStripButton();
+            this.bTIF = new System.Windows.Forms.ToolStripButton();
+            this.bTIFF = new System.Windows.Forms.ToolStripButton();
             this.bHTM = new System.Windows.Forms.ToolStripButton();
             this.bHTML = new System.Windows.Forms.ToolStripButton();
             this.bEML = new System.Windows.Forms.ToolStripButton();
@@ -53,8 +57,6 @@
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
-            this.bXLSX = new System.Windows.Forms.ToolStripButton();
-            this.bDXF = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -88,9 +90,9 @@
             this.l1.Margin = new System.Windows.Forms.Padding(3);
             this.l1.Name = "l1";
             this.l1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l1.Size = new System.Drawing.Size(53, 22);
+            this.l1.Size = new System.Drawing.Size(433, 22);
             this.l1.TabIndex = 2;
-            this.l1.Text = "調査項目";
+            this.l1.Text = "調査項目 (Shift+ボタン押下で、新しい画面に表示。Ctrl+ボタン押下で、シェル操作で開く)";
             // 
             // panel1
             // 
@@ -115,6 +117,8 @@
             this.bXLSX,
             this.bPPT,
             this.bDXF,
+            this.bTIF,
+            this.bTIFF,
             this.bHTM,
             this.bHTML,
             this.bEML,
@@ -175,6 +179,18 @@
             this.bXLS.Text = "Excel";
             this.bXLS.Click += new System.EventHandler(this.bXLS_Click);
             // 
+            // bXLSX
+            // 
+            this.bXLSX.BackColor = System.Drawing.SystemColors.Control;
+            this.bXLSX.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bXLSX.Image = ((System.Drawing.Image)(resources.GetObject("bXLSX.Image")));
+            this.bXLSX.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bXLSX.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bXLSX.Name = "bXLSX";
+            this.bXLSX.Size = new System.Drawing.Size(94, 20);
+            this.bXLSX.Text = "Excel2007";
+            this.bXLSX.Click += new System.EventHandler(this.bXLSX_Click);
+            // 
             // bPPT
             // 
             this.bPPT.BackColor = System.Drawing.SystemColors.Control;
@@ -186,6 +202,42 @@
             this.bPPT.Size = new System.Drawing.Size(47, 20);
             this.bPPT.Text = "ppt";
             this.bPPT.Click += new System.EventHandler(this.buttonPPT_Click);
+            // 
+            // bDXF
+            // 
+            this.bDXF.BackColor = System.Drawing.SystemColors.Control;
+            this.bDXF.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bDXF.Image = ((System.Drawing.Image)(resources.GetObject("bDXF.Image")));
+            this.bDXF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bDXF.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bDXF.Name = "bDXF";
+            this.bDXF.Size = new System.Drawing.Size(91, 20);
+            this.bDXF.Text = "DXF(CAD)";
+            this.bDXF.Click += new System.EventHandler(this.bDXF_Click);
+            // 
+            // bTIF
+            // 
+            this.bTIF.BackColor = System.Drawing.SystemColors.Control;
+            this.bTIF.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bTIF.Image = ((System.Drawing.Image)(resources.GetObject("bTIF.Image")));
+            this.bTIF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bTIF.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bTIF.Name = "bTIF";
+            this.bTIF.Size = new System.Drawing.Size(48, 20);
+            this.bTIF.Text = "TIF";
+            this.bTIF.Click += new System.EventHandler(this.bTIF_Click);
+            // 
+            // bTIFF
+            // 
+            this.bTIFF.BackColor = System.Drawing.SystemColors.Control;
+            this.bTIFF.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bTIFF.Image = ((System.Drawing.Image)(resources.GetObject("bTIFF.Image")));
+            this.bTIFF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bTIFF.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bTIFF.Name = "bTIFF";
+            this.bTIFF.Size = new System.Drawing.Size(56, 20);
+            this.bTIFF.Text = "TIFF";
+            this.bTIFF.Click += new System.EventHandler(this.bTIFF_Click);
             // 
             // bHTM
             // 
@@ -405,30 +457,6 @@
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
-            // bXLSX
-            // 
-            this.bXLSX.BackColor = System.Drawing.SystemColors.Control;
-            this.bXLSX.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.bXLSX.Image = ((System.Drawing.Image)(resources.GetObject("bXLSX.Image")));
-            this.bXLSX.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bXLSX.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.bXLSX.Name = "bXLSX";
-            this.bXLSX.Size = new System.Drawing.Size(94, 20);
-            this.bXLSX.Text = "Excel2007";
-            this.bXLSX.Click += new System.EventHandler(this.bXLSX_Click);
-            // 
-            // bDXF
-            // 
-            this.bDXF.BackColor = System.Drawing.SystemColors.Control;
-            this.bDXF.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.bDXF.Image = ((System.Drawing.Image)(resources.GetObject("bDXF.Image")));
-            this.bDXF.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bDXF.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.bDXF.Name = "bDXF";
-            this.bDXF.Size = new System.Drawing.Size(91, 20);
-            this.bDXF.Text = "DXF(CAD)";
-            this.bDXF.Click += new System.EventHandler(this.bDXF_Click);
-            // 
             // CForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -492,6 +520,8 @@
         private System.Windows.Forms.ToolStripButton bXLS;
         private System.Windows.Forms.ToolStripButton bXLSX;
         private System.Windows.Forms.ToolStripButton bDXF;
+        private System.Windows.Forms.ToolStripButton bTIF;
+        private System.Windows.Forms.ToolStripButton bTIFF;
     }
 }
 
