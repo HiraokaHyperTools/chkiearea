@@ -1,0 +1,4 @@
+#summary Check IE Area
+
+ChkIEArea 入手は、こちらから：
+http://code.google.com/p/chkiearea/downloads/list
