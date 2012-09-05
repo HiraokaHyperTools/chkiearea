@@ -194,10 +194,10 @@ namespace ChkIEArea {
                             if (vali != valo) {
                                 if (MessageBox.Show(parent, "対策します。", parent.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
                                     if (preferBytea) {
-                                        appkey.SetValue(keyName, BitConverter.GetBytes(valo));
+                                        appkey.SetValue(keyName, BitConverter.GetBytes(valo), RegistryValueKind.Binary);
                                     }
                                     else {
-                                        appkey.SetValue(keyName, valo);
+                                        appkey.SetValue(keyName, (int)valo, RegistryValueKind.DWord);
                                     }
                                     MessageBox.Show(parent, "対策しました。", parent.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
