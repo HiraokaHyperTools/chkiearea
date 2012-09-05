@@ -453,7 +453,7 @@
             this.bRestart.Image = ((System.Drawing.Image)(resources.GetObject("bRestart.Image")));
             this.bRestart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bRestart.Name = "bRestart";
-            this.bRestart.Size = new System.Drawing.Size(134, 22);
+            this.bRestart.Size = new System.Drawing.Size(160, 22);
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
