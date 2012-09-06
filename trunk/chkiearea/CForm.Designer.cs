@@ -57,6 +57,7 @@
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
+            this.bPPTX = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -79,14 +80,14 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(674, 223);
+            this.wb.Size = new System.Drawing.Size(674, 200);
             this.wb.TabIndex = 0;
             // 
             // l1
             // 
             this.l1.AutoSize = true;
             this.l1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l1.Location = new System.Drawing.Point(0, 239);
+            this.l1.Location = new System.Drawing.Point(0, 216);
             this.l1.Margin = new System.Windows.Forms.Padding(3);
             this.l1.Name = "l1";
             this.l1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -101,7 +102,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 227);
+            this.panel1.Size = new System.Drawing.Size(678, 204);
             this.panel1.TabIndex = 1;
             this.panel1.TabStop = true;
             // 
@@ -116,6 +117,7 @@
             this.bXLS,
             this.bXLSX,
             this.bPPT,
+            this.bPPTX,
             this.bDXF,
             this.bTIF,
             this.bTIFF,
@@ -125,7 +127,7 @@
             this.bMHT,
             this.bTXT});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 261);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 238);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(678, 46);
             this.toolStrip1.TabIndex = 3;
@@ -305,17 +307,17 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bEditFlags,
             this.bBrowserFlags,
+            this.bBrowserFlags2,
             this.bMIME,
             this.bMIMEefp,
-            this.bBrowserFlags2,
             this.bMIMEde,
             this.bAcro5,
             this.bAcro6,
             this.bAcroExe});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 329);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 306);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(678, 92);
+            this.toolStrip2.Size = new System.Drawing.Size(678, 115);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.TabStop = true;
             // 
@@ -327,8 +329,8 @@
             this.bEditFlags.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bEditFlags.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.bEditFlags.Name = "bEditFlags";
-            this.bEditFlags.Size = new System.Drawing.Size(127, 20);
-            this.bEditFlags.Text = "EditFlags修正案";
+            this.bEditFlags.Size = new System.Drawing.Size(270, 20);
+            this.bEditFlags.Text = "保存確認が出る場合は、EditFlags修正案";
             this.bEditFlags.Click += new System.EventHandler(this.buttonEditFlags_Click);
             // 
             // bBrowserFlags
@@ -339,8 +341,8 @@
             this.bBrowserFlags.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bBrowserFlags.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.bBrowserFlags.Name = "bBrowserFlags";
-            this.bBrowserFlags.Size = new System.Drawing.Size(159, 20);
-            this.bBrowserFlags.Text = "BrowserFlags修正案!";
+            this.bBrowserFlags.Size = new System.Drawing.Size(319, 20);
+            this.bBrowserFlags.Text = "IEでインライン表示するには、BrowserFlags修正案!";
             this.bBrowserFlags.Click += new System.EventHandler(this.buttonBrowserFlags_Click);
             // 
             // bMIME
@@ -353,6 +355,7 @@
             this.bMIME.Name = "bMIME";
             this.bMIME.Size = new System.Drawing.Size(186, 20);
             this.bMIME.Text = "MIME修正案｢Use CLSID｣";
+            this.bMIME.ToolTipText = "OLE用CLSIDを、IE用CLSIDにコピーします";
             this.bMIME.Click += new System.EventHandler(this.bMIME_Click);
             // 
             // bMIMEefp
@@ -365,6 +368,7 @@
             this.bMIMEefp.Name = "bMIMEefp";
             this.bMIMEefp.Size = new System.Drawing.Size(342, 20);
             this.bMIMEefp.Text = "MIME修正案｢Use EFP｣(CLSID by EnableFullPage)";
+            this.bMIMEefp.ToolTipText = "OLE用CLSIDのEnableFullPageを検索し、IE用CLSIDにコピーします";
             this.bMIMEefp.Click += new System.EventHandler(this.bMIME_Click);
             // 
             // bBrowserFlags2
@@ -372,8 +376,8 @@
             this.bBrowserFlags2.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
             this.bBrowserFlags2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bBrowserFlags2.Name = "bBrowserFlags2";
-            this.bBrowserFlags2.Size = new System.Drawing.Size(229, 20);
-            this.bBrowserFlags2.Text = "BrowserFlags修正案(Word2007)";
+            this.bBrowserFlags2.Size = new System.Drawing.Size(545, 20);
+            this.bBrowserFlags2.Text = "Word/PowerPointが飛び出る場合は、BrowserFlags修正案(Office2007/2010/2013)";
             this.bBrowserFlags2.Click += new System.EventHandler(this.bBrowserFlags2_Click);
             // 
             // bMIMEde
@@ -383,6 +387,7 @@
             this.bMIMEde.Name = "bMIMEde";
             this.bMIMEde.Size = new System.Drawing.Size(350, 20);
             this.bMIMEde.Text = "MIME修正案「Use DE」(CLSID by DefaultExtension)";
+            this.bMIMEde.ToolTipText = "OLE用CLSIDのDefaultExtensionを検索し、IE用CLSIDにコピーします";
             this.bMIMEde.Click += new System.EventHandler(this.bMIME_Click);
             // 
             // bAcro5
@@ -417,7 +422,7 @@
             // 
             this.l2.AutoSize = true;
             this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l2.Location = new System.Drawing.Point(0, 307);
+            this.l2.Location = new System.Drawing.Point(0, 284);
             this.l2.Margin = new System.Windows.Forms.Padding(3);
             this.l2.Name = "l2";
             this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -456,6 +461,18 @@
             this.bRestart.Size = new System.Drawing.Size(160, 22);
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
+            // 
+            // bPPTX
+            // 
+            this.bPPTX.BackColor = System.Drawing.SystemColors.Control;
+            this.bPPTX.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bPPTX.Image = ((System.Drawing.Image)(resources.GetObject("bPPTX.Image")));
+            this.bPPTX.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bPPTX.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bPPTX.Name = "bPPTX";
+            this.bPPTX.Size = new System.Drawing.Size(54, 20);
+            this.bPPTX.Text = "pptx";
+            this.bPPTX.Click += new System.EventHandler(this.buttonPPTX_Click);
             // 
             // CForm
             // 
@@ -522,6 +539,7 @@
         private System.Windows.Forms.ToolStripButton bDXF;
         private System.Windows.Forms.ToolStripButton bTIF;
         private System.Windows.Forms.ToolStripButton bTIFF;
+        private System.Windows.Forms.ToolStripButton bPPTX;
     }
 }
 
