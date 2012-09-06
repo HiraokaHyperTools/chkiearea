@@ -51,6 +51,7 @@ namespace ChkIEArea {
         private void buttonMHT_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.mht"); }
         private void buttontxt_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.txt"); }
         private void buttonPPT_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.ppt"); }
+        private void buttonPPTX_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.pptx"); }
         private void bDOCX_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.docx"); }
         private void bXLS_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.xls"); }
         private void bXLSX_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.xlsx"); }
@@ -96,6 +97,8 @@ namespace ChkIEArea {
 
         private void CForm_Load(object sender, EventArgs e) {
             // http://forum.mozilla.gr.jp/cbbs.cgi?mode=al2&namber=8265&rev=&&KLOG=55
+
+            this.Text += " " + Application.ProductVersion + " (" + ((IntPtr.Size == 4 ? "x86" : "x64")) + ")";
         }
 
         private void buttonEditFlags_Click(object sender, EventArgs e) {
@@ -446,7 +449,7 @@ namespace ChkIEArea {
             String ProgramFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
             {
-                if (MessageBox.Show(this, "対策1を実行します。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                if (MessageBox.Show(this, "対策1を実行します。(pdf.ocxを登録)", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
                     return;
 
                 String fpocx = Path.Combine(ProgramFiles, @"Adobe\Acrobat 5.0\Acrobat\ActiveX\pdf.ocx");
@@ -464,7 +467,7 @@ namespace ChkIEArea {
             }
 
             {
-                if (MessageBox.Show(this, "対策2を実行します。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                if (MessageBox.Show(this, @"対策2を実行します。(レジストリ Software\Adobe\Acrobat\Exe を、設定)", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
                     return;
 
                 String fpexe = Path.Combine(ProgramFiles, @"Adobe\Acrobat 5.0\Acrobat\Acrobat.exe");
@@ -491,7 +494,7 @@ namespace ChkIEArea {
             String ProgramFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
             {
-                if (MessageBox.Show(this, "対策1を実行します。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                if (MessageBox.Show(this, "対策1を実行します。(pdf.ocxを登録)", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
                     return;
 
                 String fpocx = Path.Combine(ProgramFiles, @"Adobe\Acrobat 6.0\Acrobat\ActiveX\pdf.ocx");
@@ -509,7 +512,7 @@ namespace ChkIEArea {
             }
 
             {
-                if (MessageBox.Show(this, "対策2を実行します。", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
+                if (MessageBox.Show(this, @"対策2を実行します。(レジストリ Software\Adobe\Acrobat\Exe を、設定)", Application.ProductName, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) != DialogResult.OK)
                     return;
 
                 String fpexe = Path.Combine(ProgramFiles, @"Adobe\Acrobat 6.0\Acrobat\Acrobat.exe");
@@ -554,9 +557,9 @@ namespace ChkIEArea {
                 }
             }
 
-            public static string Acrobat8Exe {
+            public static string Acrobat10Exe { // 動作は未確認
                 get {
-                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\8.0\Installer", false);
+                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\10.0\Installer", false);
                     if (rkExe != null) {
                         return rkExe.GetValue("Acrobat.exe") as String;
                     }
@@ -574,6 +577,16 @@ namespace ChkIEArea {
                 }
             }
 
+            public static string Acrobat8Exe {
+                get {
+                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\8.0\Installer", false);
+                    if (rkExe != null) {
+                        return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+
             public static string Acrobat7Exe { // 動作は未確認
                 get {
                     RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\7.0\Installer", false);
@@ -583,6 +596,55 @@ namespace ChkIEArea {
                     return null;
                 }
             }
+
+            public static string AcroRd32_10Exe { // 動作は未確認：表示までは確認
+                get {
+                    RegistryKey rkDir = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Acrobat Reader\10.0\InstallPath", false);
+                    if (rkDir != null) {
+                        String dir = rkDir.GetValue("") as String;
+                        if (!String.IsNullOrEmpty(dir))
+                            return Path.Combine(dir, "AcroRd32.exe");
+                    }
+                    return null;
+                }
+            }
+
+            public static string AcroRd32_9Exe { // 動作は未確認：表示までは確認
+                get {
+                    RegistryKey rkDir = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Acrobat Reader\9.0\InstallPath", false);
+                    if (rkDir != null) {
+                        String dir = rkDir.GetValue("") as String;
+                        if (!String.IsNullOrEmpty(dir))
+                            return Path.Combine(dir, "AcroRd32.exe");
+                    }
+                    return null;
+                }
+            }
+
+            public static string AcroRd32_8Exe { // 動作は未確認
+                get {
+                    RegistryKey rkDir = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Acrobat Reader\8.0\InstallPath", false);
+                    if (rkDir != null) {
+                        String dir = rkDir.GetValue("") as String;
+                        if (!String.IsNullOrEmpty(dir))
+                            return Path.Combine(dir, "AcroRd32.exe");
+                    }
+                    return null;
+                }
+            }
+
+            public static string AcroRd32_7Exe { // 動作は未確認
+                get {
+                    RegistryKey rkDir = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Acrobat Reader\7.0\InstallPath", false);
+                    if (rkDir != null) {
+                        String dir = rkDir.GetValue("") as String;
+                        if (!String.IsNullOrEmpty(dir))
+                            return Path.Combine(dir, "AcroRd32.exe");
+                    }
+                    return null;
+                }
+            }
+
         }
 
         private void bAcroExe_DropDownOpening(object sender, EventArgs e) {
@@ -594,9 +656,14 @@ namespace ChkIEArea {
             }
 
             List<String> alExe = new List<String>();
+            alExe.Add(AcroPUt.Acrobat10Exe);
             alExe.Add(AcroPUt.Acrobat9Exe);
             alExe.Add(AcroPUt.Acrobat8Exe);
             alExe.Add(AcroPUt.Acrobat7Exe);
+            alExe.Add(AcroPUt.AcroRd32_10Exe);
+            alExe.Add(AcroPUt.AcroRd32_9Exe);
+            alExe.Add(AcroPUt.AcroRd32_8Exe);
+            alExe.Add(AcroPUt.AcroRd32_7Exe);
 
             foreach (String fp in alExe) {
                 if (!String.IsNullOrEmpty(fp) && File.Exists(fp)) {
