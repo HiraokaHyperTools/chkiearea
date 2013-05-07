@@ -537,10 +537,6 @@ namespace ChkIEArea {
             }
         }
 
-        private void bAcroExe_Click(object sender, EventArgs e) {
-
-        }
-
         class AcroPUt {
             public static string SoftwareAdobeAcrobatExe {
                 get {
@@ -592,6 +588,18 @@ namespace ChkIEArea {
                     RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\7.0\Installer", false);
                     if (rkExe != null) {
                         return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+
+            public static string AcroRd32_11Exe { // 動作は未確認：表示までは確認
+                get {
+                    RegistryKey rkDir = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Acrobat Reader\11.0\InstallPath", false);
+                    if (rkDir != null) {
+                        String dir = rkDir.GetValue("") as String;
+                        if (!String.IsNullOrEmpty(dir))
+                            return Path.Combine(dir, "AcroRd32.exe");
                     }
                     return null;
                 }
@@ -660,6 +668,7 @@ namespace ChkIEArea {
             alExe.Add(AcroPUt.Acrobat9Exe);
             alExe.Add(AcroPUt.Acrobat8Exe);
             alExe.Add(AcroPUt.Acrobat7Exe);
+            alExe.Add(AcroPUt.AcroRd32_11Exe);
             alExe.Add(AcroPUt.AcroRd32_10Exe);
             alExe.Add(AcroPUt.AcroRd32_9Exe);
             alExe.Add(AcroPUt.AcroRd32_8Exe);

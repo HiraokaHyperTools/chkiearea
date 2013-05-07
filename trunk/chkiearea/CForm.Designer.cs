@@ -35,6 +35,7 @@
             this.bXLS = new System.Windows.Forms.ToolStripButton();
             this.bXLSX = new System.Windows.Forms.ToolStripButton();
             this.bPPT = new System.Windows.Forms.ToolStripButton();
+            this.bPPTX = new System.Windows.Forms.ToolStripButton();
             this.bDXF = new System.Windows.Forms.ToolStripButton();
             this.bTIF = new System.Windows.Forms.ToolStripButton();
             this.bTIFF = new System.Windows.Forms.ToolStripButton();
@@ -46,9 +47,9 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.bEditFlags = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags = new System.Windows.Forms.ToolStripButton();
+            this.bBrowserFlags2 = new System.Windows.Forms.ToolStripButton();
             this.bMIME = new System.Windows.Forms.ToolStripButton();
             this.bMIMEefp = new System.Windows.Forms.ToolStripButton();
-            this.bBrowserFlags2 = new System.Windows.Forms.ToolStripButton();
             this.bMIMEde = new System.Windows.Forms.ToolStripButton();
             this.bAcro5 = new System.Windows.Forms.ToolStripButton();
             this.bAcro6 = new System.Windows.Forms.ToolStripButton();
@@ -57,7 +58,6 @@
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
-            this.bPPTX = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -205,6 +205,18 @@
             this.bPPT.Text = "ppt";
             this.bPPT.Click += new System.EventHandler(this.buttonPPT_Click);
             // 
+            // bPPTX
+            // 
+            this.bPPTX.BackColor = System.Drawing.SystemColors.Control;
+            this.bPPTX.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bPPTX.Image = ((System.Drawing.Image)(resources.GetObject("bPPTX.Image")));
+            this.bPPTX.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bPPTX.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bPPTX.Name = "bPPTX";
+            this.bPPTX.Size = new System.Drawing.Size(54, 20);
+            this.bPPTX.Text = "pptx";
+            this.bPPTX.Click += new System.EventHandler(this.buttonPPTX_Click);
+            // 
             // bDXF
             // 
             this.bDXF.BackColor = System.Drawing.SystemColors.Control;
@@ -345,6 +357,15 @@
             this.bBrowserFlags.Text = "IEでインライン表示するには、BrowserFlags修正案!";
             this.bBrowserFlags.Click += new System.EventHandler(this.buttonBrowserFlags_Click);
             // 
+            // bBrowserFlags2
+            // 
+            this.bBrowserFlags2.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
+            this.bBrowserFlags2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bBrowserFlags2.Name = "bBrowserFlags2";
+            this.bBrowserFlags2.Size = new System.Drawing.Size(545, 20);
+            this.bBrowserFlags2.Text = "Word/PowerPointが飛び出る場合は、BrowserFlags修正案(Office2007/2010/2013)";
+            this.bBrowserFlags2.Click += new System.EventHandler(this.bBrowserFlags2_Click);
+            // 
             // bMIME
             // 
             this.bMIME.BackColor = System.Drawing.SystemColors.Control;
@@ -370,15 +391,6 @@
             this.bMIMEefp.Text = "MIME修正案｢Use EFP｣(CLSID by EnableFullPage)";
             this.bMIMEefp.ToolTipText = "OLE用CLSIDのEnableFullPageを検索し、IE用CLSIDにコピーします";
             this.bMIMEefp.Click += new System.EventHandler(this.bMIME_Click);
-            // 
-            // bBrowserFlags2
-            // 
-            this.bBrowserFlags2.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
-            this.bBrowserFlags2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bBrowserFlags2.Name = "bBrowserFlags2";
-            this.bBrowserFlags2.Size = new System.Drawing.Size(545, 20);
-            this.bBrowserFlags2.Text = "Word/PowerPointが飛び出る場合は、BrowserFlags修正案(Office2007/2010/2013)";
-            this.bBrowserFlags2.Click += new System.EventHandler(this.bBrowserFlags2_Click);
             // 
             // bMIMEde
             // 
@@ -416,7 +428,6 @@
             this.bAcroExe.Size = new System.Drawing.Size(323, 20);
             this.bAcroExe.Text = "HKCR\\Software\\Adobe\\Acrobat\\Exe 修正案";
             this.bAcroExe.DropDownOpening += new System.EventHandler(this.bAcroExe_DropDownOpening);
-            this.bAcroExe.Click += new System.EventHandler(this.bAcroExe_Click);
             // 
             // l2
             // 
@@ -461,18 +472,6 @@
             this.bRestart.Size = new System.Drawing.Size(160, 22);
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
-            // 
-            // bPPTX
-            // 
-            this.bPPTX.BackColor = System.Drawing.SystemColors.Control;
-            this.bPPTX.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.bPPTX.Image = ((System.Drawing.Image)(resources.GetObject("bPPTX.Image")));
-            this.bPPTX.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bPPTX.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.bPPTX.Name = "bPPTX";
-            this.bPPTX.Size = new System.Drawing.Size(54, 20);
-            this.bPPTX.Text = "pptx";
-            this.bPPTX.Click += new System.EventHandler(this.buttonPPTX_Click);
             // 
             // CForm
             // 
