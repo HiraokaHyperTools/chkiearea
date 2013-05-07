@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ChkIEArea")]
-[assembly: AssemblyCopyright("Copyright (C)  2008,2012")]
+[assembly: AssemblyCopyright("Copyright (C)  2008,2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,4 +30,4 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.16.0")] // HERE
+[assembly: AssemblyFileVersion("1.0.17.0")] // HERE
