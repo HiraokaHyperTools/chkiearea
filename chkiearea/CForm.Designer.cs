@@ -58,6 +58,8 @@
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
+            this.bWMV = new System.Windows.Forms.ToolStripButton();
+            this.bMP4 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -125,7 +127,9 @@
             this.bHTML,
             this.bEML,
             this.bMHT,
-            this.bTXT});
+            this.bTXT,
+            this.bMP4,
+            this.bWMV});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 238);
             this.toolStrip1.Name = "toolStrip1";
@@ -473,6 +477,30 @@
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
+            // bWMV
+            // 
+            this.bWMV.BackColor = System.Drawing.SystemColors.Control;
+            this.bWMV.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bWMV.Image = ((System.Drawing.Image)(resources.GetObject("bWMV.Image")));
+            this.bWMV.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bWMV.Margin = new System.Windows.Forms.Padding(0, 1, 1, 2);
+            this.bWMV.Name = "bWMV";
+            this.bWMV.Size = new System.Drawing.Size(58, 20);
+            this.bWMV.Text = "WMV";
+            this.bWMV.Click += new System.EventHandler(this.bWMV_Click);
+            // 
+            // bMP4
+            // 
+            this.bMP4.BackColor = System.Drawing.SystemColors.Control;
+            this.bMP4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bMP4.Image = ((System.Drawing.Image)(resources.GetObject("bMP4.Image")));
+            this.bMP4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bMP4.Margin = new System.Windows.Forms.Padding(0, 1, 1, 2);
+            this.bMP4.Name = "bMP4";
+            this.bMP4.Size = new System.Drawing.Size(55, 20);
+            this.bMP4.Text = "MP4";
+            this.bMP4.Click += new System.EventHandler(this.bMP4_Click);
+            // 
             // CForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -539,6 +567,8 @@
         private System.Windows.Forms.ToolStripButton bTIF;
         private System.Windows.Forms.ToolStripButton bTIFF;
         private System.Windows.Forms.ToolStripButton bPPTX;
+        private System.Windows.Forms.ToolStripButton bMP4;
+        private System.Windows.Forms.ToolStripButton bWMV;
     }
 }
 
