@@ -58,6 +58,8 @@ namespace ChkIEArea {
         private void bDXF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.dxf"); }
         private void bTIF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.tif"); }
         private void bTIFF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.tiff"); }
+        private void bMP4_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.mp4"); }
+        private void bWMV_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.wmv"); }
 
         private void view2(ToolStripItem sender, String fn) {
             String fp = Path.Combine(Path.Combine(Application.StartupPath, "f"), fn);
@@ -699,5 +701,6 @@ namespace ChkIEArea {
         private void bRestart_Click(object sender, EventArgs e) {
             Application.Restart();
         }
+
     }
 }
