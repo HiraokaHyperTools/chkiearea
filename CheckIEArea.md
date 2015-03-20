@@ -1,0 +1,2 @@
+ChkIEArea 入手は、こちらから：
+https://drive.google.com/file/d/0Bygl-em20CSKdExiRDdSTXY3dnc/view?usp=sharing
