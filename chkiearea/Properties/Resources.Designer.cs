@@ -60,6 +60,13 @@ namespace ChkIEArea.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap DeleteFolderHS {
+            get {
+                object obj = ResourceManager.GetObject("DeleteFolderHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Folder_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Folder_16x16", resourceCulture);

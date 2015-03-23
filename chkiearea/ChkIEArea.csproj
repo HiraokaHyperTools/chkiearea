@@ -199,9 +199,13 @@
     <Content Include="f\動作チェック用テストデータ.pptx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="ooo341.reg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\ZoomHS.png" />
     <None Include="Resources\PrintPreviewHS.png" />
+    <Content Include="Resources\DeleteFolderHS.png" />
     <Content Include="Resources\Folder_16x16.png" />
     <Content Include="Resources\Gear.png" />
     <Content Include="Resources\PropertiesHS.png" />

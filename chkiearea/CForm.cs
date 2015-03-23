@@ -279,7 +279,7 @@ namespace ChkIEArea {
                     MessageBox.Show(this, "CLSIDが無いか正しく在りません。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                form2.AddCLSID(Registry.ClassesRoot, ext, oleId,clsid);
+                form2.AddCLSID(Registry.ClassesRoot, ext, oleId, clsid);
 
                 form2.SetContentType(contentType);
                 {
@@ -689,5 +689,51 @@ namespace ChkIEArea {
             return;
         }
 
+        private void bOOo_DropDownOpening(object sender, EventArgs e) {
+            bOOo.DropDownItems.Clear();
+
+            List<string> extrapaths = new List<string>();
+            foreach (String dir1 in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "LibreOffice*")) {
+                extrapaths.Add(dir1);
+            }
+            foreach (String dir1 in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "OpenOffice.org*")) {
+                extrapaths.Add(dir1);
+            }
+            foreach (String dir1 in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "OpenOffice 4*")) {
+                extrapaths.Add(dir1);
+            }
+
+            foreach (String dir1 in extrapaths) {
+                if (Directory.Exists(dir1)) {
+                    String fp1 = Path.Combine(dir1, "program" + "\\" + "so_activex.dll");
+                    if (File.Exists(fp1)) {
+                        ToolStripItem tsiReg = bOOo.DropDownItems.Add("① so_activex.dll登録 from " + fp1);
+                        tsiReg.Tag = fp1;
+                        tsiReg.Click += new EventHandler(tsiReg_Click);
+                    }
+                }
+            }
+
+            bOOo.DropDownItems.Add(new ToolStripSeparator());
+            {
+                ToolStripItem tsirk = bOOo.DropDownItems.Add("② ooo341.regを登録");
+                tsirk.Click += new EventHandler(tsirk_Click);
+            }
+            bOOo.DropDownItems.Add(new ToolStripSeparator());
+            {
+                ToolStripItem tsi = bOOo.DropDownItems.Add("③ 「Use EFP」で、「SOActiveX Class」を選択");
+                tsi.Enabled = false;
+            }
+        }
+
+        void tsirk_Click(object sender, EventArgs e) {
+            String fp1 = Path.Combine(Application.StartupPath, "ooo341.reg");
+            Process.Start("regedit.exe", " \"" + fp1 + "\"");
+        }
+
+        void tsiReg_Click(object sender, EventArgs e) {
+            String fp1 = (String)((ToolStripItem)sender).Tag;
+            Process.Start("regsvr32.exe", " \"" + fp1 + "\"");
+        }
     }
 }

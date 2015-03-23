@@ -57,92 +57,102 @@ namespace ChkIEArea {
 
         public void Modify(string lastfp, IValMod vm) {
             String ext = Path.GetExtension(lastfp);
-            lExt.Text = ext;
             RegistryKey extKey = Registry.ClassesRoot.OpenSubKey(ext, false);
-
-            lExtDef.Text = lPid.Text = "";
-            lExtCT.Text = lMime.Text = "";
-            lPidClsidDef.Text = "";
-            lPidBip.Text = "";
-            lPidBf.Text = "";
-            lPidEf.Text = "";
-            lMimeClsid.Text = lClsid.Text = "";
-            lMimeExt.Text = "";
-            lClsidDef.Text = "";
-            lClsidDe.Text = "";
-            lClsidEfp.Text = "";
-            lClsidIps.Text = "";
-            lClsidPid.Text = "";
-            lPid2Clsid.Text = "";
-            lPid2.Text = "";
-            lPid2Bip.Text = "";
-            lPid2Bf.Text = "";
-            lPid2Ef.Text = "";
 
             alrv.Clear();
 
+            AddHR();
+
+            AddRKey(0, "HKEY_CLASSES_ROOT");
+            AddRKey(1, ext, extKey != null);
             if (extKey != null) {
                 String extDef = "" + extKey.GetValue("");
-                lExtDef.Text = lPid.Text = extDef;
                 String extCt = "" + extKey.GetValue("Content Type");
-                lExtCT.Text = lMime.Text = extCt;
+                AddVKey(2, "(ä˘íË)", extDef);
+                AddVKey(2, "Content Type", extCt);
+                AddSpc();
 
+                AddRKey(0, "HKEY_CLASSES_ROOT");
                 if (!String.IsNullOrEmpty(extDef)) {
                     RegistryKey pidKey = Registry.ClassesRoot.OpenSubKey(extDef, false);
+                    AddRKey(1, extDef, pidKey != null);
                     if (pidKey != null) {
                         RegistryKey pidClsidKey = pidKey.OpenSubKey("CLSID", false);
                         if (pidClsidKey != null) {
-                            lPidClsidDef.Text = "" + pidClsidKey.GetValue("");
+                            AddVKey(2, "CLSID", "" + pidClsidKey.GetValue(""));
                         }
-                        lPidBip.Text = "" + pidKey.GetValue("BrowseInPlace");
-                        new RV(new ValRef(pidKey, "BrowseInPlace"), lPidBf, alrv);
-                        lPidBf.Text = FUt.Hex(pidKey.GetValue("BrowserFlags"));
-                        new RV(new ValRef(pidKey, "BrowserFlags"), lPidBf, alrv);
-                        lPidEf.Text = FUt.Hex(pidKey.GetValue("EditFlags"));
-                        new RV(new ValRef(pidKey, "EditFlags"), lPidEf, alrv);
+                        Ctls cs;
+                        cs = AddVKey(2, "BrowseInPlace", "" + pidKey.GetValue("BrowseInPlace"));
+                        new RV(new ValRef(pidKey, "BrowseInPlace"), cs.la, alrv);
+                        cs = AddVKey(2, "BrowserFlags", FUt.Hex(pidKey.GetValue("BrowserFlags")));
+                        new RV(new ValRef(pidKey, "BrowserFlags"), cs.la, alrv);
+                        cs = AddVKey(2, "EditFlags", FUt.Hex(pidKey.GetValue("EditFlags")));
+                        new RV(new ValRef(pidKey, "EditFlags"), cs.la, alrv);
                     }
                 }
+                AddSpc();
+
+                AddRKey(0, "HKEY_CLASSES_ROOT");
+                AddRKey(1, "MIME");
+                AddRKey(2, "Database");
+                AddRKey(3, "Content Type");
                 if (!String.IsNullOrEmpty(extCt)) {
                     RegistryKey mimeKey = Registry.ClassesRoot.OpenSubKey("MIME\\Database\\Content Type\\" + extCt, false);
+                    AddRKey(4, extCt, mimeKey != null);
                     if (mimeKey != null) {
                         String mimeClsid = "" + mimeKey.GetValue("CLSID");
-                        lMimeClsid.Text = lClsid.Text = mimeClsid;
-                        lMimeExt.Text = "" + mimeKey.GetValue("Extension");
+                        AddVKey(5, "CLSID", mimeClsid);
+                        AddVKey(5, "Extension", "" + mimeKey.GetValue("Extension"));
+                        AddSpc();
 
+                        AddRKey(0, "HKEY_CLASSES_ROOT");
+                        AddRKey(1, "CLSID");
                         if (!String.IsNullOrEmpty(mimeClsid)) {
                             RegistryKey clsidKey = Registry.ClassesRoot.OpenSubKey("CLSID\\" + mimeClsid, false);
+                            AddRKey(2, mimeClsid, clsidKey != null);
                             if (clsidKey != null) {
-                                lClsidDef.Text = "" + clsidKey.GetValue("");
+                                AddVKey(3, "", "" + clsidKey.GetValue(""));
                                 RegistryKey clsidDeKey = clsidKey.OpenSubKey("DefaultExtension", false);
+                                AddRKey(3, "DefaultExtension", clsidDeKey != null);
                                 if (clsidDeKey != null) {
-                                    lClsidDe.Text = "" + clsidDeKey.GetValue("");
+                                    AddVKey(4, "", "" + clsidDeKey.GetValue(""));
                                 }
                                 RegistryKey clsidEfpKey = clsidKey.OpenSubKey("EnableFullPage", false);
+                                AddRKey(3, "EnableFullPage", clsidEfpKey != null);
                                 if (clsidEfpKey != null) {
-                                    lClsidEfp.Text = String.Join(" ", clsidEfpKey.GetSubKeyNames());
+                                    foreach (String sk in clsidEfpKey.GetSubKeyNames()) {
+                                        AddRKey(4, sk);
+                                    }
                                 }
                                 RegistryKey clsidIpsKey = clsidKey.OpenSubKey("InprocServer32", false);
+                                AddRKey(3, "InprocServer32", clsidIpsKey != null);
                                 if (clsidIpsKey != null) {
-                                    lClsidIps.Text = "" + clsidIpsKey.GetValue("");
+                                    AddVKey(4, "", "" + clsidIpsKey.GetValue(""));
                                 }
                                 RegistryKey clsidPidKey = clsidKey.OpenSubKey("ProgID", false);
+                                AddRKey(3, "ProgID", clsidPidKey != null);
                                 if (clsidPidKey != null) {
                                     String clsidPid = "" + clsidPidKey.GetValue("");
-                                    lClsidPid.Text = lPid2.Text = clsidPid;
+                                    AddVKey(4, "", clsidPid);
+                                    AddSpc();
 
+                                    AddRKey(0, "HKEY_CLASSES_ROOT");
                                     if (!String.IsNullOrEmpty(clsidPid)) {
                                         RegistryKey pidKey = Registry.ClassesRoot.OpenSubKey(clsidPid, false);
+                                        AddRKey(1, clsidPid, pidKey != null);
                                         if (pidKey != null) {
                                             RegistryKey pidClsidKey = pidKey.OpenSubKey("CLSID", false);
+                                            AddRKey(2, "CLSID", pidClsidKey != null);
                                             if (pidClsidKey != null) {
-                                                lPid2Clsid.Text = "" + pidClsidKey.GetValue("");
+                                                AddVKey(3, "", "" + pidClsidKey.GetValue(""));
                                             }
-                                            lPid2Bip.Text = "" + pidKey.GetValue("BrowseInPlace");
-                                            new RV(new ValRef(pidKey, "BrowseInPlace"), lPid2Bip, alrv);
-                                            lPid2Bf.Text = FUt.Hex(pidKey.GetValue("BrowserFlags"));
-                                            new RV(new ValRef(pidKey, "BrowserFlags"), lPid2Bf, alrv);
-                                            lPid2Ef.Text = FUt.Hex(pidKey.GetValue("EditFlags"));
-                                            new RV(new ValRef(pidKey, "EditFlags"), lPid2Ef, alrv);
+                                            Ctls cs;
+                                            cs = AddVKey(2, "BrowseInPlace", "" + pidKey.GetValue("BrowseInPlace"));
+                                            new RV(new ValRef(pidKey, "BrowseInPlace"), cs.la, alrv);
+                                            cs = AddVKey(2, "BrowserFlags", FUt.Hex(pidKey.GetValue("BrowserFlags")));
+                                            new RV(new ValRef(pidKey, "BrowserFlags"), cs.la, alrv);
+                                            cs = AddVKey(2, "EditFlags", FUt.Hex(pidKey.GetValue("EditFlags")));
+                                            new RV(new ValRef(pidKey, "EditFlags"), cs.la, alrv);
                                         }
                                     }
                                 }
@@ -186,9 +196,12 @@ namespace ChkIEArea {
             Button b = new Button();
             b.Text = "" + ae;
             b.AutoSize = true;
-            b.Left = la.Right + la.Margin.Right;
-            b.Top = (la.Top + la.Bottom) / 2 - b.Height / 2;
+            //b.Left = la.Right + la.Margin.Right;
+            //b.Top = (la.Top + la.Bottom) / 2 - b.Height / 2;
+            //b.Parent = la.Parent;
+            b.Anchor = AnchorStyles.Left;
             b.Parent = la.Parent;
+            la.Parent.Controls.SetChildIndex(b, la.Parent.Controls.IndexOf(la) + 1);
             b.Click += delegate {
                 ae.Apply();
                 MessageBox.Show(this, "ê›íËÇµÇ‹ÇµÇΩÅB", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -196,6 +209,83 @@ namespace ChkIEArea {
         }
 
         #endregion
+
+        private void EdREGForm_Load(object sender, EventArgs e) {
+
+        }
+
+        Bitmap _Folder = ChkIEArea.Properties.Resources.Folder_16x16;
+        Bitmap _FolderDeleted = ChkIEArea.Properties.Resources.DeleteFolderHS;
+        Bitmap _Prop = ChkIEArea.Properties.Resources.PropertiesHS;
+
+        Ctls AddVKey(int indent, String name, String val) {
+            if (String.IsNullOrEmpty(name)) name = "(ä˘íË)";
+            return AddKey(indent, name + " = " + val, _Prop);
+        }
+        Ctls AddRKey(int indent, String name) {
+            return AddKey(indent, name, _Folder);
+        }
+        Ctls AddRKey(int indent, String name, bool exists) {
+            return AddKey(indent, name, exists ? _Folder : _FolderDeleted);
+        }
+        void AddSpc() {
+            Label la = new Label();
+            la.AutoSize = false;
+            la.Text = "";
+            la.Size = new Size(16, 16);
+            flp1.Controls.Add(la);
+        }
+        void AddHR() {
+            Label la = new Label();
+            la.AutoSize = false;
+            la.Text = "";
+            la.Size = new Size(flp1.Width - 16, 2);
+            la.BorderStyle = BorderStyle.Fixed3D;
+            la.Margin = new Padding(0, 5, 0, 5);
+            la.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            flp1.Controls.Add(la);
+        }
+
+        class Ctls {
+            public Label la;
+            public FlowLayoutPanel fx;
+        }
+
+        Ctls AddKey(int indent, String name, Bitmap p) {
+            Ctls ctls = new Ctls();
+
+            FlowLayoutPanel fx = new FlowLayoutPanel();
+            fx.AutoSize = true;
+            fx.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            fx.Margin = new Padding(8 + 16 * indent, 0, 0, 1);
+            fx.Padding = new Padding(0);
+            {
+                PictureBox pb = new PictureBox();
+                pb.Image = p;
+                pb.SizeMode = PictureBoxSizeMode.AutoSize;
+                pb.Margin = new Padding(0);
+                pb.Anchor = AnchorStyles.Left;
+                fx.Controls.Add(pb);
+            }
+            {
+                Label la = new Label();
+                la.MinimumSize = new Size(0, 16);
+                la.Text = name;
+                la.AutoSize = true;
+                la.TextAlign = ContentAlignment.MiddleLeft;
+                la.Margin = new Padding(3, 0, 0, 0);
+                la.Font = _Font;
+                la.Anchor = AnchorStyles.Left;
+                fx.Controls.Add(la);
+                ctls.la = la;
+            }
+            flp1.Controls.Add(fx);
+            ctls.fx = fx;
+
+            return ctls;
+        }
+
+        Font _Font = new Font("ÇlÇr ÉSÉVÉbÉN", 9, FontStyle.Bold);
     }
 
     public interface IEdMarker {

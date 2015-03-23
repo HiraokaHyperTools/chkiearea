@@ -25,11 +25,11 @@ namespace ChkIEArea {
 
             AddRKey(0, "HKEY_CLASSES_ROOT");
             AddRKey(1, ext);
-            AddVKey(2, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + ext, "", ""));
+            AddVKey(2, "", "" + Registry.GetValue(rk.Name + "\\" + ext, "", ""));
             AddRKey(1, pid);
-            AddVKey(2, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + pid, "", ""));
+            AddVKey(2, "", "" + Registry.GetValue(rk.Name + "\\" + pid, "", ""));
             AddRKey(2, "CLSID");
-            AddVKey(3, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + pid + "\\" + "CLSID", "", ""));
+            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + pid + "\\" + "CLSID", "", ""));
         }
 
         public void AddEFP(RegistryKey rk, String clsid) {
@@ -43,6 +43,7 @@ namespace ChkIEArea {
             AddRKey(0, "HKEY_CLASSES_ROOT");
             AddRKey(1, "CLSID");
             AddRKey(2, clsid);
+            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + clsid, "", ""));
             AddRKey(3, "EnableFullPage");
             RegistryKey rkEFP = rk.OpenSubKey(clsid + "\\" + "EnableFullPage", false);
             if (rkEFP != null) {
@@ -63,8 +64,9 @@ namespace ChkIEArea {
             AddRKey(0, "HKEY_CLASSES_ROOT");
             AddRKey(1, "CLSID");
             AddRKey(2, clsid);
+            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + clsid, "", ""));
             AddRKey(3, "DefaultExtension");
-            AddVKey(4, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + clsid + "\\" + "DefaultExtension", "", ""));
+            AddVKey(4, "", "" + Registry.GetValue(rk.Name + "\\" + clsid + "\\" + "DefaultExtension", "", ""));
         }
 
         void b_Click(object sender, EventArgs e) {
@@ -76,8 +78,9 @@ namespace ChkIEArea {
         Bitmap _Folder = ChkIEArea.Properties.Resources.Folder_16x16;
         Bitmap _Prop = ChkIEArea.Properties.Resources.PropertiesHS;
 
-        void AddVKey(int indent, String name) {
-            AddKey(indent, name, _Prop);
+        void AddVKey(int indent, String name, String val) {
+            if (String.IsNullOrEmpty(name)) name = "(Šù’è)";
+            AddKey(indent, name + " = " + val, _Prop);
         }
         void AddRKey(int indent, String name) {
             AddKey(indent, name, _Folder);

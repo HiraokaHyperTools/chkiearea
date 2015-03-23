@@ -29,10 +29,6 @@
             this.l1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.l2 = new System.Windows.Forms.Label();
-            this.l3 = new System.Windows.Forms.Label();
-            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bPDF = new System.Windows.Forms.ToolStripButton();
             this.bDOC = new System.Windows.Forms.ToolStripButton();
             this.bDOCX = new System.Windows.Forms.ToolStripButton();
@@ -50,17 +46,22 @@
             this.bTXT = new System.Windows.Forms.ToolStripButton();
             this.bMP4 = new System.Windows.Forms.ToolStripButton();
             this.bWMV = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.bEditFlags = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags2 = new System.Windows.Forms.ToolStripButton();
+            this.bBrowseInPlace = new System.Windows.Forms.ToolStripButton();
             this.bMIME = new System.Windows.Forms.ToolStripButton();
             this.bMIMEefp = new System.Windows.Forms.ToolStripButton();
             this.bMIMEde = new System.Windows.Forms.ToolStripButton();
             this.bAcro5 = new System.Windows.Forms.ToolStripButton();
             this.bAcro6 = new System.Windows.Forms.ToolStripButton();
             this.bAcroExe = new System.Windows.Forms.ToolStripDropDownButton();
+            this.l2 = new System.Windows.Forms.Label();
+            this.l3 = new System.Windows.Forms.Label();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
-            this.bBrowseInPlace = new System.Windows.Forms.ToolStripButton();
+            this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -137,63 +138,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(678, 46);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bEditFlags,
-            this.bBrowserFlags,
-            this.bBrowserFlags2,
-            this.bBrowseInPlace,
-            this.bMIME,
-            this.bMIMEefp,
-            this.bMIMEde,
-            this.bAcro5,
-            this.bAcro6,
-            this.bAcroExe});
-            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 283);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(678, 138);
-            this.toolStrip2.TabIndex = 5;
-            this.toolStrip2.TabStop = true;
-            // 
-            // l2
-            // 
-            this.l2.AutoSize = true;
-            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l2.Location = new System.Drawing.Point(0, 261);
-            this.l2.Margin = new System.Windows.Forms.Padding(3);
-            this.l2.Name = "l2";
-            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l2.Size = new System.Drawing.Size(41, 22);
-            this.l2.TabIndex = 4;
-            this.l2.Text = "修正者";
-            // 
-            // l3
-            // 
-            this.l3.AutoSize = true;
-            this.l3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l3.Location = new System.Drawing.Point(0, 421);
-            this.l3.Margin = new System.Windows.Forms.Padding(3);
-            this.l3.Name = "l3";
-            this.l3.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l3.Size = new System.Drawing.Size(29, 22);
-            this.l3.TabIndex = 6;
-            this.l3.Text = "補助";
-            // 
-            // toolStrip3
-            // 
-            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bRestart});
-            this.toolStrip3.Location = new System.Drawing.Point(0, 443);
-            this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(678, 25);
-            this.toolStrip3.TabIndex = 7;
-            this.toolStrip3.Text = "toolStrip3";
             // 
             // bPDF
             // 
@@ -398,6 +342,29 @@
             this.bWMV.Text = "WMV";
             this.bWMV.Click += new System.EventHandler(this.bWMV_Click);
             // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bEditFlags,
+            this.bBrowserFlags,
+            this.bBrowserFlags2,
+            this.bBrowseInPlace,
+            this.bMIME,
+            this.bMIMEefp,
+            this.bMIMEde,
+            this.bAcro5,
+            this.bAcro6,
+            this.bAcroExe,
+            this.bOOo});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip2.Location = new System.Drawing.Point(0, 283);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(678, 138);
+            this.toolStrip2.TabIndex = 5;
+            this.toolStrip2.TabStop = true;
+            // 
             // bEditFlags
             // 
             this.bEditFlags.BackColor = System.Drawing.SystemColors.Control;
@@ -430,6 +397,15 @@
             this.bBrowserFlags2.Size = new System.Drawing.Size(545, 20);
             this.bBrowserFlags2.Text = "Word/PowerPointが飛び出る場合は、BrowserFlags修正案(Office2007/2010/2013)";
             this.bBrowserFlags2.Click += new System.EventHandler(this.bBrowserFlags2_Click);
+            // 
+            // bBrowseInPlace
+            // 
+            this.bBrowseInPlace.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
+            this.bBrowseInPlace.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bBrowseInPlace.Name = "bBrowseInPlace";
+            this.bBrowseInPlace.Size = new System.Drawing.Size(164, 20);
+            this.bBrowseInPlace.Text = "BrowseInPlace修正案";
+            this.bBrowseInPlace.Click += new System.EventHandler(this.bBrowseInPlace_Click);
             // 
             // bMIME
             // 
@@ -494,6 +470,41 @@
             this.bAcroExe.Text = "HKCR\\Software\\Adobe\\Acrobat\\Exe 修正案";
             this.bAcroExe.DropDownOpening += new System.EventHandler(this.bAcroExe_DropDownOpening);
             // 
+            // l2
+            // 
+            this.l2.AutoSize = true;
+            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l2.Location = new System.Drawing.Point(0, 261);
+            this.l2.Margin = new System.Windows.Forms.Padding(3);
+            this.l2.Name = "l2";
+            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l2.Size = new System.Drawing.Size(41, 22);
+            this.l2.TabIndex = 4;
+            this.l2.Text = "修正者";
+            // 
+            // l3
+            // 
+            this.l3.AutoSize = true;
+            this.l3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l3.Location = new System.Drawing.Point(0, 421);
+            this.l3.Margin = new System.Windows.Forms.Padding(3);
+            this.l3.Name = "l3";
+            this.l3.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l3.Size = new System.Drawing.Size(29, 22);
+            this.l3.TabIndex = 6;
+            this.l3.Text = "補助";
+            // 
+            // toolStrip3
+            // 
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bRestart});
+            this.toolStrip3.Location = new System.Drawing.Point(0, 443);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.Size = new System.Drawing.Size(678, 25);
+            this.toolStrip3.TabIndex = 7;
+            this.toolStrip3.Text = "toolStrip3";
+            // 
             // bRestart
             // 
             this.bRestart.Image = ((System.Drawing.Image)(resources.GetObject("bRestart.Image")));
@@ -503,14 +514,14 @@
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
-            // bBrowseInPlace
+            // bOOo
             // 
-            this.bBrowseInPlace.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
-            this.bBrowseInPlace.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bBrowseInPlace.Name = "bBrowseInPlace";
-            this.bBrowseInPlace.Size = new System.Drawing.Size(164, 20);
-            this.bBrowseInPlace.Text = "BrowseInPlace修正案";
-            this.bBrowseInPlace.Click += new System.EventHandler(this.bBrowseInPlace_Click);
+            this.bOOo.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bOOo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bOOo.Name = "bOOo";
+            this.bOOo.Size = new System.Drawing.Size(207, 20);
+            this.bOOo.Text = "OpenOffice ActiveX修正案";
+            this.bOOo.DropDownOpening += new System.EventHandler(this.bOOo_DropDownOpening);
             // 
             // CForm
             // 
@@ -581,6 +592,7 @@
         private System.Windows.Forms.ToolStripButton bMP4;
         private System.Windows.Forms.ToolStripButton bWMV;
         private System.Windows.Forms.ToolStripButton bBrowseInPlace;
+        private System.Windows.Forms.ToolStripDropDownButton bOOo;
     }
 }
 
