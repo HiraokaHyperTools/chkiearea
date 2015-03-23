@@ -223,10 +223,8 @@ namespace ChkIEArea {
         }
         public void SetValue(Object nv) {
             this.nv = nv;
-            isSet = true;
         }
 
-        bool isSet = false;
         Object nv;
 
         public RegistryKey rk;
@@ -269,8 +267,8 @@ namespace ChkIEArea {
         #region IValMod ÉÅÉìÉo
 
         public bool ModifyVal(ValRef vr) {
-            String o = "" + vr.GetValue();
-            if (!o.Equals(s)) {
+            String o = vr.GetValue() as String;
+            if (o == null || !o.Equals(s)) {
                 vr.SetValue(s);
                 return true;
             }
