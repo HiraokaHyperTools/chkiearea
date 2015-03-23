@@ -279,8 +279,17 @@ namespace ChkIEArea {
                     MessageBox.Show(this, "CLSIDが無いか正しく在りません。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
+                form2.AddCLSID(Registry.ClassesRoot, ext, oleId,clsid);
 
-                newclsid = clsidGuid.ToString("B");
+                form2.SetContentType(contentType);
+                {
+                    if (form2.ShowDialog() != DialogResult.OK)
+                        return;
+                    String sel = form2.Sel;
+                    if (sel == null)
+                        return;
+                    newclsid = sel;
+                }
             }
             else if (ty == Repairty.UseDE) {
                 SortedDictionary<String, Guid> dict = new SortedDictionary<string, Guid>();

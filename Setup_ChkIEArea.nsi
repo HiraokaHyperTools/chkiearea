@@ -8,8 +8,8 @@
 ;--------------------------------
 
 !define APP "ChkIEArea"
-!define VER "1.0.18"
-!define APV "1_0_18"
+!define VER "1.0.19"
+!searchreplace APV ${VER} "." "_"
 
 ; The name of the installer
 Name "${APP} ${VER}"
@@ -21,7 +21,7 @@ OutFile "Setup_${APP}_${APV}.exe"
 InstallDir "$APPDATA\${APP}"
 
 ; Request application privileges for Windows Vista
-RequestExecutionLevel highest
+RequestExecutionLevel admin
 
 !define DOTNET_VERSION "2.0"
 
@@ -51,12 +51,12 @@ Section "" ;No components page, name is not important
   !insertmacro CheckDotNET ${DOTNET_VERSION}
 
   ; Put file there
-  File "bin\x86\release\ChkIEArea.exe"
-  File "bin\x86\release\ChkIEArea.exe.manifest"
-  File "bin\x86\release\ChkIEArea.pdb"
+  File "chkiearea\bin\x86\release\ChkIEArea.exe"
+  File "chkiearea\bin\x86\release\ChkIEArea.exe.manifest"
+  File "chkiearea\bin\x86\release\ChkIEArea.pdb"
   
   SetOutPath $INSTDIR\f
-  File "bin\x86\release\f\*.*"
+  File "chkiearea\bin\x86\release\f\*.*"
 
   Exec "$INSTDIR\ChkIEArea.exe"
 SectionEnd ; end the section

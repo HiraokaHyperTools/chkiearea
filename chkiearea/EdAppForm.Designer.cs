@@ -229,11 +229,12 @@
             // 
             this.lTodo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.lTodo.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lTodo.Location = new System.Drawing.Point(50, 12);
             this.lTodo.Name = "lTodo";
             this.lTodo.Size = new System.Drawing.Size(475, 32);
             this.lTodo.TabIndex = 2;
-            this.lTodo.Text = "MIME修正案では、CLSIDとExtensionを変更します。";
+            this.lTodo.Text = "MIME修正案では、黄色で囲ったCLSIDとExtensionを変更します。";
             this.lTodo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lMimeExt
@@ -284,9 +285,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 196);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(253, 12);
+            this.label1.Size = new System.Drawing.Size(345, 12);
             this.label1.TabIndex = 34;
-            this.label1.Text = "CLSID配下を検索しました。アプリを選択してください：";
+            this.label1.Text = "HKEY_CLASSES_ROOT\\CLSID配下から、有効なアプリを検索しました：";
             // 
             // flp1
             // 

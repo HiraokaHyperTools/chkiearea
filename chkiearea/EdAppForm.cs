@@ -15,6 +15,23 @@ namespace ChkIEArea {
 
         public String Sel = null;
 
+        public void AddCLSID(RegistryKey rk, String ext, String pid, String clsid) {
+            Button b = new Button();
+            b.AutoSize = true;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + "CLSID" + "\\" + clsid, "", "");
+            b.Tag = clsid;
+            b.Click += new EventHandler(b_Click);
+            flp1.Controls.Add(b);
+
+            AddRKey(0, "HKEY_CLASSES_ROOT");
+            AddRKey(1, ext);
+            AddVKey(2, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + ext, "", ""));
+            AddRKey(1, pid);
+            AddVKey(2, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + pid, "", ""));
+            AddRKey(2, "CLSID");
+            AddVKey(3, "(Šù’è) = " + Registry.GetValue(rk.Name + "\\" + pid + "\\" + "CLSID", "", ""));
+        }
+
         public void AddEFP(RegistryKey rk, String clsid) {
             Button b = new Button();
             b.AutoSize = true;
@@ -70,7 +87,7 @@ namespace ChkIEArea {
             FlowLayoutPanel fx = new FlowLayoutPanel();
             fx.AutoSize = true;
             fx.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            fx.Margin = new Padding(8 + 16 * indent, 0, 0, 0);
+            fx.Margin = new Padding(8 + 16 * indent, 0, 0, 1);
             fx.Padding = new Padding(0);
             {
                 PictureBox pb = new PictureBox();

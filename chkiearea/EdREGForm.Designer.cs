@@ -901,6 +901,7 @@
             // 
             this.lTodo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.lTodo.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lTodo.Location = new System.Drawing.Point(50, 12);
             this.lTodo.Name = "lTodo";
             this.lTodo.Size = new System.Drawing.Size(627, 32);
