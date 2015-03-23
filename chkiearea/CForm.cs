@@ -221,6 +221,8 @@ namespace ChkIEArea {
             else if (sender == bMIMEde) ty = Repairty.UseDE;
             else throw new NotSupportedException();
 
+            EdAppForm form2 = new EdAppForm();
+
             if (lastfp == null) {
                 MessageBox.Show(this, "先に調査してください。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -238,6 +240,17 @@ namespace ChkIEArea {
             if (rkext == null) {
                 MessageBox.Show(this, "拡張子が登録されていません。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
+            }
+
+            String contentType = rkext.GetValue("Content Type") as String;
+            if (contentType == null) {
+                MessageBox.Show(this, "Content Typeが有りません。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            RegistryKey rkct = Registry.ClassesRoot.OpenSubKey(@"Mime\Database\Content Type", false);
+            if (rkct == null) {
+                MessageBox.Show(this, "MIME DBが無いようです。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             String oleId = rkext.GetValue("") as String;
@@ -294,18 +307,20 @@ namespace ChkIEArea {
                         appname = s;
 
                     dict[appname] = new Guid(s);
+                    form2.AddDE(rkrootclsid, s);
                 }
                 if (dict.Count == 0) {
                     MessageBox.Show(this, "DefaultExtensionから有効なアプリを発見できませんでした。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                using (SelAppForm form = new SelAppForm(dict)) {
-                    if (form.ShowDialog(this) != DialogResult.OK)
+                form2.SetContentType(contentType);
+                {
+                    if (form2.ShowDialog() != DialogResult.OK)
                         return;
-                    Guid? sel = form.Sel;
+                    String sel = form2.Sel;
                     if (sel == null)
                         return;
-                    newclsid = sel.Value.ToString("B");
+                    newclsid = sel;
                 }
             }
             else if (ty == Repairty.UseEFP) {
@@ -327,6 +342,7 @@ namespace ChkIEArea {
                                 appname = s;
 
                             dict[appname] = new Guid(s);
+                            form2.AddEFP(rkrootclsid, s);
                         }
                     }
                 }
@@ -334,27 +350,17 @@ namespace ChkIEArea {
                     MessageBox.Show(this, "EFPから有効なアプリを発見できませんでした。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                using (SelAppForm form = new SelAppForm(dict)) {
-                    if (form.ShowDialog(this) != DialogResult.OK)
+                form2.SetContentType(contentType);
+                {
+                    if (form2.ShowDialog() != DialogResult.OK)
                         return;
-                    Guid? sel = form.Sel;
+                    String sel = form2.Sel;
                     if (sel == null)
                         return;
-                    newclsid = sel.Value.ToString("B");
+                    newclsid = sel;
                 }
             }
             else throw new NotSupportedException("不明な方法：" + ty);
-
-            String contentType = rkext.GetValue("Content Type") as String;
-            if (contentType == null) {
-                MessageBox.Show(this, "Content Typeが有りません。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            RegistryKey rkct = Registry.ClassesRoot.OpenSubKey(@"Mime\Database\Content Type", false);
-            if (rkct == null) {
-                MessageBox.Show(this, "MIME DBが無いようです。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
 
             {
                 RegistryKey rk1 = Registry.ClassesRoot.OpenSubKey(@"Mime\Database\Content Type\" + contentType, false);

@@ -81,6 +81,12 @@
     <Compile Include="CForm.Designer.cs">
       <DependentUpon>CForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EdAppForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EdAppForm.Designer.cs">
+      <DependentUpon>EdAppForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EdREGForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,10 @@
     <EmbeddedResource Include="CForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EdAppForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EdAppForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EdREGForm.resx">
       <SubType>Designer</SubType>
