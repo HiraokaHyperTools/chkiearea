@@ -117,6 +117,7 @@ namespace ChkIEArea {
         }
 
         public void SetContentType(String contentType) {
+            lMime.Text = contentType;
             RegistryKey rk = Registry.ClassesRoot.OpenSubKey(@"Mime\Database\Content Type\" + contentType, false);
             lMimeClsid.Text = "";
             lMimeExt.Text = "";
