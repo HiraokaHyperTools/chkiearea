@@ -108,58 +108,11 @@ namespace ChkIEArea {
                 MessageBox.Show(this, "先に調査してください。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-#if true
-            RFUt.Modify(this, lastfp, "EditFlags", 0, 0x10000, true);
-#else
-            String ex = Path.GetExtension(lastfp);
-            RegistryKey exkey = Registry.ClassesRoot.OpenSubKey(ex, false);
-            if (exkey != null) {
-                string exname = (string)exkey.GetValue("");
-                if (exname != null) {
-                    RegistryKey appkey = Registry.ClassesRoot.OpenSubKey(exname, true);
-                    if (appkey != null) {
-                        object editFlags = appkey.GetValue("EditFlags");
-                        if (editFlags == null) {
-                            byte[] b4 = new byte[] { 0, 0, 1, 0 };
-                            editFlags = b4;
 
-                            if (MessageBox.Show(this, "対策します。(0)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
-                                appkey.SetValue("EditFlags", editFlags);
-                                MessageBox.Show(this, "対策しました。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        else if (editFlags is byte[]) {
-                            byte[] b4 = (byte[])editFlags;
-                            if (0 == (b4[2] & 1)) {
-                                if (MessageBox.Show(this, "対策します。(B)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
-                                    b4[2] |= 0x01;
-
-                                    appkey.SetValue("EditFlags", editFlags);
-                                    MessageBox.Show(this, "対策しました。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                            }
-                            else {
-                                MessageBox.Show(this, "対策済みです。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        else if (editFlags is int) {
-                            int v = (int)editFlags;
-                            if (0 == (v & 0x10000)) {
-                                if (MessageBox.Show(this, "対策します。(DW)", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
-                                    v |= 0x10000;
-
-                                    appkey.SetValue("EditFlags", v);
-                                    MessageBox.Show(this, "対策しました。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                            }
-                            else {
-                                MessageBox.Show(this, "対策済みです。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                    }
-                }
-            }
-#endif
+            EdREGForm form = new EdREGForm();
+            form.Modify(lastfp, new IntMod("EditFlags", 0, 0x10000, true));
+            form.ShowDialog(this);
+            return;
         }
 
         private void buttonPDFNotGood_Click(object sender, EventArgs e) {
@@ -171,7 +124,11 @@ namespace ChkIEArea {
                 MessageBox.Show(this, "先に調査してください。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            RFUt.Modify(this, lastfp, "BrowserFlags", 8, 0, false);
+
+            EdREGForm form = new EdREGForm();
+            form.Modify(lastfp, new IntMod("BrowserFlags", 8, 0, false));
+            form.ShowDialog(this);
+            return;
         }
 
         class RFUt {
@@ -439,7 +396,10 @@ namespace ChkIEArea {
                 MessageBox.Show(this, "先に調査してください。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            RFUt.Modify(this, lastfp, "BrowserFlags", 0xffffffffU, 0x80000024U, false);
+            EdREGForm form = new EdREGForm();
+            form.Modify(lastfp, new IntMod("BrowserFlags", 0xffffffffU, 0x80000024U, false));
+            form.ShowDialog(this);
+            return;
         }
 
         private void bAcro5_Click(object sender, EventArgs e) {
@@ -700,6 +660,18 @@ namespace ChkIEArea {
 
         private void bRestart_Click(object sender, EventArgs e) {
             Application.Restart();
+        }
+
+        private void bBrowseInPlace_Click(object sender, EventArgs e) {
+            if (lastfp == null) {
+                MessageBox.Show(this, "先に調査してください。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            EdREGForm form = new EdREGForm();
+            form.Modify(lastfp, new StrMod("BrowseInPlace", "1"));
+            form.ShowDialog(this);
+            return;
         }
 
     }
