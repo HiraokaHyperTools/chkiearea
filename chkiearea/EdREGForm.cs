@@ -402,7 +402,7 @@ namespace ChkIEArea {
             {
                 uint nv = (v & (~fRemove)) | fAdd;
                 if (v != nv) {
-                    vr.SetValue(preferBytea ? (Object)Ut.Bytea(nv) : nv);
+                    vr.SetValue(preferBytea ? (Object)Ut.Bytea(nv) : (int)nv);
                     return true;
                 }
             }
