@@ -29,6 +29,12 @@
             this.l1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.l2 = new System.Windows.Forms.Label();
+            this.l3 = new System.Windows.Forms.Label();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.l4 = new System.Windows.Forms.Label();
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.bPDF = new System.Windows.Forms.ToolStripButton();
             this.bDOC = new System.Windows.Forms.ToolStripButton();
             this.bDOCX = new System.Windows.Forms.ToolStripButton();
@@ -46,7 +52,8 @@
             this.bTXT = new System.Windows.Forms.ToolStripButton();
             this.bMP4 = new System.Windows.Forms.ToolStripButton();
             this.bWMV = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bMso = new System.Windows.Forms.ToolStripButton();
             this.bEditFlags = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags = new System.Windows.Forms.ToolStripButton();
             this.bBrowserFlags2 = new System.Windows.Forms.ToolStripButton();
@@ -57,15 +64,12 @@
             this.bAcro5 = new System.Windows.Forms.ToolStripButton();
             this.bAcro6 = new System.Windows.Forms.ToolStripButton();
             this.bAcroExe = new System.Windows.Forms.ToolStripDropDownButton();
-            this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
-            this.l2 = new System.Windows.Forms.Label();
-            this.l3 = new System.Windows.Forms.Label();
-            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.bRestart = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
+            this.toolStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lt
@@ -84,14 +88,14 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(674, 177);
+            this.wb.Size = new System.Drawing.Size(674, 132);
             this.wb.TabIndex = 0;
             // 
             // l1
             // 
             this.l1.AutoSize = true;
             this.l1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l1.Location = new System.Drawing.Point(0, 193);
+            this.l1.Location = new System.Drawing.Point(0, 148);
             this.l1.Margin = new System.Windows.Forms.Padding(3);
             this.l1.Name = "l1";
             this.l1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -106,7 +110,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 181);
+            this.panel1.Size = new System.Drawing.Size(678, 136);
             this.panel1.TabIndex = 1;
             this.panel1.TabStop = true;
             // 
@@ -133,11 +137,94 @@
             this.bMP4,
             this.bWMV});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 215);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 170);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(678, 46);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.TabStop = true;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bEditFlags,
+            this.bBrowserFlags,
+            this.bBrowserFlags2,
+            this.bBrowseInPlace,
+            this.bMIME,
+            this.bMIMEefp,
+            this.bMIMEde,
+            this.bAcro5,
+            this.bAcro6,
+            this.bAcroExe});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip2.Location = new System.Drawing.Point(0, 283);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(678, 138);
+            this.toolStrip2.TabIndex = 5;
+            this.toolStrip2.TabStop = true;
+            // 
+            // l2
+            // 
+            this.l2.AutoSize = true;
+            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l2.Location = new System.Drawing.Point(0, 261);
+            this.l2.Margin = new System.Windows.Forms.Padding(3);
+            this.l2.Name = "l2";
+            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l2.Size = new System.Drawing.Size(41, 22);
+            this.l2.TabIndex = 4;
+            this.l2.Text = "修正者";
+            // 
+            // l3
+            // 
+            this.l3.AutoSize = true;
+            this.l3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l3.Location = new System.Drawing.Point(0, 421);
+            this.l3.Margin = new System.Windows.Forms.Padding(3);
+            this.l3.Name = "l3";
+            this.l3.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l3.Size = new System.Drawing.Size(29, 22);
+            this.l3.TabIndex = 6;
+            this.l3.Text = "補助";
+            // 
+            // toolStrip3
+            // 
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bRestart});
+            this.toolStrip3.Location = new System.Drawing.Point(0, 443);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.Size = new System.Drawing.Size(678, 25);
+            this.toolStrip3.TabIndex = 7;
+            this.toolStrip3.Text = "toolStrip3";
+            // 
+            // l4
+            // 
+            this.l4.AutoSize = true;
+            this.l4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.l4.Location = new System.Drawing.Point(0, 216);
+            this.l4.Margin = new System.Windows.Forms.Padding(3);
+            this.l4.Name = "l4";
+            this.l4.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.l4.Size = new System.Drawing.Size(53, 22);
+            this.l4.TabIndex = 8;
+            this.l4.Text = "簡単設定";
+            // 
+            // toolStrip4
+            // 
+            this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip4.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
+            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bOOo,
+            this.bMso});
+            this.toolStrip4.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip4.Location = new System.Drawing.Point(0, 238);
+            this.toolStrip4.Name = "toolStrip4";
+            this.toolStrip4.Size = new System.Drawing.Size(678, 23);
+            this.toolStrip4.TabIndex = 9;
+            this.toolStrip4.Text = "toolStrip4";
             // 
             // bPDF
             // 
@@ -342,28 +429,23 @@
             this.bWMV.Text = "WMV";
             this.bWMV.Click += new System.EventHandler(this.bWMV_Click);
             // 
-            // toolStrip2
+            // bOOo
             // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bEditFlags,
-            this.bBrowserFlags,
-            this.bBrowserFlags2,
-            this.bBrowseInPlace,
-            this.bMIME,
-            this.bMIMEefp,
-            this.bMIMEde,
-            this.bAcro5,
-            this.bAcro6,
-            this.bAcroExe,
-            this.bOOo});
-            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 283);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(678, 138);
-            this.toolStrip2.TabIndex = 5;
-            this.toolStrip2.TabStop = true;
+            this.bOOo.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bOOo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bOOo.Name = "bOOo";
+            this.bOOo.Size = new System.Drawing.Size(223, 20);
+            this.bOOo.Text = "OpenOffice ActiveX を有効化";
+            this.bOOo.DropDownOpening += new System.EventHandler(this.bOOo_DropDownOpening);
+            // 
+            // bMso
+            // 
+            this.bMso.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bMso.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bMso.Name = "bMso";
+            this.bMso.Size = new System.Drawing.Size(193, 20);
+            this.bMso.Text = "Microsoft Office を有効化";
+            this.bMso.Click += new System.EventHandler(this.bMso_Click);
             // 
             // bEditFlags
             // 
@@ -470,50 +552,6 @@
             this.bAcroExe.Text = "HKCR\\Software\\Adobe\\Acrobat\\Exe 修正案";
             this.bAcroExe.DropDownOpening += new System.EventHandler(this.bAcroExe_DropDownOpening);
             // 
-            // bOOo
-            // 
-            this.bOOo.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
-            this.bOOo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bOOo.Name = "bOOo";
-            this.bOOo.Size = new System.Drawing.Size(207, 20);
-            this.bOOo.Text = "OpenOffice ActiveX修正案";
-            this.bOOo.DropDownOpening += new System.EventHandler(this.bOOo_DropDownOpening);
-            // 
-            // l2
-            // 
-            this.l2.AutoSize = true;
-            this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l2.Location = new System.Drawing.Point(0, 261);
-            this.l2.Margin = new System.Windows.Forms.Padding(3);
-            this.l2.Name = "l2";
-            this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l2.Size = new System.Drawing.Size(41, 22);
-            this.l2.TabIndex = 4;
-            this.l2.Text = "修正者";
-            // 
-            // l3
-            // 
-            this.l3.AutoSize = true;
-            this.l3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l3.Location = new System.Drawing.Point(0, 421);
-            this.l3.Margin = new System.Windows.Forms.Padding(3);
-            this.l3.Name = "l3";
-            this.l3.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.l3.Size = new System.Drawing.Size(29, 22);
-            this.l3.TabIndex = 6;
-            this.l3.Text = "補助";
-            // 
-            // toolStrip3
-            // 
-            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bRestart});
-            this.toolStrip3.Location = new System.Drawing.Point(0, 443);
-            this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(678, 25);
-            this.toolStrip3.TabIndex = 7;
-            this.toolStrip3.Text = "toolStrip3";
-            // 
             // bRestart
             // 
             this.bRestart.Image = ((System.Drawing.Image)(resources.GetObject("bRestart.Image")));
@@ -531,6 +569,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.l1);
             this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.l4);
+            this.Controls.Add(this.toolStrip4);
             this.Controls.Add(this.l2);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.l3);
@@ -548,6 +588,8 @@
             this.toolStrip2.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,7 +634,10 @@
         private System.Windows.Forms.ToolStripButton bMP4;
         private System.Windows.Forms.ToolStripButton bWMV;
         private System.Windows.Forms.ToolStripButton bBrowseInPlace;
+        private System.Windows.Forms.Label l4;
+        private System.Windows.Forms.ToolStrip toolStrip4;
         private System.Windows.Forms.ToolStripDropDownButton bOOo;
+        private System.Windows.Forms.ToolStripButton bMso;
     }
 }
 

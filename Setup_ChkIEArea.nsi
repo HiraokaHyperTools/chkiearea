@@ -8,7 +8,7 @@
 ;--------------------------------
 
 !define APP "ChkIEArea"
-!define VER "1.0.20"
+!define VER "1.0.21"
 !searchreplace APV ${VER} "." "_"
 
 ; The name of the installer

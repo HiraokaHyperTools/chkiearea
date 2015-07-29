@@ -116,6 +116,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>SelAppForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelExtForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SelExtForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ViewForm.cs</DependentUpon>
@@ -154,6 +158,12 @@
     </Compile>
     <Compile Include="SelAppForm.Designer.cs">
       <DependentUpon>SelAppForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelExtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelExtForm.Designer.cs">
+      <DependentUpon>SelExtForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewForm.cs">
       <SubType>Form</SubType>

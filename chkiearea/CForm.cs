@@ -721,8 +721,27 @@ namespace ChkIEArea {
             }
             bOOo.DropDownItems.Add(new ToolStripSeparator());
             {
-                ToolStripItem tsi = bOOo.DropDownItems.Add("③ 「Use EFP」で、「SOActiveX Class」を選択");
-                tsi.Enabled = false;
+                ToolStripItem tsiEFP = bOOo.DropDownItems.Add("③ 「Use EFP」で、「SOActiveX Class」を選択");
+                tsiEFP.Click += new EventHandler(tsiOOoEFP_Click);
+            }
+        }
+
+        void tsiOOoEFP_Click(object sender, EventArgs e) {
+            String clsid = "{67F2A879-82D5-4A6D-8CC5-FFB3C114B69D}";
+
+            using (SelExtForm form = new SelExtForm()) {
+                if (form.ShowDialog() == DialogResult.OK) {
+                    foreach (String fext in form.fexts) {
+                        String ContentType = "" + Registry.GetValue("HKEY_CLASSES_ROOT\\" + fext, "Content Type", "");
+                        if (ContentType.Length != 0) {
+                            Registry.SetValue("HKEY_CLASSES_ROOT\\MIME\\Database\\Content Type\\" + ContentType, "CLSID", clsid);
+                            Registry.SetValue("HKEY_CLASSES_ROOT\\MIME\\Database\\Content Type\\" + ContentType, "Extension", fext);
+                            using (RegistryKey rkExt = Registry.ClassesRoot.CreateSubKey("CLSID\\" + clsid + "\\EnableFullPage\\" + fext)) {
+                            }
+                        }
+                    }
+                    MessageBox.Show(this, "設定しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -734,6 +753,60 @@ namespace ChkIEArea {
         void tsiReg_Click(object sender, EventArgs e) {
             String fp1 = (String)((ToolStripItem)sender).Tag;
             Process.Start("regsvr32.exe", " \"" + fp1 + "\"");
+        }
+
+        class Utm {
+            public static object Modify(object val, uint remove, uint add) {
+                if (val is byte[] && ((byte[])val).Length == 4) val = BitConverter.ToUInt32((byte[])val, 0);
+                if (val is uint) val = (int)(uint)val;
+                if (val is int) {
+                    val = (int)((((uint)(int)val) | add) & (~remove));
+                }
+                else {
+                    val = (int)add;
+                }
+                return val;
+            }
+        }
+
+        void Mso(String fexts) {
+            foreach (String fext in fexts.Split(',')) {
+                String ContentType = "" + Registry.GetValue("HKEY_CLASSES_ROOT\\" + fext, "Content Type", "");
+                if (!String.IsNullOrEmpty(ContentType)) {
+                    using (RegistryKey rkMime = Registry.ClassesRoot.CreateSubKey("MIME\\Database\\Content Type\\" + ContentType)) {
+                        rkMime.DeleteValue("CLSID", false);
+                        rkMime.SetValue("Extension", fext);
+                    }
+                }
+                String ProgID = "" + Registry.GetValue("HKEY_CLASSES_ROOT\\" + fext, "", "");
+                if (!String.IsNullOrEmpty(ProgID)) {
+                    {
+                        String a = "EditFlags";
+                        Registry.SetValue("HKEY_CLASSES_ROOT\\" + ProgID, a, Utm.Modify(Registry.GetValue("HKEY_CLASSES_ROOT\\" + ProgID, a, 0), 0, 0x10000));
+                    }
+                    {
+                        // https://support.microsoft.com/ja-jp/kb/982995
+                        uint BrowserFlags = 0x80000024;
+                        if (fext.StartsWith(".do")) BrowserFlags = 0x80000024;
+                        //if (fext.StartsWith(".xl")) BrowserFlags = 0x80000A00;
+                        if (fext.StartsWith(".pp")) BrowserFlags = 0x800000A0;
+                        if (fext.StartsWith(".po")) BrowserFlags = 0x800000A0;
+
+                        String a = "BrowserFlags";
+                        Registry.SetValue("HKEY_CLASSES_ROOT\\" + ProgID, a, (int)BrowserFlags);
+                    }
+                }
+            }
+
+            MessageBox.Show(this, "設定しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void bMso_Click(object sender, EventArgs e) {
+            using (SelExtForm form = new SelExtForm()) {
+                if (form.ShowDialog() == DialogResult.OK) {
+                    Mso(String.Join(",", form.fexts.ToArray()));
+                }
+            }
         }
     }
 }
