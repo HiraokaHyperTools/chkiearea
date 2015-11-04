@@ -530,6 +530,16 @@ namespace ChkIEArea {
                 }
             }
 
+            public static string AcrobatDCExe { // 動作は未確認
+                get {
+                    RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\DC\Installer", false);
+                    if (rkExe != null) {
+                        return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+
             public static string Acrobat10Exe { // 動作は未確認
                 get {
                     RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\10.0\Installer", false);
@@ -565,6 +575,18 @@ namespace ChkIEArea {
                     RegistryKey rkExe = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Adobe Acrobat\7.0\Installer", false);
                     if (rkExe != null) {
                         return rkExe.GetValue("Acrobat.exe") as String;
+                    }
+                    return null;
+                }
+            }
+
+            public static string AcroRd32_DCExe { // 動作は未確認：表示までは確認
+                get {
+                    RegistryKey rkDir = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Adobe\Acrobat Reader\DC\InstallPath", false);
+                    if (rkDir != null) {
+                        String dir = rkDir.GetValue("") as String;
+                        if (!String.IsNullOrEmpty(dir))
+                            return Path.Combine(dir, "AcroRd32.exe");
                     }
                     return null;
                 }
@@ -641,10 +663,12 @@ namespace ChkIEArea {
             }
 
             List<String> alExe = new List<String>();
+            alExe.Add(AcroPUt.AcrobatDCExe);
             alExe.Add(AcroPUt.Acrobat10Exe);
             alExe.Add(AcroPUt.Acrobat9Exe);
             alExe.Add(AcroPUt.Acrobat8Exe);
             alExe.Add(AcroPUt.Acrobat7Exe);
+            alExe.Add(AcroPUt.AcroRd32_DCExe);
             alExe.Add(AcroPUt.AcroRd32_11Exe);
             alExe.Add(AcroPUt.AcroRd32_10Exe);
             alExe.Add(AcroPUt.AcroRd32_9Exe);
