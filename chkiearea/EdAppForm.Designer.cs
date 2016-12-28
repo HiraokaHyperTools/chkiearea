@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             System.Windows.Forms.PictureBox pictureBox1;
-            System.Windows.Forms.Label label2;
             System.Windows.Forms.PictureBox pictureBox2;
             System.Windows.Forms.Label label14;
             System.Windows.Forms.Label label15;
@@ -37,6 +36,7 @@
             System.Windows.Forms.PictureBox pictureBox14;
             System.Windows.Forms.PictureBox pictureBox13;
             System.Windows.Forms.PictureBox pictureBox12;
+            this.lBaseFont = new System.Windows.Forms.Label();
             this.lTodo = new System.Windows.Forms.Label();
             this.lMimeExt = new System.Windows.Forms.Label();
             this.lMimeClsid = new System.Windows.Forms.Label();
@@ -44,7 +44,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flp1 = new System.Windows.Forms.FlowLayoutPanel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
-            label2 = new System.Windows.Forms.Label();
             pictureBox2 = new System.Windows.Forms.PictureBox();
             label14 = new System.Windows.Forms.Label();
             label15 = new System.Windows.Forms.Label();
@@ -77,18 +76,18 @@
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
-            // label2
+            // lBaseFont
             // 
-            label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            label2.Location = new System.Drawing.Point(34, 50);
-            label2.MaximumSize = new System.Drawing.Size(2000, 16);
-            label2.MinimumSize = new System.Drawing.Size(0, 16);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(124, 16);
-            label2.TabIndex = 19;
-            label2.Text = "HKEY_CLASSES_ROOT";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lBaseFont.AutoSize = true;
+            this.lBaseFont.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lBaseFont.Location = new System.Drawing.Point(34, 50);
+            this.lBaseFont.MaximumSize = new System.Drawing.Size(2000, 16);
+            this.lBaseFont.MinimumSize = new System.Drawing.Size(0, 16);
+            this.lBaseFont.Name = "lBaseFont";
+            this.lBaseFont.Size = new System.Drawing.Size(124, 16);
+            this.lBaseFont.TabIndex = 19;
+            this.lBaseFont.Text = "HKEY_CLASSES_ROOT";
+            this.lBaseFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox2
             // 
@@ -322,7 +321,7 @@
             this.Controls.Add(pictureBox14);
             this.Controls.Add(pictureBox13);
             this.Controls.Add(pictureBox12);
-            this.Controls.Add(label2);
+            this.Controls.Add(this.lBaseFont);
             this.Controls.Add(pictureBox2);
             this.Controls.Add(this.lTodo);
             this.Controls.Add(pictureBox1);
@@ -351,5 +350,6 @@
         private System.Windows.Forms.Label lMime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flp1;
+        private System.Windows.Forms.Label lBaseFont;
     }
 }

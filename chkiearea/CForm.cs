@@ -100,8 +100,82 @@ namespace ChkIEArea {
         private void CForm_Load(object sender, EventArgs e) {
             // http://forum.mozilla.gr.jp/cbbs.cgi?mode=al2&namber=8265&rev=&&KLOG=55
 
-            this.Text += " " + Application.ProductVersion + " (" + ((IntPtr.Size == 4 ? "x86" : "x64")) + ")";
+            this.Text += " -- " + Application.ProductVersion + " (" + ((IntPtr.Size == 4 ? "x86" : "x64")) + ")";
         }
+
+        String hkcrPrefix { get { return @"HKEY_CLASSES_ROOT\"; } }
+        String hkcrAltPrefix { get { return @"HKEY_CURRENT_USER\Software\Classes\"; } }
+
+        private void ModifyInt(string leftName, uint bitReset, uint bitSet, bool preferBytea) {
+            String keyNamePre = hkcrPrefix + Path.GetExtension(lastfp);
+            String keyName = Registry.GetValue(keyNamePre, "", null) as String;
+            if (String.IsNullOrEmpty(keyName)) {
+                MessageBox.Show(this, "アプリの関連付けがありませんので、設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            keyName = hkcrPrefix + keyName;
+            Object curObj = Registry.GetValue(keyName, leftName, null);
+            int? curIntVal = null;
+            if (curObj is int) {
+                curIntVal = (int)curObj;
+            }
+            else if (curObj is byte[]) {
+                byte[] curBytes = (byte[])curObj;
+                if (curBytes.Length == 4) {
+                    curIntVal = BitConverter.ToInt32(curBytes, 0);
+                }
+            }
+
+            int newIntVal = (int)((uint)(curIntVal ?? 0) & (uint)(~bitReset) | (uint)bitSet);
+            String change = ((curIntVal.HasValue) ? "0x" + curIntVal.Value.ToString("X8") : "") + " → " + "0x" + newIntVal.ToString("X8");
+            if (!curIntVal.HasValue || curIntVal.Value != newIntVal) {
+                if (MessageBox.Show(this, "修正します。\n\n" + change, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK) {
+                    RegistrySetValue(keyName, leftName, preferBytea ? (Object)BitConverter.GetBytes(newIntVal) : newIntVal);
+                    MessageBox.Show(this, "修正しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else {
+                MessageBox.Show(this, "修正は不要です。\n\n" + change, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void RegistrySetValue(string keyName, string leftName, object newData) {
+            try {
+                Registry.SetValue(keyName, leftName, newData);
+            }
+            catch (UnauthorizedAccessException) {
+                Registry.SetValue(keyName.Replace(hkcrPrefix, hkcrAltPrefix), leftName, newData);
+            }
+        }
+
+        private void ModifyStr(string leftName, string newData) {
+            String keyNamePre = hkcrPrefix + Path.GetExtension(lastfp);
+            String keyName = Registry.GetValue(keyNamePre, "", null) as String;
+            if (String.IsNullOrEmpty(keyName)) {
+                MessageBox.Show(this, "アプリの関連付けがありませんので、設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            keyName = hkcrPrefix + keyName;
+            Object curObj = Registry.GetValue(keyName, leftName, null);
+            String curStrVal = null;
+            if (curObj is string) {
+                curStrVal = (String)curObj;
+            }
+
+            String change = curStrVal + " → " + newData;
+            if (curStrVal == null || curStrVal != newData) {
+                if (MessageBox.Show(this, "修正します。\n\n" + change, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK) {
+                    RegistrySetValue(keyName, leftName, newData);
+                    MessageBox.Show(this, "修正しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else {
+                MessageBox.Show(this, "修正は不要です。\n\n" + change, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        bool UseSimple { get { return 0 == (ModifierKeys & Keys.Control); } }
 
         private void buttonEditFlags_Click(object sender, EventArgs e) {
             if (lastfp == null) {
@@ -109,9 +183,14 @@ namespace ChkIEArea {
                 return;
             }
 
-            EdREGForm form = new EdREGForm();
-            form.Modify(lastfp, new IntMod("EditFlags", 0, 0x10000, true));
-            form.ShowDialog(this);
+            if (UseSimple) {
+                ModifyInt("EditFlags", 0, 0x10000, true);
+            }
+            else {
+                EdREGForm form = new EdREGForm();
+                form.Modify(lastfp, new IntMod("EditFlags", 0, 0x10000, true));
+                form.ShowDialog(this);
+            }
             return;
         }
 
@@ -125,9 +204,14 @@ namespace ChkIEArea {
                 return;
             }
 
-            EdREGForm form = new EdREGForm();
-            form.Modify(lastfp, new IntMod("BrowserFlags", 8, 0, false));
-            form.ShowDialog(this);
+            if (UseSimple) {
+                ModifyInt("BrowserFlags", 8, 0, false);
+            }
+            else {
+                EdREGForm form = new EdREGForm();
+                form.Modify(lastfp, new IntMod("BrowserFlags", 8, 0, false));
+                form.ShowDialog(this);
+            }
             return;
         }
 
@@ -279,7 +363,12 @@ namespace ChkIEArea {
                     MessageBox.Show(this, "CLSIDが無いか正しく在りません。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                form2.AddCLSID(Registry.ClassesRoot, ext, oleId, clsid);
+                if (UseSimple) {
+                    form2.AddCLSIDSimple(Registry.ClassesRoot, ext, oleId, clsid);
+                }
+                else {
+                    form2.AddCLSID(Registry.ClassesRoot, ext, oleId, clsid);
+                }
 
                 form2.SetContentType(contentType);
                 {
@@ -315,8 +404,19 @@ namespace ChkIEArea {
                     if (appname == null || appname.Length == 0)
                         appname = s;
 
+                    String pid = null;
+                    RegistryKey rkProgid = rkApp.OpenSubKey("ProgID", false);
+                    if (rkProgid != null) {
+                        pid = "" + rkProgid.GetValue("");
+                    }
+
                     dict[appname] = new Guid(s);
-                    form2.AddDE(rkrootclsid, s);
+                    if (UseSimple) {
+                        form2.AddDESimple(rkrootclsid, s, pid);
+                    }
+                    else {
+                        form2.AddDE(rkrootclsid, s);
+                    }
                 }
                 if (dict.Count == 0) {
                     MessageBox.Show(this, "DefaultExtensionから有効なアプリを発見できませんでした。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -344,6 +444,13 @@ namespace ChkIEArea {
                     RegistryKey rkEFP = rkApp.OpenSubKey("EnableFullPage", false);
                     if (rkEFP == null)
                         continue;
+
+                    String pid = null;
+                    RegistryKey rkProgid = rkApp.OpenSubKey("ProgID", false);
+                    if (rkProgid != null) {
+                        pid = "" + rkProgid.GetValue("");
+                    }
+
                     foreach (String appext in rkEFP.GetSubKeyNames()) {
                         if (String.Compare(appext, ext, true) == 0) {
                             String appname = rkApp.GetValue("") as String;
@@ -351,7 +458,12 @@ namespace ChkIEArea {
                                 appname = s;
 
                             dict[appname] = new Guid(s);
-                            form2.AddEFP(rkrootclsid, s);
+                            if (UseSimple) {
+                                form2.AddEFPSimple(rkrootclsid, s, pid);
+                            }
+                            else {
+                                form2.AddEFP(rkrootclsid, s);
+                            }
                         }
                     }
                 }
@@ -411,9 +523,15 @@ namespace ChkIEArea {
                 MessageBox.Show(this, "先に調査してください。", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            EdREGForm form = new EdREGForm();
-            form.Modify(lastfp, new IntMod("BrowserFlags", 0xffffffffU, 0x80000024U, false));
-            form.ShowDialog(this);
+
+            if (UseSimple) {
+                ModifyInt("BrowserFlags", 0xffffffffU, 0x80000024U, false);
+            }
+            else {
+                EdREGForm form = new EdREGForm();
+                form.Modify(lastfp, new IntMod("BrowserFlags", 0xffffffffU, 0x80000024U, false));
+                form.ShowDialog(this);
+            }
             return;
         }
 
@@ -707,9 +825,14 @@ namespace ChkIEArea {
                 return;
             }
 
-            EdREGForm form = new EdREGForm();
-            form.Modify(lastfp, new StrMod("BrowseInPlace", "1"));
-            form.ShowDialog(this);
+            if (UseSimple) {
+                ModifyStr("BrowseInPlace", "1");
+            }
+            else {
+                EdREGForm form = new EdREGForm();
+                form.Modify(lastfp, new StrMod("BrowseInPlace", "1"));
+                form.ShowDialog(this);
+            }
             return;
         }
 

@@ -8,7 +8,9 @@
 ;--------------------------------
 
 !define APP "ChkIEArea"
-!define VER "1.0.22"
+!system 'DefineAsmVer.exe "chkiearea\bin\x86\release\${APP}.exe" "!define VER ""[SVER]"" " > Tmpver.nsh'
+!include "Tmpver.nsh"
+
 !searchreplace APV ${VER} "." "_"
 
 ; The name of the installer

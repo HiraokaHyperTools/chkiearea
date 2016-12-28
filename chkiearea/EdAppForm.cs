@@ -69,6 +69,51 @@ namespace ChkIEArea {
             AddVKey(4, "", "" + Registry.GetValue(rk.Name + "\\" + clsid + "\\" + "DefaultExtension", "", ""));
         }
 
+        public void AddCLSIDSimple(RegistryKey rk, String ext, String pid, String clsid) {
+            Button b = new Button();
+            b.AutoSize = true;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + "CLSID" + "\\" + clsid, "", "") + "\n"
+                + "---\n"
+                + "ProgID: " + pid + "\n"
+                + " CLSID: " + clsid + "\n"
+                ;
+            b.Tag = clsid;
+            b.Click += new EventHandler(b_Click);
+            b.TextAlign = ContentAlignment.MiddleLeft;
+            b.Font = lBaseFont.Font;
+            flp1.Controls.Add(b);
+        }
+
+        public void AddEFPSimple(RegistryKey rk, String clsid, String pid) {
+            Button b = new Button();
+            b.AutoSize = true;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + clsid, "", "") + "\n"
+                + "---\n"
+                + "ProgID: " + pid + "\n"
+                + " CLSID: " + clsid + "\n"
+                ;
+            b.Tag = clsid;
+            b.Click += new EventHandler(b_Click);
+            b.TextAlign = ContentAlignment.MiddleLeft;
+            b.Font = lBaseFont.Font;
+            flp1.Controls.Add(b);
+        }
+
+        public void AddDESimple(RegistryKey rk, String clsid, String pid) {
+            Button b = new Button();
+            b.AutoSize = true;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + clsid, "", "") + "\n"
+                + "---\n"
+                + "ProgID: " + pid + "\n"
+                + " CLSID: " + clsid + "\n"
+                ;
+            b.Tag = clsid;
+            b.Click += new EventHandler(b_Click);
+            b.TextAlign = ContentAlignment.MiddleLeft;
+            b.Font = lBaseFont.Font;
+            flp1.Controls.Add(b);
+        }
+
         void b_Click(object sender, EventArgs e) {
             Sel = (String)((Button)sender).Tag;
             DialogResult = DialogResult.OK;
