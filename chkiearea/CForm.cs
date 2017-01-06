@@ -103,17 +103,14 @@ namespace ChkIEArea {
             this.Text += " -- " + Application.ProductVersion + " (" + ((IntPtr.Size == 4 ? "x86" : "x64")) + ")";
         }
 
-        String hkcrPrefix { get { return @"HKEY_CLASSES_ROOT\"; } }
-        String hkcrAltPrefix { get { return @"HKEY_CURRENT_USER\Software\Classes\"; } }
-
         private void ModifyInt(string leftName, uint bitReset, uint bitSet, bool preferBytea) {
-            String keyNamePre = hkcrPrefix + Path.GetExtension(lastfp);
+            String keyNamePre = @"HKEY_CLASSES_ROOT\" + Path.GetExtension(lastfp);
             String keyName = Registry.GetValue(keyNamePre, "", null) as String;
             if (String.IsNullOrEmpty(keyName)) {
                 MessageBox.Show(this, "アプリの関連付けがありませんので、設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            keyName = hkcrPrefix + keyName;
+            keyName = @"HKEY_CLASSES_ROOT\" + keyName;
             Object curObj = Registry.GetValue(keyName, leftName, null);
             int? curIntVal = null;
             if (curObj is int) {
@@ -130,7 +127,7 @@ namespace ChkIEArea {
             String change = ((curIntVal.HasValue) ? "0x" + curIntVal.Value.ToString("X8") : "") + " → " + "0x" + newIntVal.ToString("X8");
             if (!curIntVal.HasValue || curIntVal.Value != newIntVal) {
                 if (MessageBox.Show(this, "修正します。\n\n" + change, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK) {
-                    RegistrySetValue(keyName, leftName, preferBytea ? (Object)BitConverter.GetBytes(newIntVal) : newIntVal);
+                    RegistryAlt.SetValue(keyName, leftName, preferBytea ? (Object)BitConverter.GetBytes(newIntVal) : newIntVal);
                     MessageBox.Show(this, "修正しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -139,23 +136,14 @@ namespace ChkIEArea {
             }
         }
 
-        private void RegistrySetValue(string keyName, string leftName, object newData) {
-            try {
-                Registry.SetValue(keyName, leftName, newData);
-            }
-            catch (UnauthorizedAccessException) {
-                Registry.SetValue(keyName.Replace(hkcrPrefix, hkcrAltPrefix), leftName, newData);
-            }
-        }
-
         private void ModifyStr(string leftName, string newData) {
-            String keyNamePre = hkcrPrefix + Path.GetExtension(lastfp);
+            String keyNamePre = @"HKEY_CLASSES_ROOT\" + Path.GetExtension(lastfp);
             String keyName = Registry.GetValue(keyNamePre, "", null) as String;
             if (String.IsNullOrEmpty(keyName)) {
                 MessageBox.Show(this, "アプリの関連付けがありませんので、設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            keyName = hkcrPrefix + keyName;
+            keyName = @"HKEY_CLASSES_ROOT\" + keyName;
             Object curObj = Registry.GetValue(keyName, leftName, null);
             String curStrVal = null;
             if (curObj is string) {
@@ -165,7 +153,7 @@ namespace ChkIEArea {
             String change = curStrVal + " → " + newData;
             if (curStrVal == null || curStrVal != newData) {
                 if (MessageBox.Show(this, "修正します。\n\n" + change, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK) {
-                    RegistrySetValue(keyName, leftName, newData);
+                    RegistryAlt.SetValue(keyName, leftName, newData);
                     MessageBox.Show(this, "修正しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -510,9 +498,8 @@ namespace ChkIEArea {
             }
 
             {
-                RegistryKey rk1 = Registry.ClassesRoot.CreateSubKey(@"Mime\Database\Content Type\" + contentType);
-                rk1.SetValue("Extension", ext);
-                rk1.SetValue("CLSID", newclsid);
+                RegistryAlt.SetValue(@"HKEY_CLASSES_ROOT\Mime\Database\Content Type\" + contentType, "Extension", ext);
+                RegistryAlt.SetValue(@"HKEY_CLASSES_ROOT\Mime\Database\Content Type\" + contentType, "CLSID", newclsid);
 
                 MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -953,6 +940,74 @@ namespace ChkIEArea {
                 if (form.ShowDialog() == DialogResult.OK) {
                     Mso(String.Join(",", form.fexts.ToArray()));
                 }
+            }
+        }
+
+        private void bAdobePlan_Click(object sender, EventArgs e) {
+            // https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Originals.html
+            foreach (String ver in "10.0/11.0/DC".Split('/')) {
+                String left = @"HKEY_CURRENT_USER\Software\Adobe\Acrobat Reader\" + ver + @"\Originals";
+                String right = "bBrowserIntegration";
+
+                Object curData = Registry.GetValue(left, right, null);
+                if (curData != null) {
+                    switch (MessageBox.Show(this, "つぎのレジストリの値を削除します。\n\n" + left + "\n" + right, Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)) {
+                        case DialogResult.Yes:
+                            RegDelValue(left, right);
+                            MessageBox.Show(this, "削除しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                        case DialogResult.No:
+                            // スキップ
+                            break;
+                        case DialogResult.Cancel:
+                            return;
+                    }
+                }
+            }
+
+            {
+                String left = @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Ext\Settings\{CA8A9780-280D-11CF-A24D-444553540000}";
+                Object curData = Registry.GetValue(left, "Flags", null);
+                if (curData != null) {
+                    switch (MessageBox.Show(this, "つぎのレジストリキーを削除します。\n\n" + left, Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)) {
+                        case DialogResult.Yes:
+                            RegDelKey(left);
+                            MessageBox.Show(this, "削除しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                        case DialogResult.No:
+                            // スキップ
+                            break;
+                        case DialogResult.Cancel:
+                            return;
+                    }
+                }
+            }
+
+            MessageBox.Show(this, "確認は完了しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void RegDelKey(string left) {
+            if (left.StartsWith(@"HKEY_CURRENT_USER\")) {
+                left = left.Substring(18);
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey(Path.GetDirectoryName(left), true);
+                if (rk != null) {
+                    rk.DeleteSubKey(Path.GetFileName(left));
+                }
+            }
+            else {
+                throw new NotSupportedException(left);
+            }
+        }
+
+        private void RegDelValue(string left, string right) {
+            if (left.StartsWith(@"HKEY_CURRENT_USER\")) {
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey(left.Substring(18), true);
+                if (rk != null) {
+                    rk.DeleteValue(right);
+                }
+            }
+            else {
+                throw new NotSupportedException(left);
             }
         }
     }

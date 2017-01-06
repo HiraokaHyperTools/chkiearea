@@ -65,6 +65,7 @@
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
             this.bMso = new System.Windows.Forms.ToolStripButton();
+            this.bAdobePlan = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -360,7 +361,8 @@
             this.bMIMEde,
             this.bAcro5,
             this.bAcro6,
-            this.bAcroExe});
+            this.bAcroExe,
+            this.bAdobePlan});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip2.Location = new System.Drawing.Point(0, 283);
             this.toolStrip2.Name = "toolStrip2";
@@ -561,6 +563,15 @@
             this.bMso.Text = "Microsoft Office を有効化";
             this.bMso.Click += new System.EventHandler(this.bMso_Click);
             // 
+            // bAdobePlan
+            // 
+            this.bAdobePlan.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
+            this.bAdobePlan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bAdobePlan.Name = "bAdobePlan";
+            this.bAdobePlan.Size = new System.Drawing.Size(163, 20);
+            this.bAdobePlan.Text = "Adobe Reader 修正案";
+            this.bAdobePlan.Click += new System.EventHandler(this.bAdobePlan_Click);
+            // 
             // CForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -638,6 +649,7 @@
         private System.Windows.Forms.ToolStrip toolStrip4;
         private System.Windows.Forms.ToolStripDropDownButton bOOo;
         private System.Windows.Forms.ToolStripButton bMso;
+        private System.Windows.Forms.ToolStripButton bAdobePlan;
     }
 }
 

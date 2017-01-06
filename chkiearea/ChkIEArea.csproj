@@ -12,8 +12,9 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>ED561E7929ABC836B4F90076EEE8BE3991808DBE</ManifestCertificateThumbprint>
     <ManifestKeyFile>ChkIEArea_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
+    <TargetZone>LocalIntranet</TargetZone>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -153,6 +154,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RegistryAlt.cs" />
     <Compile Include="SelAppForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,6 +214,7 @@
     <None Include="ooo341.reg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <BaseApplicationManifest Include="Properties\app.manifest" />
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\ZoomHS.png" />
     <None Include="Resources\PrintPreviewHS.png" />
