@@ -54,7 +54,7 @@ Section "" ;No components page, name is not important
 
   ; Put file there
   File "chkiearea\bin\x86\release\ChkIEArea.exe"
-  File "chkiearea\bin\x86\release\ChkIEArea.exe.manifest"
+  File "chkiearea\bin\x86\release\ChkIEArea.exe.config"
   File "chkiearea\bin\x86\release\ChkIEArea.pdb"
   
   SetOutPath $INSTDIR\f

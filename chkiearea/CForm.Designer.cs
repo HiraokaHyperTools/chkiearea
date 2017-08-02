@@ -57,6 +57,7 @@
             this.bAcro5 = new System.Windows.Forms.ToolStripButton();
             this.bAcro6 = new System.Windows.Forms.ToolStripButton();
             this.bAcroExe = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bAdobePlan = new System.Windows.Forms.ToolStripButton();
             this.l2 = new System.Windows.Forms.Label();
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -65,7 +66,6 @@
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
             this.bMso = new System.Windows.Forms.ToolStripButton();
-            this.bAdobePlan = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -475,6 +475,15 @@
             this.bAcroExe.Text = "HKCR\\Software\\Adobe\\Acrobat\\Exe 修正案";
             this.bAcroExe.DropDownOpening += new System.EventHandler(this.bAcroExe_DropDownOpening);
             // 
+            // bAdobePlan
+            // 
+            this.bAdobePlan.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
+            this.bAdobePlan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bAdobePlan.Name = "bAdobePlan";
+            this.bAdobePlan.Size = new System.Drawing.Size(300, 20);
+            this.bAdobePlan.Text = "Adobe Reader bBrowserIntegration 修正案";
+            this.bAdobePlan.Click += new System.EventHandler(this.bAdobePlan_Click);
+            // 
             // l2
             // 
             this.l2.AutoSize = true;
@@ -562,15 +571,6 @@
             this.bMso.Size = new System.Drawing.Size(193, 20);
             this.bMso.Text = "Microsoft Office を有効化";
             this.bMso.Click += new System.EventHandler(this.bMso_Click);
-            // 
-            // bAdobePlan
-            // 
-            this.bAdobePlan.Image = global::ChkIEArea.Properties.Resources.ZoomHS;
-            this.bAdobePlan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bAdobePlan.Name = "bAdobePlan";
-            this.bAdobePlan.Size = new System.Drawing.Size(163, 20);
-            this.bAdobePlan.Text = "Adobe Reader 修正案";
-            this.bAdobePlan.Click += new System.EventHandler(this.bAdobePlan_Click);
             // 
             // CForm
             // 

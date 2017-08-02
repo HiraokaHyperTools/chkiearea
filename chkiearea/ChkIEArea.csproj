@@ -211,10 +211,10 @@
     <Content Include="f\動作チェック用テストデータ.pptx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="App.config" />
     <None Include="ooo341.reg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <BaseApplicationManifest Include="Properties\app.manifest" />
     <None Include="Resources\PlayHS.png" />
     <None Include="Resources\ZoomHS.png" />
     <None Include="Resources\PrintPreviewHS.png" />

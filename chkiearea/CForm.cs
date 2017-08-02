@@ -103,64 +103,136 @@ namespace ChkIEArea {
             this.Text += " -- " + Application.ProductVersion + " (" + ((IntPtr.Size == 4 ? "x86" : "x64")) + ")";
         }
 
-        private void ModifyInt(string leftName, uint bitReset, uint bitSet, bool preferBytea) {
-            String keyNamePre = @"HKEY_CLASSES_ROOT\" + Path.GetExtension(lastfp);
-            String keyName = Registry.GetValue(keyNamePre, "", null) as String;
-            if (String.IsNullOrEmpty(keyName)) {
-                MessageBox.Show(this, "アプリの関連付けがありませんので、設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            keyName = @"HKEY_CLASSES_ROOT\" + keyName;
-            Object curObj = Registry.GetValue(keyName, leftName, null);
-            int? curIntVal = null;
-            if (curObj is int) {
-                curIntVal = (int)curObj;
-            }
-            else if (curObj is byte[]) {
-                byte[] curBytes = (byte[])curObj;
-                if (curBytes.Length == 4) {
-                    curIntVal = BitConverter.ToInt32(curBytes, 0);
-                }
-            }
-
-            int newIntVal = (int)((uint)(curIntVal ?? 0) & (uint)(~bitReset) | (uint)bitSet);
-            String change = ((curIntVal.HasValue) ? "0x" + curIntVal.Value.ToString("X8") : "") + " → " + "0x" + newIntVal.ToString("X8");
-            if (!curIntVal.HasValue || curIntVal.Value != newIntVal) {
-                if (MessageBox.Show(this, "修正します。\n\n" + change, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK) {
-                    RegistryAlt.SetValue(keyName, leftName, preferBytea ? (Object)BitConverter.GetBytes(newIntVal) : newIntVal);
-                    MessageBox.Show(this, "修正しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else {
-                MessageBox.Show(this, "修正は不要です。\n\n" + change, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+        interface IValueModifier {
+            ModifyResult Modify(Object current);
         }
 
-        private void ModifyStr(string leftName, string newData) {
-            String keyNamePre = @"HKEY_CLASSES_ROOT\" + Path.GetExtension(lastfp);
-            String keyName = Registry.GetValue(keyNamePre, "", null) as String;
-            if (String.IsNullOrEmpty(keyName)) {
+        class IntEditor : IValueModifier {
+            public IntEditor(uint bitReset, uint bitSet, bool preferBytea) {
+                this.bitReset = bitReset;
+                this.bitSet = bitSet;
+                this.preferBytea = preferBytea;
+            }
+
+            uint bitReset;
+            uint bitSet;
+            bool preferBytea;
+
+            #region IValueModifier メンバ
+
+            public ModifyResult Modify(object curObj) {
+                int? curIntVal = null;
+                if (curObj is int) {
+                    curIntVal = (int)curObj;
+                }
+                else if (curObj is byte[]) {
+                    byte[] curBytes = (byte[])curObj;
+                    if (curBytes.Length == 4) {
+                        curIntVal = BitConverter.ToInt32(curBytes, 0);
+                    }
+                }
+
+                int newIntVal = (int)((uint)(curIntVal ?? 0) & (uint)(~bitReset) | (uint)bitSet);
+                String change = ((curIntVal.HasValue) ? "0x" + curIntVal.Value.ToString("X8") : "") + " → " + "0x" + newIntVal.ToString("X8");
+
+                if (!curIntVal.HasValue || curIntVal.Value != newIntVal) {
+                    return new ModifyResult(true, preferBytea ? (Object)BitConverter.GetBytes(newIntVal) : newIntVal, change);
+                }
+
+                return new ModifyResult(false, curObj, change);
+            }
+
+            #endregion
+        }
+
+        class StrEditor : IValueModifier {
+            public StrEditor(String newData) {
+                this.newData = newData;
+            }
+
+            String newData;
+
+            #region IValueModifier メンバ
+
+            public ModifyResult Modify(object curObj) {
+                String curStrVal = null;
+                if (curObj is string) {
+                    curStrVal = (String)curObj;
+                }
+
+                String change = curStrVal + " → " + newData;
+                if (curStrVal == null || curStrVal != newData) {
+                    return new ModifyResult(true, newData, change);
+                }
+
+                return new ModifyResult(false, newData, change);
+            }
+
+            #endregion
+        }
+
+        class ModifyResult {
+            public ModifyResult(bool updated, object newValue, string diffInfo) {
+                this.updated = updated;
+                this.newValue = newValue;
+                this.diffInfo = diffInfo;
+            }
+
+            public bool updated;
+            public object newValue;
+            public string diffInfo;
+        }
+
+        private void ModifyValue(string leftName, IValueModifier valueModifier) {
+            // HKEY_CLASSES_ROOT\.pdf → AcroExch.Document.DC
+            String progId = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + Path.GetExtension(lastfp), "", null) as String;
+            if (String.IsNullOrEmpty(progId)) {
                 MessageBox.Show(this, "アプリの関連付けがありませんので、設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            keyName = @"HKEY_CLASSES_ROOT\" + keyName;
-            Object curObj = Registry.GetValue(keyName, leftName, null);
-            String curStrVal = null;
-            if (curObj is string) {
-                curStrVal = (String)curObj;
+            // HKEY_CLASSES_ROOT\.pdf\Content Type → application/pdf
+            String contentType = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + Path.GetExtension(lastfp), "Content Type", null) as String;
+            if (String.IsNullOrEmpty(contentType)) {
+                MessageBox.Show(this, "Content Type が未設定です。設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            // HKEY_CLASSES_ROOT\MIME\Database\Content Type\application/pdf\CLSID → {FE687896-F410-4D10-8740-D584DA23C74D}
+            String clsid = Registry.GetValue(@"HKEY_CLASSES_ROOT\MIME\Database\Content Type\" + contentType, "CLSID", null) as String;
+            String realProgId;
+            if (!String.IsNullOrEmpty(clsid)) {
+                // ActiveX
+                // HKEY_CLASSES_ROOT\CLSID\{FE687896-F410-4D10-8740-D584DA23C74D}\ProgID → PDF4Ax.PDFVw.1
+                realProgId = Registry.GetValue(@"HKEY_CLASSES_ROOT\CLSID\" + clsid + @"\ProgID", "", null) as String;
+                if (String.IsNullOrEmpty(realProgId)) {
+                    MessageBox.Show(this, "ProgID が未設定です。設定できません。中止します。", Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+            else {
+                // Non ActiveX ... Word など
+                realProgId = progId;
             }
 
-            String change = curStrVal + " → " + newData;
-            if (curStrVal == null || curStrVal != newData) {
-                if (MessageBox.Show(this, "修正します。\n\n" + change, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK) {
-                    RegistryAlt.SetValue(keyName, leftName, newData);
+            String keyName = @"HKEY_CLASSES_ROOT\" + realProgId;
+
+            ModifyResult modifyResult = valueModifier.Modify(Registry.GetValue(keyName, leftName, null));
+
+            if (modifyResult.updated) {
+                if (MessageBox.Show(this, String.Join("\n\n", new String[] {
+                        "修正します。" + keyName + "\\" + leftName,
+                        modifyResult.diffInfo,
+                    }), Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK
+                ) {
+                    RegistryAlt.SetValue(keyName, leftName, modifyResult.newValue);
                     MessageBox.Show(this, "修正しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else {
-                MessageBox.Show(this, "修正は不要です。\n\n" + change, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, String.Join("\n\n", new String[] {
+                    "修正は不要です。" + keyName + "\\" + leftName, 
+                    modifyResult.diffInfo,
+                }), Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
         }
 
         bool UseSimple { get { return 0 == (ModifierKeys & Keys.Control); } }
@@ -172,7 +244,7 @@ namespace ChkIEArea {
             }
 
             if (UseSimple) {
-                ModifyInt("EditFlags", 0, 0x10000, true);
+                ModifyValue("EditFlags", new IntEditor(0, 0x10000, true));
             }
             else {
                 EdREGForm form = new EdREGForm();
@@ -193,7 +265,7 @@ namespace ChkIEArea {
             }
 
             if (UseSimple) {
-                ModifyInt("BrowserFlags", 8, 0, false);
+                ModifyValue("BrowserFlags", new IntEditor(8, 0, false));
             }
             else {
                 EdREGForm form = new EdREGForm();
@@ -512,7 +584,7 @@ namespace ChkIEArea {
             }
 
             if (UseSimple) {
-                ModifyInt("BrowserFlags", 0xffffffffU, 0x80000024U, false);
+                ModifyValue("BrowserFlags", new IntEditor(0xffffffffU, 0x80000024U, false));
             }
             else {
                 EdREGForm form = new EdREGForm();
@@ -813,7 +885,7 @@ namespace ChkIEArea {
             }
 
             if (UseSimple) {
-                ModifyStr("BrowseInPlace", "1");
+                ModifyValue("BrowseInPlace", new StrEditor("1"));
             }
             else {
                 EdREGForm form = new EdREGForm();

@@ -76,19 +76,6 @@
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
-            // lBaseFont
-            // 
-            this.lBaseFont.AutoSize = true;
-            this.lBaseFont.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lBaseFont.Location = new System.Drawing.Point(34, 50);
-            this.lBaseFont.MaximumSize = new System.Drawing.Size(2000, 16);
-            this.lBaseFont.MinimumSize = new System.Drawing.Size(0, 16);
-            this.lBaseFont.Name = "lBaseFont";
-            this.lBaseFont.Size = new System.Drawing.Size(124, 16);
-            this.lBaseFont.TabIndex = 19;
-            this.lBaseFont.Text = "HKEY_CLASSES_ROOT";
-            this.lBaseFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // pictureBox2
             // 
             pictureBox2.Image = global::ChkIEArea.Properties.Resources.Folder_16x16;
@@ -224,6 +211,19 @@
             pictureBox12.TabIndex = 24;
             pictureBox12.TabStop = false;
             // 
+            // lBaseFont
+            // 
+            this.lBaseFont.AutoSize = true;
+            this.lBaseFont.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lBaseFont.Location = new System.Drawing.Point(34, 50);
+            this.lBaseFont.MaximumSize = new System.Drawing.Size(2000, 16);
+            this.lBaseFont.MinimumSize = new System.Drawing.Size(0, 16);
+            this.lBaseFont.Name = "lBaseFont";
+            this.lBaseFont.Size = new System.Drawing.Size(124, 16);
+            this.lBaseFont.TabIndex = 19;
+            this.lBaseFont.Text = "HKEY_CLASSES_ROOT";
+            this.lBaseFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lTodo
             // 
             this.lTodo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -233,7 +233,7 @@
             this.lTodo.Name = "lTodo";
             this.lTodo.Size = new System.Drawing.Size(475, 32);
             this.lTodo.TabIndex = 2;
-            this.lTodo.Text = "MIME修正案では、黄色で囲ったCLSIDとExtensionを変更します。";
+            this.lTodo.Text = "MIME 修正案では、黄色で囲った CLSID と Extension を変更します。";
             this.lTodo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lMimeExt
@@ -284,9 +284,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 196);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(345, 12);
+            this.label1.Size = new System.Drawing.Size(349, 12);
             this.label1.TabIndex = 34;
-            this.label1.Text = "HKEY_CLASSES_ROOT\\CLSID配下から、有効なアプリを検索しました：";
+            this.label1.Text = "HKEY_CLASSES_ROOT\\CLSID 配下から、有効なアプリを検索しました：";
             // 
             // flp1
             // 
@@ -327,7 +327,7 @@
             this.Controls.Add(pictureBox1);
             this.Name = "EdAppForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ChkIEArea レジストリの内容について2";
+            this.Text = "ChkIEArea レジストリの内容について 2";
             this.Load += new System.EventHandler(this.EdAppForm_Load);
             ((System.ComponentModel.ISupportInitialize)(pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(pictureBox2)).EndInit();
