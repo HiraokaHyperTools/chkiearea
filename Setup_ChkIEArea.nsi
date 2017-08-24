@@ -25,9 +25,6 @@ InstallDir "$APPDATA\${APP}"
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
-!define DOTNET_VERSION "2.0"
-
-!include "DotNET.nsh"
 !include LogicLib.nsh
 
 AutoCloseWindow true
@@ -50,13 +47,14 @@ Section "" ;No components page, name is not important
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
 
-  !insertmacro CheckDotNET ${DOTNET_VERSION}
-
   ; Put file there
   File "chkiearea\bin\x86\release\ChkIEArea.exe"
   File "chkiearea\bin\x86\release\ChkIEArea.exe.config"
   File "chkiearea\bin\x86\release\ChkIEArea.pdb"
   
+  File "chkiearea\bin\x86\release\JustPDFSettei.png"
+  File "chkiearea\bin\x86\release\ooo341.reg"
+
   SetOutPath $INSTDIR\f
   File "chkiearea\bin\x86\release\f\*.*"
 

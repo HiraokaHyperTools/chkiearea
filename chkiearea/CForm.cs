@@ -229,7 +229,7 @@ namespace ChkIEArea {
             }
             else {
                 MessageBox.Show(this, String.Join("\n\n", new String[] {
-                    "修正は不要です。" + keyName + "\\" + leftName, 
+                    "修正は不要です。" + keyName + "\\" + leftName,
                     modifyResult.diffInfo,
                 }), Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -1081,6 +1081,15 @@ namespace ChkIEArea {
             else {
                 throw new NotSupportedException(left);
             }
+        }
+
+        private void bJustPDFContentType_Click(object sender, EventArgs e) {
+            Registry.SetValue(@"HKEY_CLASSES_ROOT\.pdf", "Content Type", "application/pdf");
+            MessageBox.Show(this, "設定しました。", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void bJustPDFMemo_Click(object sender, EventArgs e) {
+            Process.Start(Path.Combine(Application.StartupPath, "JustPDFSettei.png"));
         }
     }
 }

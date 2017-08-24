@@ -66,6 +66,9 @@
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
             this.bMso = new System.Windows.Forms.ToolStripButton();
+            this.bJustPDF = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bJustPDFContentType = new System.Windows.Forms.ToolStripMenuItem();
+            this.bJustPDFMemo = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -89,14 +92,14 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(674, 132);
+            this.wb.Size = new System.Drawing.Size(674, 109);
             this.wb.TabIndex = 0;
             // 
             // l1
             // 
             this.l1.AutoSize = true;
             this.l1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l1.Location = new System.Drawing.Point(0, 148);
+            this.l1.Location = new System.Drawing.Point(0, 125);
             this.l1.Margin = new System.Windows.Forms.Padding(3);
             this.l1.Name = "l1";
             this.l1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -111,7 +114,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(678, 136);
+            this.panel1.Size = new System.Drawing.Size(678, 113);
             this.panel1.TabIndex = 1;
             this.panel1.TabStop = true;
             // 
@@ -138,7 +141,7 @@
             this.bMP4,
             this.bWMV});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 170);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 147);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(678, 46);
             this.toolStrip1.TabIndex = 3;
@@ -362,11 +365,12 @@
             this.bAcro5,
             this.bAcro6,
             this.bAcroExe,
-            this.bAdobePlan});
+            this.bAdobePlan,
+            this.bJustPDF});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip2.Location = new System.Drawing.Point(0, 283);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 260);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(678, 138);
+            this.toolStrip2.Size = new System.Drawing.Size(678, 161);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.TabStop = true;
             // 
@@ -488,7 +492,7 @@
             // 
             this.l2.AutoSize = true;
             this.l2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l2.Location = new System.Drawing.Point(0, 261);
+            this.l2.Location = new System.Drawing.Point(0, 238);
             this.l2.Margin = new System.Windows.Forms.Padding(3);
             this.l2.Name = "l2";
             this.l2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -532,7 +536,7 @@
             // 
             this.l4.AutoSize = true;
             this.l4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.l4.Location = new System.Drawing.Point(0, 216);
+            this.l4.Location = new System.Drawing.Point(0, 193);
             this.l4.Margin = new System.Windows.Forms.Padding(3);
             this.l4.Name = "l4";
             this.l4.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
@@ -548,7 +552,7 @@
             this.bOOo,
             this.bMso});
             this.toolStrip4.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip4.Location = new System.Drawing.Point(0, 238);
+            this.toolStrip4.Location = new System.Drawing.Point(0, 215);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.Size = new System.Drawing.Size(678, 23);
             this.toolStrip4.TabIndex = 9;
@@ -572,6 +576,31 @@
             this.bMso.Text = "Microsoft Office を有効化";
             this.bMso.Click += new System.EventHandler(this.bMso_Click);
             // 
+            // bJustPDF
+            // 
+            this.bJustPDF.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bJustPDFMemo,
+            this.bJustPDFContentType});
+            this.bJustPDF.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bJustPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bJustPDF.Name = "bJustPDF";
+            this.bJustPDF.Size = new System.Drawing.Size(143, 20);
+            this.bJustPDF.Text = "Just PDF 修正案";
+            // 
+            // bJustPDFContentType
+            // 
+            this.bJustPDFContentType.Name = "bJustPDFContentType";
+            this.bJustPDFContentType.Size = new System.Drawing.Size(342, 22);
+            this.bJustPDFContentType.Text = "直ちに .pdf に Content Type を設定";
+            this.bJustPDFContentType.Click += new System.EventHandler(this.bJustPDFContentType_Click);
+            // 
+            // bJustPDFMemo
+            // 
+            this.bJustPDFMemo.Name = "bJustPDFMemo";
+            this.bJustPDFMemo.Size = new System.Drawing.Size(342, 22);
+            this.bJustPDFMemo.Text = "『デフォルトの PDF アプリケーション』につきまして";
+            this.bJustPDFMemo.Click += new System.EventHandler(this.bJustPDFMemo_Click);
+            // 
             // CForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -590,8 +619,8 @@
             this.Name = "CForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chk IE Area";
-            this.Load += new System.EventHandler(this.CForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CForm_FormClosing);
+            this.Load += new System.EventHandler(this.CForm_Load);
             this.panel1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -650,6 +679,9 @@
         private System.Windows.Forms.ToolStripDropDownButton bOOo;
         private System.Windows.Forms.ToolStripButton bMso;
         private System.Windows.Forms.ToolStripButton bAdobePlan;
+        private System.Windows.Forms.ToolStripDropDownButton bJustPDF;
+        private System.Windows.Forms.ToolStripMenuItem bJustPDFContentType;
+        private System.Windows.Forms.ToolStripMenuItem bJustPDFMemo;
     }
 }
 
