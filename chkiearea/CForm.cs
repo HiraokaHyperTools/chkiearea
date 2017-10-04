@@ -56,6 +56,7 @@ namespace ChkIEArea {
         private void bXLS_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.xls"); }
         private void bXLSX_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.xlsx"); }
         private void bDXF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.dxf"); }
+        private void bDWG_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.dwg"); }
         private void bTIF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.tif"); }
         private void bTIFF_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.tiff"); }
         private void bMP4_Click(object sender, EventArgs e) { view2(sender as ToolStripItem, "動作チェック用テストデータ.mp4"); }
@@ -1091,5 +1092,6 @@ namespace ChkIEArea {
         private void bJustPDFMemo_Click(object sender, EventArgs e) {
             Process.Start(Path.Combine(Application.StartupPath, "JustPDFSettei.png"));
         }
+
     }
 }

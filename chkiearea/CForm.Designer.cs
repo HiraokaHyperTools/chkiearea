@@ -58,6 +58,9 @@
             this.bAcro6 = new System.Windows.Forms.ToolStripButton();
             this.bAcroExe = new System.Windows.Forms.ToolStripDropDownButton();
             this.bAdobePlan = new System.Windows.Forms.ToolStripButton();
+            this.bJustPDF = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bJustPDFMemo = new System.Windows.Forms.ToolStripMenuItem();
+            this.bJustPDFContentType = new System.Windows.Forms.ToolStripMenuItem();
             this.l2 = new System.Windows.Forms.Label();
             this.l3 = new System.Windows.Forms.Label();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -66,9 +69,7 @@
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
             this.bMso = new System.Windows.Forms.ToolStripButton();
-            this.bJustPDF = new System.Windows.Forms.ToolStripDropDownButton();
-            this.bJustPDFContentType = new System.Windows.Forms.ToolStripMenuItem();
-            this.bJustPDFMemo = new System.Windows.Forms.ToolStripMenuItem();
+            this.bDWG = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -131,6 +132,7 @@
             this.bPPT,
             this.bPPTX,
             this.bDXF,
+            this.bDWG,
             this.bTIF,
             this.bTIFF,
             this.bHTM,
@@ -239,8 +241,8 @@
             this.bDXF.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bDXF.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
             this.bDXF.Name = "bDXF";
-            this.bDXF.Size = new System.Drawing.Size(91, 20);
-            this.bDXF.Text = "DXF(CAD)";
+            this.bDXF.Size = new System.Drawing.Size(84, 20);
+            this.bDXF.Text = "dxf(CAD)";
             this.bDXF.Click += new System.EventHandler(this.bDXF_Click);
             // 
             // bTIF
@@ -488,6 +490,31 @@
             this.bAdobePlan.Text = "Adobe Reader bBrowserIntegration 修正案";
             this.bAdobePlan.Click += new System.EventHandler(this.bAdobePlan_Click);
             // 
+            // bJustPDF
+            // 
+            this.bJustPDF.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bJustPDFMemo,
+            this.bJustPDFContentType});
+            this.bJustPDF.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
+            this.bJustPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bJustPDF.Name = "bJustPDF";
+            this.bJustPDF.Size = new System.Drawing.Size(143, 20);
+            this.bJustPDF.Text = "Just PDF 修正案";
+            // 
+            // bJustPDFMemo
+            // 
+            this.bJustPDFMemo.Name = "bJustPDFMemo";
+            this.bJustPDFMemo.Size = new System.Drawing.Size(342, 22);
+            this.bJustPDFMemo.Text = "『デフォルトの PDF アプリケーション』につきまして";
+            this.bJustPDFMemo.Click += new System.EventHandler(this.bJustPDFMemo_Click);
+            // 
+            // bJustPDFContentType
+            // 
+            this.bJustPDFContentType.Name = "bJustPDFContentType";
+            this.bJustPDFContentType.Size = new System.Drawing.Size(342, 22);
+            this.bJustPDFContentType.Text = "直ちに .pdf に Content Type を設定";
+            this.bJustPDFContentType.Click += new System.EventHandler(this.bJustPDFContentType_Click);
+            // 
             // l2
             // 
             this.l2.AutoSize = true;
@@ -576,30 +603,17 @@
             this.bMso.Text = "Microsoft Office を有効化";
             this.bMso.Click += new System.EventHandler(this.bMso_Click);
             // 
-            // bJustPDF
+            // bDWG
             // 
-            this.bJustPDF.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bJustPDFMemo,
-            this.bJustPDFContentType});
-            this.bJustPDF.Image = global::ChkIEArea.Properties.Resources.PrintPreviewHS;
-            this.bJustPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bJustPDF.Name = "bJustPDF";
-            this.bJustPDF.Size = new System.Drawing.Size(143, 20);
-            this.bJustPDF.Text = "Just PDF 修正案";
-            // 
-            // bJustPDFContentType
-            // 
-            this.bJustPDFContentType.Name = "bJustPDFContentType";
-            this.bJustPDFContentType.Size = new System.Drawing.Size(342, 22);
-            this.bJustPDFContentType.Text = "直ちに .pdf に Content Type を設定";
-            this.bJustPDFContentType.Click += new System.EventHandler(this.bJustPDFContentType_Click);
-            // 
-            // bJustPDFMemo
-            // 
-            this.bJustPDFMemo.Name = "bJustPDFMemo";
-            this.bJustPDFMemo.Size = new System.Drawing.Size(342, 22);
-            this.bJustPDFMemo.Text = "『デフォルトの PDF アプリケーション』につきまして";
-            this.bJustPDFMemo.Click += new System.EventHandler(this.bJustPDFMemo_Click);
+            this.bDWG.BackColor = System.Drawing.SystemColors.Control;
+            this.bDWG.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bDWG.Image = ((System.Drawing.Image)(resources.GetObject("bDWG.Image")));
+            this.bDWG.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bDWG.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bDWG.Name = "bDWG";
+            this.bDWG.Size = new System.Drawing.Size(88, 20);
+            this.bDWG.Text = "dwg(CAD)";
+            this.bDWG.Click += new System.EventHandler(this.bDWG_Click);
             // 
             // CForm
             // 
@@ -682,6 +696,7 @@
         private System.Windows.Forms.ToolStripDropDownButton bJustPDF;
         private System.Windows.Forms.ToolStripMenuItem bJustPDFContentType;
         private System.Windows.Forms.ToolStripMenuItem bJustPDFMemo;
+        private System.Windows.Forms.ToolStripButton bDWG;
     }
 }
 

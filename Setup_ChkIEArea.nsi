@@ -11,6 +11,9 @@
 !system 'DefineAsmVer.exe "chkiearea\bin\x86\release\${APP}.exe" "!define VER ""[SVER]"" " > Tmpver.nsh'
 !include "Tmpver.nsh"
 
+!system 'MySign "chkiearea\bin\x86\release\${APP}.exe'
+!finalize 'MySign "%1"'
+
 !searchreplace APV ${VER} "." "_"
 
 ; The name of the installer
