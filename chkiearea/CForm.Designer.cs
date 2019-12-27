@@ -37,6 +37,7 @@
             this.bPPT = new System.Windows.Forms.ToolStripButton();
             this.bPPTX = new System.Windows.Forms.ToolStripButton();
             this.bDXF = new System.Windows.Forms.ToolStripButton();
+            this.bDWG = new System.Windows.Forms.ToolStripButton();
             this.bTIF = new System.Windows.Forms.ToolStripButton();
             this.bTIFF = new System.Windows.Forms.ToolStripButton();
             this.bHTM = new System.Windows.Forms.ToolStripButton();
@@ -69,7 +70,7 @@
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.bOOo = new System.Windows.Forms.ToolStripDropDownButton();
             this.bMso = new System.Windows.Forms.ToolStripButton();
-            this.bDWG = new System.Windows.Forms.ToolStripButton();
+            this.bXDW = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -125,6 +126,7 @@
             this.toolStrip1.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bPDF,
+            this.bXDW,
             this.bDOC,
             this.bDOCX,
             this.bXLS,
@@ -244,6 +246,18 @@
             this.bDXF.Size = new System.Drawing.Size(84, 20);
             this.bDXF.Text = "dxf(CAD)";
             this.bDXF.Click += new System.EventHandler(this.bDXF_Click);
+            // 
+            // bDWG
+            // 
+            this.bDWG.BackColor = System.Drawing.SystemColors.Control;
+            this.bDWG.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bDWG.Image = ((System.Drawing.Image)(resources.GetObject("bDWG.Image")));
+            this.bDWG.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bDWG.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bDWG.Name = "bDWG";
+            this.bDWG.Size = new System.Drawing.Size(88, 20);
+            this.bDWG.Text = "dwg(CAD)";
+            this.bDWG.Click += new System.EventHandler(this.bDWG_Click);
             // 
             // bTIF
             // 
@@ -555,7 +569,7 @@
             this.bRestart.Image = ((System.Drawing.Image)(resources.GetObject("bRestart.Image")));
             this.bRestart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bRestart.Name = "bRestart";
-            this.bRestart.Size = new System.Drawing.Size(136, 22);
+            this.bRestart.Size = new System.Drawing.Size(135, 22);
             this.bRestart.Text = "プログラムを再起動する";
             this.bRestart.Click += new System.EventHandler(this.bRestart_Click);
             // 
@@ -603,17 +617,17 @@
             this.bMso.Text = "Microsoft Office を有効化";
             this.bMso.Click += new System.EventHandler(this.bMso_Click);
             // 
-            // bDWG
+            // bXDW
             // 
-            this.bDWG.BackColor = System.Drawing.SystemColors.Control;
-            this.bDWG.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.bDWG.Image = ((System.Drawing.Image)(resources.GetObject("bDWG.Image")));
-            this.bDWG.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bDWG.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
-            this.bDWG.Name = "bDWG";
-            this.bDWG.Size = new System.Drawing.Size(88, 20);
-            this.bDWG.Text = "dwg(CAD)";
-            this.bDWG.Click += new System.EventHandler(this.bDWG_Click);
+            this.bXDW.BackColor = System.Drawing.SystemColors.Control;
+            this.bXDW.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.bXDW.Image = global::ChkIEArea.Properties.Resources.PlayHS;
+            this.bXDW.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bXDW.Margin = new System.Windows.Forms.Padding(0, 1, 2, 2);
+            this.bXDW.Name = "bXDW";
+            this.bXDW.Size = new System.Drawing.Size(56, 20);
+            this.bXDW.Text = "XDW";
+            this.bXDW.Click += new System.EventHandler(this.bXDW_Click);
             // 
             // CForm
             // 
@@ -697,6 +711,7 @@
         private System.Windows.Forms.ToolStripMenuItem bJustPDFContentType;
         private System.Windows.Forms.ToolStripMenuItem bJustPDFMemo;
         private System.Windows.Forms.ToolStripButton bDWG;
+        private System.Windows.Forms.ToolStripButton bXDW;
     }
 }
 
