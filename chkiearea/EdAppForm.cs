@@ -5,47 +5,49 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using ChkIEArea.Interfaces;
+using ChkIEArea.Models;
 using Microsoft.Win32;
 
 namespace ChkIEArea {
-    public partial class EdAppForm : Form {
+    public partial class EdAppForm : Form, IEater {
         public EdAppForm() {
             InitializeComponent();
         }
 
-        public String Sel = null;
+        public AppChoice appChoice = null;
 
-        public void AddCLSID(RegistryKey rk, String ext, String pid, String clsid) {
+        public void AddCLSID(RegistryKey rk, String ext, AppChoice choice) {
             Button b = new Button();
             b.AutoSize = true;
-            b.Text = "" + Registry.GetValue(rk.Name + "\\" + "CLSID" + "\\" + clsid, "", "");
-            b.Tag = clsid;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + "CLSID" + "\\" + choice.clsid, "", "");
+            b.Tag = choice;
             b.Click += new EventHandler(b_Click);
             flp1.Controls.Add(b);
 
             AddRKey(0, "HKEY_CLASSES_ROOT");
             AddRKey(1, ext);
             AddVKey(2, "", "" + Registry.GetValue(rk.Name + "\\" + ext, "", ""));
-            AddRKey(1, pid);
-            AddVKey(2, "", "" + Registry.GetValue(rk.Name + "\\" + pid, "", ""));
+            AddRKey(1, choice.progid);
+            AddVKey(2, "", "" + Registry.GetValue(rk.Name + "\\" + choice.progid, "", ""));
             AddRKey(2, "CLSID");
-            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + pid + "\\" + "CLSID", "", ""));
+            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + choice.progid + "\\" + "CLSID", "", ""));
         }
 
-        public void AddEFP(RegistryKey rk, String clsid) {
+        public void AddEFP(RegistryKey rk, AppChoice choice) {
             Button b = new Button();
             b.AutoSize = true;
-            b.Text = "" + Registry.GetValue(rk.Name + "\\" + clsid, "", "");
-            b.Tag = clsid;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + choice.clsid, "", "");
+            b.Tag = choice;
             b.Click += new EventHandler(b_Click);
             flp1.Controls.Add(b);
 
             AddRKey(0, "HKEY_CLASSES_ROOT");
             AddRKey(1, "CLSID");
-            AddRKey(2, clsid);
-            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + clsid, "", ""));
+            AddRKey(2, choice.clsid);
+            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + choice.clsid, "", ""));
             AddRKey(3, "EnableFullPage");
-            RegistryKey rkEFP = rk.OpenSubKey(clsid + "\\" + "EnableFullPage", false);
+            RegistryKey rkEFP = rk.OpenSubKey(choice.clsid + "\\" + "EnableFullPage", false);
             if (rkEFP != null) {
                 foreach (String sk in rkEFP.GetSubKeyNames()) {
                     AddRKey(4, sk);
@@ -53,61 +55,61 @@ namespace ChkIEArea {
             }
         }
 
-        public void AddDE(RegistryKey rk, String clsid) {
+        public void AddDE(RegistryKey rk, AppChoice choice) {
             Button b = new Button();
             b.AutoSize = true;
-            b.Text = "" + Registry.GetValue(rk.Name + "\\" + clsid, "", "");
-            b.Tag = clsid;
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + choice.clsid, "", "");
+            b.Tag = choice;
             b.Click += new EventHandler(b_Click);
             flp1.Controls.Add(b);
 
             AddRKey(0, "HKEY_CLASSES_ROOT");
             AddRKey(1, "CLSID");
-            AddRKey(2, clsid);
-            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + clsid, "", ""));
+            AddRKey(2, choice.clsid);
+            AddVKey(3, "", "" + Registry.GetValue(rk.Name + "\\" + choice.clsid, "", ""));
             AddRKey(3, "DefaultExtension");
-            AddVKey(4, "", "" + Registry.GetValue(rk.Name + "\\" + clsid + "\\" + "DefaultExtension", "", ""));
+            AddVKey(4, "", "" + Registry.GetValue(rk.Name + "\\" + choice.clsid + "\\" + "DefaultExtension", "", ""));
         }
 
-        public void AddCLSIDSimple(RegistryKey rk, String ext, String pid, String clsid) {
+        public void AddCLSIDSimple(RegistryKey rk, String ext, AppChoice choice) {
             Button b = new Button();
             b.AutoSize = true;
-            b.Text = "" + Registry.GetValue(rk.Name + "\\" + "CLSID" + "\\" + clsid, "", "") + "\n"
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + "CLSID" + "\\" + choice.clsid, "", "") + "\n"
                 + "---\n"
-                + "ProgID: " + pid + "\n"
-                + " CLSID: " + clsid + "\n"
+                + "ProgID: " + choice.progid + "\n"
+                + " CLSID: " + choice.clsid + "\n"
                 ;
-            b.Tag = clsid;
+            b.Tag = choice;
             b.Click += new EventHandler(b_Click);
             b.TextAlign = ContentAlignment.MiddleLeft;
             b.Font = lBaseFont.Font;
             flp1.Controls.Add(b);
         }
 
-        public void AddEFPSimple(RegistryKey rk, String clsid, String pid) {
+        public void AddEFPSimple(RegistryKey rk, AppChoice choice) {
             Button b = new Button();
             b.AutoSize = true;
-            b.Text = "" + Registry.GetValue(rk.Name + "\\" + clsid, "", "") + "\n"
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + choice.clsid, "", "") + "\n"
                 + "---\n"
-                + "ProgID: " + pid + "\n"
-                + " CLSID: " + clsid + "\n"
+                + "ProgID: " + choice.progid + "\n"
+                + " CLSID: " + choice.clsid + "\n"
                 ;
-            b.Tag = clsid;
+            b.Tag = choice;
             b.Click += new EventHandler(b_Click);
             b.TextAlign = ContentAlignment.MiddleLeft;
             b.Font = lBaseFont.Font;
             flp1.Controls.Add(b);
         }
 
-        public void AddDESimple(RegistryKey rk, String clsid, String pid) {
+        public void AddDESimple(RegistryKey rk, AppChoice choice) {
             Button b = new Button();
             b.AutoSize = true;
-            b.Text = "" + Registry.GetValue(rk.Name + "\\" + clsid, "", "") + "\n"
+            b.Text = "" + Registry.GetValue(rk.Name + "\\" + choice.clsid, "", "") + "\n"
                 + "---\n"
-                + "ProgID: " + pid + "\n"
-                + " CLSID: " + clsid + "\n"
+                + "ProgID: " + choice.progid + "\n"
+                + " CLSID: " + choice.clsid + "\n"
                 ;
-            b.Tag = clsid;
+            b.Tag = choice;
             b.Click += new EventHandler(b_Click);
             b.TextAlign = ContentAlignment.MiddleLeft;
             b.Font = lBaseFont.Font;
@@ -115,7 +117,7 @@ namespace ChkIEArea {
         }
 
         void b_Click(object sender, EventArgs e) {
-            Sel = (String)((Button)sender).Tag;
+            appChoice = (AppChoice)((Button)sender).Tag;
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -124,7 +126,7 @@ namespace ChkIEArea {
         Bitmap _Prop = ChkIEArea.Properties.Resources.PropertiesHS;
 
         void AddVKey(int indent, String name, String val) {
-            if (String.IsNullOrEmpty(name)) name = "(Šù’è)";
+            if (String.IsNullOrEmpty(name)) name = "(æ—¢å®š)";
             AddKey(indent, name + " = " + val, _Prop);
         }
         void AddRKey(int indent, String name) {

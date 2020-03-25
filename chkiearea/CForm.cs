@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +11,8 @@ using ChkIEArea.Properties;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using ChkIEArea.Interfaces;
+using ChkIEArea.Models;
 
 namespace ChkIEArea {
     public partial class CForm : Form {
@@ -360,14 +362,22 @@ namespace ChkIEArea {
             UseCLSID, UseEFP, UseDE,
         }
 
+        delegate RetType Func<RetType>();
+
         private void bMIME_Click(object sender, EventArgs e) {
             Repairty ty;
-            if (sender == bMIME) ty = Repairty.UseCLSID;
-            else if (sender == bMIMEefp) ty = Repairty.UseEFP;
-            else if (sender == bMIMEde) ty = Repairty.UseDE;
+            if (sender == useClsid) ty = Repairty.UseCLSID;
+            else if (sender == useEFP || sender == useEFP2) ty = Repairty.UseEFP;
+            else if (sender == useDE) ty = Repairty.UseDE;
             else throw new NotSupportedException();
 
-            EdAppForm form2 = new EdAppForm();
+            EdAppForm formClsid = new EdAppForm();
+            EdMIMEAssocForm formMimeAssoc = new EdMIMEAssocForm();
+
+            var isMIMEAssociations = sender == useEFP2;
+
+            Form form = isMIMEAssociations ? (Form)formMimeAssoc : formClsid;
+            IEater eater = isMIMEAssociations ? (IEater)formMimeAssoc : formClsid;
 
             if (lastfp == null) {
                 MessageBox.Show(this, "先に調査してください。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -405,7 +415,6 @@ namespace ChkIEArea {
                 return;
             }
 
-            String newclsid = "";
             if (ty == Repairty.UseCLSID) {
                 RegistryKey rkole = Registry.ClassesRoot.OpenSubKey(oleId, false);
                 if (rkole == null) {
@@ -426,20 +435,17 @@ namespace ChkIEArea {
                     return;
                 }
                 if (UseSimple) {
-                    form2.AddCLSIDSimple(Registry.ClassesRoot, ext, oleId, clsid);
+                    eater.AddCLSIDSimple(Registry.ClassesRoot, ext, new AppChoice(oleId, clsid));
                 }
                 else {
-                    form2.AddCLSID(Registry.ClassesRoot, ext, oleId, clsid);
+                    eater.AddCLSID(Registry.ClassesRoot, ext, new AppChoice(oleId, clsid));
                 }
 
-                form2.SetContentType(contentType);
+                eater.SetContentType(contentType);
                 {
-                    if (form2.ShowDialog() != DialogResult.OK)
+                    if (form.ShowDialog() != DialogResult.OK) {
                         return;
-                    String sel = form2.Sel;
-                    if (sel == null)
-                        return;
-                    newclsid = sel;
+                    }
                 }
             }
             else if (ty == Repairty.UseDE) {
@@ -474,24 +480,21 @@ namespace ChkIEArea {
 
                     dict[appname] = new Guid(s);
                     if (UseSimple) {
-                        form2.AddDESimple(rkrootclsid, s, pid);
+                        eater.AddDESimple(rkrootclsid, new AppChoice(pid, s));
                     }
                     else {
-                        form2.AddDE(rkrootclsid, s);
+                        eater.AddDE(rkrootclsid, new AppChoice(pid, s));
                     }
                 }
                 if (dict.Count == 0) {
                     MessageBox.Show(this, "DefaultExtensionから有効なアプリを発見できませんでした。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                form2.SetContentType(contentType);
+                eater.SetContentType(contentType);
                 {
-                    if (form2.ShowDialog() != DialogResult.OK)
+                    if (form.ShowDialog() != DialogResult.OK) {
                         return;
-                    String sel = form2.Sel;
-                    if (sel == null)
-                        return;
-                    newclsid = sel;
+                    }
                 }
             }
             else if (ty == Repairty.UseEFP) {
@@ -521,10 +524,10 @@ namespace ChkIEArea {
 
                             dict[appname] = new Guid(s);
                             if (UseSimple) {
-                                form2.AddEFPSimple(rkrootclsid, s, pid);
+                                eater.AddEFPSimple(rkrootclsid, new AppChoice(pid, s));
                             }
                             else {
-                                form2.AddEFP(rkrootclsid, s);
+                                eater.AddEFP(rkrootclsid, new AppChoice(pid, s));
                             }
                         }
                     }
@@ -533,19 +536,49 @@ namespace ChkIEArea {
                     MessageBox.Show(this, "EFPから有効なアプリを発見できませんでした。設定できません。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
-                form2.SetContentType(contentType);
+
+                eater.SetContentType(contentType);
                 {
-                    if (form2.ShowDialog() != DialogResult.OK)
+                    if (form.ShowDialog() != DialogResult.OK) {
                         return;
-                    String sel = form2.Sel;
-                    if (sel == null)
-                        return;
-                    newclsid = sel;
+                    }
                 }
             }
             else throw new NotSupportedException("不明な方法：" + ty);
 
-            {
+            if (isMIMEAssociations) {
+                var choice = formMimeAssoc.appChoice;
+                if (choice == null) {
+                    return;
+                }
+                RegistryKey rk1 = Registry.CurrentUser.OpenSubKey($@"Software\Microsoft\Windows\Shell\Associations\MIMEAssociations\{contentType}\UserChoice", false);
+                if (rk1 == null) {
+                    if (!alert.Confirm())
+                        return;
+                }
+                else {
+                    String Progid = rk1.GetValue("Progid") as String;
+                    if (Progid == null || String.Compare(Progid, ext, true) != 0) {
+                        if (!alert.Confirm())
+                            return;
+                    }
+                    else {
+                        MessageBox.Show(this, "対策済みです。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                {
+                    RegistryAlt.SetValue($@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\MIMEAssociations\{contentType}\UserChoice", "Progid", choice.progid);
+
+                    MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else {
+                var choice = formClsid.appChoice;
+                if (choice == null) {
+                    return;
+                }
                 RegistryKey rk1 = Registry.ClassesRoot.OpenSubKey(@"Mime\Database\Content Type\" + contentType, false);
                 if (rk1 == null) {
                     if (!alert.Confirm())
@@ -559,7 +592,7 @@ namespace ChkIEArea {
                     }
                     else {
                         String curclsid = rk1.GetValue("CLSID") as String;
-                        if (curclsid == null || String.Compare(curclsid, newclsid, true) != 0) {
+                        if (curclsid == null || String.Compare(curclsid, choice.clsid, true) != 0) {
                             if (!alert.Confirm())
                                 return;
                         }
@@ -569,14 +602,15 @@ namespace ChkIEArea {
                         }
                     }
                 }
+
+                {
+                    RegistryAlt.SetValue(@"HKEY_CLASSES_ROOT\Mime\Database\Content Type\" + contentType, "Extension", ext);
+                    RegistryAlt.SetValue(@"HKEY_CLASSES_ROOT\Mime\Database\Content Type\" + contentType, "CLSID", choice.clsid);
+
+                    MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
 
-            {
-                RegistryAlt.SetValue(@"HKEY_CLASSES_ROOT\Mime\Database\Content Type\" + contentType, "Extension", ext);
-                RegistryAlt.SetValue(@"HKEY_CLASSES_ROOT\Mime\Database\Content Type\" + contentType, "CLSID", newclsid);
-
-                MessageBox.Show(this, "設定しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private void bBrowserFlags2_Click(object sender, EventArgs e) {

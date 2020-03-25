@@ -98,12 +98,20 @@
     <Compile Include="EdAppForm.Designer.cs">
       <DependentUpon>EdAppForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EdMIMEAssocForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EdMIMEAssocForm.Designer.cs">
+      <DependentUpon>EdMIMEAssocForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EdREGForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EdREGForm.Designer.cs">
       <DependentUpon>EdREGForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IEater.cs" />
+    <Compile Include="Models\AppChoice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CForm.resx">
@@ -113,6 +121,9 @@
     <EmbeddedResource Include="EdAppForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>EdAppForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EdMIMEAssocForm.resx">
+      <DependentUpon>EdMIMEAssocForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EdREGForm.resx">
       <SubType>Designer</SubType>
@@ -158,6 +169,7 @@
     <Content Include="f\動作チェック用テストデータ.dwg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include=".editorconfig" />
     <None Include="f\動作チェック用テストデータ.xdw">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -240,6 +252,8 @@
     <Content Include="Resources\DeleteFolderHS.png" />
     <Content Include="Resources\Folder_16x16.png" />
     <Content Include="Resources\Gear.png" />
+    <None Include="Resources\MultiView_16x.png" />
+    <None Include="Resources\MultiplePagesHS.png" />
     <Content Include="Resources\PropertiesHS.png" />
     <Content Include="wip.png" />
   </ItemGroup>
